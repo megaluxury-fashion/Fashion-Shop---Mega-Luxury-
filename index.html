@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- === META UNTUK THUMBNAIL PREVIEW === -->
+  <meta property="og:title" content="Klik tautan" />
+  <meta property="og:description" content="Join Me" />
+  <meta property="og:image" content="https://i.ibb.co.com/1GT61XT8/IMG-20260222-091646.jpg" />
+  <meta property="og:url" content="FASHION LUXURY BY - MEGA" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="LUXURY FASHION" />
+  
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="FASHION SHOP LUXURY" />
+  <meta name="twitter:description" content="BELANJA SEKARANG DAPATKAN DISKON DAN PENAWARAN SPESIAL." />
+  <meta name="twitter:image" content="https://i.ibb.co.com/1GT61XT8/IMG-20260222-091646.jpg" />
+  
+    <title>MEGA LUXURY by Mega Apriliani | Cikarang, Indonesia</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel (Untuk compile JSX di Browser) -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // --- ICONS (Pengganti lucide-react untuk mode Standalone HTML) ---
+        const IconBase = ({ children, className }) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                {children}
+            </svg>
+        );
+        const ShoppingBag = ({className}) => <IconBase className={className}><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></IconBase>;
+        const Heart = ({className}) => <IconBase className={className}><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></IconBase>;
+        const Search = ({className}) => <IconBase className={className}><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></IconBase>;
+        const Menu = ({className}) => <IconBase className={className}><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></IconBase>;
+        const X = ({className}) => <IconBase className={className}><path d="M18 6 6 18"/><path d="m6 6 12 12"/></IconBase>;
+        const ChevronRight = ({className}) => <IconBase className={className}><path d="m9 18 6-6-6-6"/></IconBase>;
+        const ChevronDown = ({className}) => <IconBase className={className}><path d="m6 9 6 6 6-6"/></IconBase>;
+        const ArrowRight = ({className}) => <IconBase className={className}><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></IconBase>;
+        const ArrowLeft = ({className}) => <IconBase className={className}><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></IconBase>;
+        const CreditCard = ({className}) => <IconBase className={className}><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></IconBase>;
+        const Wallet = ({className}) => <IconBase className={className}><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></IconBase>;
+        const Building2 = ({className}) => <IconBase className={className}><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></IconBase>;
+        const Check = ({className}) => <IconBase className={className}><path d="M20 6 9 17l-5-5"/></IconBase>;
+        const Minus = ({className}) => <IconBase className={className}><path d="M5 12h14"/></IconBase>;
+        const Plus = ({className}) => <IconBase className={className}><path d="M5 12h14"/><path d="M12 5v14"/></IconBase>;
+        const ShieldCheck = ({className}) => <IconBase className={className}><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2-1 4-2 7-2 2.5 0 4.5 1 6.5 2a1 1 0 0 1 1 1Z"/><path d="m9 12 2 2 4-4"/></IconBase>;
+        const Truck = ({className}) => <IconBase className={className}><path d="M10 17h4V5H2v12h3"/><path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5"/><path d="M14 17h1"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></IconBase>;
+        const MapPin = ({className}) => <IconBase className={className}><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></IconBase>;
+
+        // --- KONFIGURASI TEMA ---
+        const THEME = {
+            colors: {
+                bg: '#FAF9F6', 
+                surface: '#F3EFEA', 
+                text: '#2A2A2A', 
+                textLight: '#7A7A7A',
+                accent: '#9A7B4F',
+                border: '#E2DCD0'
+            }
+        };
+
+        const formatIDR = (price) => {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).format(price);
+        };
+
+        // --- DATA PRODUK REALISTIS ---
+        const PRODUCTS = [
+            { 
+                id: 1, name: "Mantel Kasmir Ikonik", price: 14500000, category: "Pakaian Luar", color: "Krem Hangat", isNew: true,
+                images: [
+                "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?q=80&w=800&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1544716278-e513176f58b5?q=80&w=800&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1612462766564-98ebbc22b270?q=80&w=800&auto=format&fit=crop"
+                ],
+                desc: "Ditenun dengan tangan menggunakan kasmir murni berlapis ganda. Siluet panjang yang elegan dengan ikat pinggang yang dapat disesuaikan. Didesain secara eksklusif di Cikarang." 
+            },
+            { 
+                id: 2, name: "Gaun Sutra Midi Bias", price: 8200000, category: "Gaun", color: "Putih Mutiara", isBest: true,
+                images: [
+                "https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=800&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1587563871167-1e5f8841a108?q=80&w=800&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1620242278061-0f727c69991d?q=80&w=800&auto=format&fit=crop"
+                ],
+                desc: "Keanggunan minimalis dalam balutan sutra mulbery murni 22 momme. Dipotong secara bias untuk mengikuti lekuk tubuh dengan sempurna tanpa terasa ketat." 
+            },
+            { 
+                id: 3, name: "Tas Jinjing Kulit Klasik", price: 12800000, category: "Tas", color: "Coklat Karamel",
+                images: [
+                "https://images.unsplash.com/photo-1584916201218-f4242ceb4809?q=80&w=800&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1591561954557-26941169b49e?q=80&w=800&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1601612445100-3023e3e4811a?q=80&w=800&auto=format&fit=crop"
+                ],
+                desc: "Dibuat dari kulit anak sapi premium Italia dengan detail jahitan tangan yang cermat. Dilengkapi perangkat keras berlapis emas matte 18K." 
+            },
+            { 
+                id: 4, name: "Setelan Jas Linen Tailored", price: 9500000, category: "Setelan", color: "Gading",
+                images: [
+                "https://images.unsplash.com/photo-1605763240000-7e93b172d754?q=80&w=800&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?q=80&w=800&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1620799139886-90e6e788bc48?q=80&w=800&auto=format&fit=crop"
+                ],
+                desc: "Blazer berstruktur lembut dengan celana panjang berpotongan lurus, dibuat dari linen organik yang ideal untuk iklim tropis Indonesia." 
+            },
+            { 
+                id: 5, name: "Sepatu Hak Tinggi Suede", price: 4500000, category: "Sepatu", color: "Taupe",
+                images: [
+                "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=800&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1579298245158-33e8f568f7d3?q=80&w=800&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1614252327429-232ab20a6711?q=80&w=800&auto=format&fit=crop"
+                ],
+                desc: "Siluet runcing klasik dengan tinggi hak 85mm. Dilengkapi bantalan insole memori untuk kenyamanan luar biasa sepanjang hari." 
+            },
+            { 
+                id: 6, name: "Kemeja Poplin Oversize", price: 3200000, category: "Atasan", color: "Biru Langit", isNew: true,
+                images: [
+                "https://images.unsplash.com/photo-1598554747436-c9293d6a588f?q=80&w=800&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1604695573706-53170668f6a6?q=80&w=800&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=800&auto=format&fit=crop"
+                ],
+                desc: "Kemeja katun poplin yang ringan dan renyah. Potongan longgar memberikan kesan santai, androgini, namun tetap memancarkan kemewahan." 
+            },
+            { 
+                id: 7, name: "Kalung Rantai Emas 18K", price: 22500000, category: "Perhiasan", color: "Emas 18K", isBest: true,
+                images: [
+                "https://images.unsplash.com/photo-1599643478524-fb66f70d00de?q=80&w=800&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=800&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?q=80&w=800&auto=format&fit=crop"
+                ],
+                desc: "Rantai emas 18 karat solid buatan tangan pengrajin lokal. Sentuhan akhir yang sempurna untuk mengelevasi penampilan siang atau malam Anda." 
+            },
+            { 
+                id: 8, name: "Rok Plisket Chiffon", price: 5800000, category: "Bawahan", color: "Abu-abu Merpati", isLimited: true,
+                images: [
+                "https://images.unsplash.com/photo-1583391733958-d25e07fac0ec?q=80&w=800&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1551325997-8c31e97de015?q=80&w=800&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1598285526702-60de569265f0?q=80&w=800&auto=format&fit=crop"
+                ],
+                desc: "Tekstur lipit permanen yang mengalir indah setiap kali Anda bergerak. Dilengkapi pinggang grosgrain elastis yang pas di tubuh." 
+            }
+        ];
+
+        // --- GAYA GLOBAL & ANIMASI ---
+        const GlobalStyles = () => (
+            <style>{`
+                :root {
+                --font-serif: 'Playfair Display', serif; 
+                --font-sans: 'Jost', sans-serif; 
+                }
+
+                body {
+                font-family: var(--font-sans);
+                background-color: ${THEME.colors.bg};
+                color: ${THEME.colors.text};
+                overflow-x: hidden;
+                -webkit-font-smoothing: antialiased;
+                }
+
+                h1, h2, h3, h4, h5, h6, .font-serif {
+                font-family: var(--font-serif);
+                }
+
+                @keyframes fadeUpSoft {
+                0% { opacity: 0; transform: translateY(20px); }
+                100% { opacity: 1; transform: translateY(0); }
+                }
+                .animate-fade-soft { animation: fadeUpSoft 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+                @keyframes imageReveal {
+                0% { transform: scale(1.08); filter: brightness(1.1) blur(2px); }
+                100% { transform: scale(1); filter: brightness(1) blur(0); }
+                }
+                .animate-image-reveal { animation: imageReveal 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+                ::-webkit-scrollbar { width: 6px; }
+                ::-webkit-scrollbar-track { background: ${THEME.colors.bg}; }
+                ::-webkit-scrollbar-thumb { background: #D1CDC4; border-radius: 10px; }
+                ::-webkit-scrollbar-thumb:hover { background: ${THEME.colors.accent}; }
+
+                .premium-underline {
+                position: relative;
+                text-decoration: none;
+                padding-bottom: 3px;
+                }
+                .premium-underline::after {
+                content: '';
+                position: absolute;
+                width: 100%;
+                height: 1px;
+                bottom: 0;
+                left: 0;
+                background-color: ${THEME.colors.accent};
+                transform: scaleX(0);
+                transform-origin: right;
+                transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+                }
+                .premium-underline:hover::after {
+                transform: scaleX(1);
+                transform-origin: left;
+                }
+                
+                html { scroll-behavior: smooth; }
+            `}</style>
+        );
+
+        // --- APP COMPONENTS ---
+        function App() {
+            const [currentView, setCurrentView] = useState('home'); 
+            const [selectedProduct, setSelectedProduct] = useState(null);
+            const [cart, setCart] = useState([]);
+            const [wishlist, setWishlist] = useState([]);
+            const [isCartOpen, setIsCartOpen] = useState(false);
+            const [toast, setToast] = useState(null);
+
+            const navigate = (view, data = null) => {
+                setCurrentView(view);
+                if (data) setSelectedProduct(data);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+
+            const showToast = (message) => {
+                setToast(message);
+                setTimeout(() => setToast(null), 4000);
+            };
+
+            const addToCart = (product, qty = 1, size = 'M') => {
+                setCart(prev => {
+                const existing = prev.find(item => item.id === product.id && item.size === size);
+                if (existing) {
+                    return prev.map(item => item.id === product.id && item.size === size ? { ...item, qty: item.qty + qty } : item);
+                }
+                return [...prev, { ...product, qty, size }];
+                });
+                setIsCartOpen(true);
+            };
+
+            const toggleWishlist = (product) => {
+                setWishlist(prev => {
+                const exists = prev.find(item => item.id === product.id);
+                if (exists) {
+                    showToast("Dihapus dari daftar keinginan");
+                    return prev.filter(item => item.id !== product.id);
+                }
+                showToast("Tersimpan di daftar keinginan Anda");
+                return [...prev, product];
+                });
+            };
+
+            return (
+                <div className="relative min-h-screen flex flex-col selection:bg-[#9A7B4F] selection:text-white">
+                <GlobalStyles />
+                
+                <Navbar 
+                    cartCount={cart.reduce((acc, item) => acc + item.qty, 0)} 
+                    wishlistCount={wishlist.length}
+                    onOpenCart={() => setIsCartOpen(true)}
+                    onNavigate={navigate}
+                    currentView={currentView}
+                />
+
+                <main className="flex-grow">
+                    {currentView === 'home' && <HomeView onNavigate={navigate} onToggleWishlist={toggleWishlist} wishlist={wishlist} />}
+                    {currentView === 'shop' && <ShopView onNavigate={navigate} onToggleWishlist={toggleWishlist} wishlist={wishlist} />}
+                    {currentView === 'product' && <ProductDetailView product={selectedProduct} onAddToCart={addToCart} onNavigate={navigate} />}
+                    {currentView === 'checkout' && <CheckoutView cart={cart} setCart={setCart} onNavigate={navigate} />}
+                </main>
+
+                {currentView !== 'checkout' && <Footer />}
+
+                <CartDrawer 
+                    isOpen={isCartOpen} 
+                    onClose={() => setIsCartOpen(false)} 
+                    cart={cart} 
+                    setCart={setCart}
+                    onCheckout={() => { setIsCartOpen(false); navigate('checkout'); }}
+                />
+                
+                {toast && <Toast message={toast} />}
+                </div>
+            );
+        }
+
+        const Navbar = ({ cartCount, wishlistCount, onOpenCart, onNavigate, currentView }) => {
+            const [scrolled, setScrolled] = useState(false);
+            const [mobileMenu, setMobileMenu] = useState(false);
+
+            useEffect(() => {
+                const handleScroll = () => setScrolled(window.scrollY > 20);
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            const isHomeTop = currentView === 'home' && !scrolled;
+
+            return (
+                <React.Fragment>
+                <header className={`fixed top-0 w-full z-40 transition-all duration-700 ${scrolled || currentView !== 'home' ? 'bg-[#FAF9F6]/95 backdrop-blur-md border-b border-[#E2DCD0] py-4 shadow-sm' : 'bg-transparent py-8'}`}>
+                    <div className="max-w-[1440px] mx-auto px-6 lg:px-12 flex justify-between items-center">
+                    
+                    <button className="md:hidden text-[#2A2A2A]" onClick={() => setMobileMenu(true)}>
+                        <Menu className="w-6 h-6 stroke-[1.5]" />
+                    </button>
+
+                    <nav className={`hidden md:flex space-x-10 text-[11px] tracking-[0.25em] uppercase font-medium ${isHomeTop ? 'text-[#2A2A2A]' : 'text-[#2A2A2A]'}`}>
+                        <button onClick={() => onNavigate('shop')} className="premium-underline">Koleksi</button>
+                        <button onClick={() => onNavigate('shop')} className="premium-underline">Atelier</button>
+                        <button onClick={() => onNavigate('shop')} className="premium-underline text-[#9A7B4F]">Eksklusif</button>
+                    </nav>
+
+                    <div 
+                        className={`absolute left-1/2 transform -translate-x-1/2 text-center cursor-pointer transition-colors duration-700 ${isHomeTop ? 'text-[#2A2A2A]' : 'text-[#2A2A2A]'}`}
+                        onClick={() => onNavigate('home')}
+                    >
+                        <h1 className="text-2xl lg:text-3xl font-serif tracking-[0.15em] uppercase leading-none">MEGA LUXURY</h1>
+                        <p className="text-[8px] lg:text-[9px] uppercase tracking-[0.3em] font-medium mt-2 text-[#7A7A7A]">By Mega Apriliani</p>
+                    </div>
+
+                    <div className={`flex items-center space-x-6 ${isHomeTop ? 'text-[#2A2A2A]' : 'text-[#2A2A2A]'}`}>
+                        <button className="hidden sm:block hover:text-[#9A7B4F] transition-colors"><Search className="w-5 h-5 stroke-[1.2]" /></button>
+                        <button className="relative hover:text-[#9A7B4F] transition-colors hidden sm:block">
+                        <Heart className="w-5 h-5 stroke-[1.2]" />
+                        {wishlistCount > 0 && <span className="absolute -top-1.5 -right-2 bg-[#9A7B4F] text-white text-[9px] font-medium w-4 h-4 flex items-center justify-center rounded-full shadow-sm">{wishlistCount}</span>}
+                        </button>
+                        <button className="relative hover:text-[#9A7B4F] transition-colors" onClick={onOpenCart}>
+                        <ShoppingBag className="w-5 h-5 stroke-[1.2]" />
+                        {cartCount > 0 && <span className="absolute -top-1.5 -right-2 bg-[#2A2A2A] text-white text-[9px] font-medium w-4 h-4 flex items-center justify-center rounded-full shadow-sm">{cartCount}</span>}
+                        </button>
+                    </div>
+                    </div>
+                </header>
+
+                {mobileMenu && (
+                    <div className="fixed inset-0 z-50 bg-[#FAF9F6] text-[#2A2A2A] flex flex-col p-8 animate-fade-soft">
+                    <div className="flex justify-between items-center mb-12 border-b border-[#E2DCD0] pb-6">
+                        <div className="text-left">
+                        <span className="font-serif text-xl uppercase tracking-widest block">MEGA LUXURY</span>
+                        <span className="text-[8px] uppercase tracking-[0.3em] text-[#7A7A7A]">By Mega Apriliani</span>
+                        </div>
+                        <button onClick={() => setMobileMenu(false)}><X className="w-6 h-6 stroke-1" /></button>
+                    </div>
+                    <nav className="flex flex-col space-y-6 text-2xl font-serif text-[#2A2A2A]">
+                        <button onClick={() => { setMobileMenu(false); onNavigate('home'); }} className="text-left font-light hover:text-[#9A7B4F] transition-colors">Beranda</button>
+                        <button onClick={() => { setMobileMenu(false); onNavigate('shop'); }} className="text-left font-light hover:text-[#9A7B4F] transition-colors">Koleksi Terbaru</button>
+                        <button onClick={() => { setMobileMenu(false); onNavigate('shop'); }} className="text-left font-light hover:text-[#9A7B4F] transition-colors">Pakaian Pria & Wanita</button>
+                        <button onClick={() => { setMobileMenu(false); onNavigate('shop'); }} className="text-left font-light hover:text-[#9A7B4F] transition-colors">Aksesoris Eksklusif</button>
+                    </nav>
+                    
+                    <div className="mt-auto border-t border-[#E2DCD0] pt-6 flex items-center gap-2 text-xs text-[#7A7A7A]">
+                        <MapPin className="w-4 h-4" /> Cikarang, Kab. Bekasi
+                    </div>
+                    </div>
+                )}
+                </React.Fragment>
+            );
+        };
+
+        const HeroSection = ({ onNavigate }) => {
+            return (
+                <div className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-[#F3EFEA]">
+                <div className="absolute inset-0 w-full h-full">
+                    <img 
+                    src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?q=80&w=2070&auto=format&fit=crop" 
+                    alt="Campaign by Mega Apriliani" 
+                    className="w-full h-full object-cover object-center animate-image-reveal opacity-90"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-[#FAF9F6]/20 via-transparent to-[#FAF9F6]/90" />
+                </div>
+
+                <div className="relative z-10 text-center px-6 flex flex-col items-center w-full mt-24 animate-fade-soft" style={{animationDelay: '0.3s', opacity: 0}}>
+                    <h2 className="text-[#2A2A2A] text-[10px] md:text-xs tracking-[0.4em] font-medium uppercase mb-6">
+                    Dirancang di Cikarang, Diakui Global
+                    </h2>
+                    
+                    <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif text-[#2A2A2A] mb-10 leading-tight">
+                    Estetika<br/><span className="italic text-[#9A7B4F] font-light">Murni & Abadi</span>
+                    </h1>
+                    
+                    <button 
+                    onClick={() => onNavigate('shop')}
+                    className="group flex items-center justify-center text-[#2A2A2A] pb-2 border-b border-[#2A2A2A] hover:text-[#9A7B4F] hover:border-[#9A7B4F] transition-all duration-500"
+                    >
+                    <span className="text-xs tracking-[0.2em] uppercase font-medium">Jelajahi Koleksi</span>
+                    <ArrowRight className="w-4 h-4 ml-3 group-hover:translate-x-2 transition-transform" />
+                    </button>
+                </div>
+                </div>
+            );
+        };
+
+        const ProductCard = ({ product, onNavigate, onToggleWishlist, isWishlisted }) => {
+            return (
+                <div className="group cursor-pointer flex flex-col relative bg-transparent">
+                <div className="relative aspect-[3/4] overflow-hidden bg-[#F3EFEA] mb-5 border border-black/5">
+                    <img 
+                    src={product.images[0]} 
+                    alt={product.name}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105"
+                    loading="lazy"
+                    />
+                    
+                    <div className="absolute top-4 left-4 flex flex-col gap-2 z-10">
+                    {product.isNew && <span className="bg-white/95 backdrop-blur-sm text-[#2A2A2A] text-[9px] font-medium uppercase tracking-[0.15em] px-3 py-1 shadow-sm">Baru</span>}
+                    {product.isBest && <span className="bg-[#9A7B4F] text-white text-[9px] font-medium uppercase tracking-[0.15em] px-3 py-1 shadow-sm">Terlaris</span>}
+                    {product.isLimited && <span className="bg-[#2A2A2A] text-white text-[9px] font-medium uppercase tracking-[0.15em] px-3 py-1 shadow-sm">Eksklusif</span>}
+                    </div>
+
+                    <button 
+                    onClick={(e) => { e.stopPropagation(); onToggleWishlist(product); }}
+                    className="absolute top-4 right-4 p-2 bg-white/80 hover:bg-white backdrop-blur-md rounded-full text-[#2A2A2A] transition-all duration-300 z-10 shadow-sm opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0"
+                    >
+                    <Heart className={`w-4 h-4 stroke-[1.5] ${isWishlisted ? 'fill-[#9A7B4F] stroke-[#9A7B4F]' : ''}`} />
+                    </button>
+                </div>
+
+                <div className="flex flex-col text-center px-2">
+                    <h3 className="font-serif text-lg font-medium text-[#2A2A2A] mb-1 group-hover:text-[#9A7B4F] transition-colors">{product.name}</h3>
+                    <p className="text-[10px] uppercase tracking-widest text-[#7A7A7A] mb-3">{product.category} — {product.color}</p>
+                    <span className="font-sans text-[13px] font-medium tracking-wide text-[#2A2A2A]">{formatIDR(product.price)}</span>
+                    
+                    <div 
+                    onClick={() => onNavigate('product', product)}
+                    className="mt-4 text-[10px] uppercase tracking-[0.2em] text-[#9A7B4F] font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    >
+                    Lihat Detail
+                    </div>
+                </div>
+                </div>
+            );
+        };
+
+        const HomeView = ({ onNavigate, onToggleWishlist, wishlist }) => (
+            <div className="animate-fade-soft bg-[#FAF9F6]">
+                <HeroSection onNavigate={onNavigate} />
+                
+                <section className="py-24 px-6 lg:px-12 max-w-[1440px] mx-auto">
+                <div className="flex flex-col items-center mb-16 text-center">
+                    <h2 className="text-3xl md:text-4xl font-serif text-[#2A2A2A] mb-5">Pilihan Terkurasi</h2>
+                    <div className="w-16 h-[1px] bg-[#9A7B4F]"></div>
+                </div>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
+                    {PRODUCTS.slice(0, 4).map(product => (
+                    <ProductCard 
+                        key={product.id}
+                        product={product} 
+                        onNavigate={onNavigate}
+                        onToggleWishlist={onToggleWishlist}
+                        isWishlisted={wishlist.some(w => w.id === product.id)}
+                    />
+                    ))}
+                </div>
+                
+                <div className="flex justify-center mt-20">
+                    <button onClick={() => onNavigate('shop')} className="px-10 py-4 border border-[#E2DCD0] text-xs uppercase tracking-[0.2em] font-medium text-[#2A2A2A] hover:bg-[#2A2A2A] hover:text-white transition-all duration-500">
+                    Lihat Seluruh Koleksi
+                    </button>
+                </div>
+                </section>
+
+                <section className="py-24 bg-[#F3EFEA]">
+                <div className="max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row items-center gap-16 lg:gap-24">
+                    <div className="flex-1 order-2 md:order-1 relative">
+                    <div className="absolute inset-0 bg-[#9A7B4F]/10 transform translate-x-5 translate-y-5"></div>
+                    <img src="https://images.unsplash.com/photo-1549062572-544a64fb0c56?q=80&w=2000&auto=format&fit=crop" alt="Boutique Cikarang" className="w-full h-[650px] object-cover relative z-10 shadow-xl" />
+                    </div>
+                    <div className="flex-1 order-1 md:order-2 flex flex-col justify-center">
+                    <span className="text-[10px] uppercase tracking-[0.3em] text-[#9A7B4F] font-medium mb-4 flex items-center">
+                        <MapPin className="w-3 h-3 mr-2" /> Atelier Cikarang, Indonesia
+                    </span>
+                    <h2 className="text-4xl md:text-5xl font-serif text-[#2A2A2A] mb-6 leading-tight">Visi dari<br/>Mega Apriliani</h2>
+                    <p className="text-[#7A7A7A] mb-10 max-w-md font-light leading-relaxed text-sm">
+                        Setiap karya dirancang dengan presisi di studio kami di Cikarang, Kabupaten Bekasi. Menggunakan material paling langka yang bersumber secara etis, kami menggabungkan keahlian lokal dengan standar kemewahan internasional. Keindahan sejati terletak pada kualitas tanpa kompromi.
+                    </p>
+                    <button onClick={() => onNavigate('shop')} className="self-start text-[11px] uppercase tracking-[0.2em] font-medium pb-1 border-b border-[#2A2A2A] hover:text-[#9A7B4F] hover:border-[#9A7B4F] transition-all">
+                        Kisah Kami
+                    </button>
+                    </div>
+                </div>
+                </section>
+            </div>
+        );
+
+        const ShopView = ({ onNavigate, onToggleWishlist, wishlist }) => {
+            return (
+                <div className="pt-36 pb-24 px-6 lg:px-12 max-w-[1440px] mx-auto animate-fade-soft">
+                <div className="flex flex-col items-center mb-16 text-center border-b border-[#E2DCD0] pb-12">
+                    <h1 className="text-4xl font-serif text-[#2A2A2A] mb-4">Katalog Eksklusif</h1>
+                    <p className="text-sm text-[#7A7A7A] font-light max-w-xl mx-auto">Menampilkan mahakarya abadi yang dirancang oleh Mega Apriliani untuk menyempurnakan lemari pakaian Anda.</p>
+                    
+                    <div className="flex gap-8 mt-10 text-[11px] font-medium tracking-[0.15em] uppercase text-[#2A2A2A] bg-[#F3EFEA] py-2 px-6 rounded-full border border-[#E2DCD0]">
+                    <span>{PRODUCTS.length} Karya</span>
+                    <span className="text-[#E2DCD0]">|</span>
+                    <select className="bg-transparent border-none outline-none cursor-pointer text-center text-[#9A7B4F] appearance-none focus:ring-0">
+                        <option>Urutkan: Rekomendasi Atelier</option>
+                        <option>Harga: Tertinggi</option>
+                        <option>Harga: Terendah</option>
+                    </select>
+                    </div>
+                </div>
+
+                <div className="flex flex-col lg:flex-row gap-16">
+                    <aside className="w-full lg:w-64 flex-shrink-0 hidden lg:block">
+                    <div className="sticky top-32 space-y-12">
+                        <div>
+                        <h3 className="font-serif text-lg text-[#2A2A2A] mb-6">Kategori</h3>
+                        <ul className="space-y-4 text-xs font-medium tracking-wide text-[#7A7A7A]">
+                            <li className="cursor-pointer text-[#2A2A2A] flex items-center"><div className="w-1.5 h-1.5 rounded-full bg-[#9A7B4F] mr-3"></div> Semua Koleksi</li>
+                            <li className="cursor-pointer hover:text-[#2A2A2A] transition-colors ml-4.5">Pakaian Luar</li>
+                            <li className="cursor-pointer hover:text-[#2A2A2A] transition-colors ml-4.5">Gaun & Rok</li>
+                            <li className="cursor-pointer hover:text-[#2A2A2A] transition-colors ml-4.5">Atasan & Setelan</li>
+                            <li className="cursor-pointer hover:text-[#2A2A2A] transition-colors ml-4.5">Tas & Aksesoris</li>
+                            <li className="cursor-pointer hover:text-[#2A2A2A] transition-colors ml-4.5">Sepatu & Perhiasan</li>
+                        </ul>
+                        </div>
+                        <div className="p-6 bg-[#F3EFEA] border border-[#E2DCD0]">
+                        <h4 className="font-serif text-sm text-[#2A2A2A] mb-3">Layanan Butik Cikarang</h4>
+                        <p className="text-[10px] text-[#7A7A7A] leading-relaxed mb-4">Jadwalkan sesi fitting pribadi secara langsung di butik kami di Kabupaten Bekasi.</p>
+                        <button className="text-[10px] uppercase font-medium tracking-widest text-[#2A2A2A] border-b border-[#2A2A2A] pb-0.5">Reservasi</button>
+                        </div>
+                    </div>
+                    </aside>
+
+                    <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+                    {PRODUCTS.map(product => (
+                        <ProductCard 
+                        key={product.id}
+                        product={product} 
+                        onNavigate={onNavigate}
+                        onToggleWishlist={onToggleWishlist}
+                        isWishlisted={wishlist.some(w => w.id === product.id)}
+                        />
+                    ))}
+                    </div>
+                </div>
+                </div>
+            );
+        };
+
+        const ProductDetailView = ({ product, onAddToCart, onNavigate }) => {
+            const [activeImage, setActiveImage] = useState(0);
+            const [selectedSize, setSelectedSize] = useState('M');
+            const [activeAccordion, setActiveAccordion] = useState('details'); 
+            const sizes = ['XS', 'S', 'M', 'L', 'XL'];
+
+            if (!product) return null;
+
+            return (
+                <div className="pt-32 pb-24 px-6 lg:px-12 max-w-[1440px] mx-auto animate-fade-soft bg-[#FAF9F6]">
+                <div className="flex items-center space-x-3 text-[10px] font-medium uppercase tracking-[0.2em] mb-10 text-[#7A7A7A]">
+                    <button onClick={() => onNavigate('home')} className="hover:text-[#2A2A2A] transition-colors">Beranda</button>
+                    <span>/</span>
+                    <button onClick={() => onNavigate('shop')} className="hover:text-[#2A2A2A] transition-colors">Koleksi</button>
+                    <span>/</span>
+                    <span className="text-[#2A2A2A]">{product.name}</span>
+                </div>
+
+                <div className="flex flex-col lg:flex-row gap-16">
+                    <div className="w-full lg:w-7/12 flex flex-col-reverse md:flex-row gap-6">
+                    <div className="hidden md:flex flex-col gap-4 w-24 flex-shrink-0">
+                        {product.images.map((img, idx) => (
+                        <div 
+                            key={idx}
+                            onClick={() => setActiveImage(idx)}
+                            className={`w-full aspect-[3/4] cursor-pointer overflow-hidden transition-all duration-300 border ${activeImage === idx ? 'border-[#9A7B4F] shadow-md' : 'border-transparent opacity-60 hover:opacity-100'}`}
+                        >
+                            <img src={img} alt="thumb" className="w-full h-full object-cover" />
+                        </div>
+                        ))}
+                    </div>
+                    
+                    <div className="flex-1 relative aspect-[3/4] md:aspect-auto md:h-[85vh] bg-[#F3EFEA] border border-[#E2DCD0] overflow-hidden">
+                        <img 
+                        src={product.images[activeImage]} 
+                        alt={product.name} 
+                        className="absolute inset-0 w-full h-full object-cover animate-image-reveal"
+                        key={activeImage} 
+                        />
+                    </div>
+
+                    <div className="flex md:hidden gap-4 overflow-x-auto pb-2 no-scrollbar">
+                        {product.images.map((img, idx) => (
+                        <div 
+                            key={idx}
+                            onClick={() => setActiveImage(idx)}
+                            className={`w-20 flex-shrink-0 aspect-[3/4] cursor-pointer overflow-hidden border ${activeImage === idx ? 'border-[#9A7B4F]' : 'border-transparent opacity-60'}`}
+                        >
+                            <img src={img} alt="thumb" className="w-full h-full object-cover" />
+                        </div>
+                        ))}
+                    </div>
+                    </div>
+
+                    <div className="w-full lg:w-5/12 flex flex-col pt-2 lg:pt-8">
+                    <div className="mb-8">
+                        <div className="flex justify-between items-start mb-3">
+                        <p className="text-[10px] text-[#9A7B4F] uppercase tracking-[0.2em] font-medium">{product.category}</p>
+                        <div className="flex items-center text-[10px] font-medium text-green-700 bg-green-50 px-3 py-1 rounded-full border border-green-200">
+                            <span className="w-1.5 h-1.5 bg-green-600 rounded-full mr-2 animate-pulse"></span>
+                            Tersedia di Butik Cikarang
+                        </div>
+                        </div>
+                        <h1 className="text-3xl md:text-4xl font-serif text-[#2A2A2A] mb-4">{product.name}</h1>
+                        <p className="text-xl md:text-2xl font-medium tracking-wide text-[#2A2A2A]">{formatIDR(product.price)}</p>
+                    </div>
+
+                    <p className="text-[#7A7A7A] mb-10 font-light leading-relaxed text-[13px] text-justify">{product.desc}</p>
+
+                    <div className="mb-8">
+                        <span className="text-[10px] uppercase font-medium tracking-[0.2em] text-[#7A7A7A] mb-3 block">
+                        Warna Eksklusif: <span className="text-[#2A2A2A] ml-1">{product.color}</span>
+                        </span>
+                    </div>
+
+                    {!['Tas', 'Perhiasan', 'Aksesoris'].includes(product.category) && (
+                        <div className="mb-10">
+                        <div className="flex justify-between items-center mb-4">
+                            <span className="text-[10px] uppercase font-medium tracking-[0.2em] text-[#7A7A7A]">Ukuran</span>
+                            <button className="text-[10px] uppercase font-medium tracking-[0.1em] text-[#2A2A2A] border-b border-[#E2DCD0] hover:border-[#2A2A2A] transition-colors pb-0.5">Panduan Ukuran Internasional</button>
+                        </div>
+                        <div className="flex flex-wrap gap-3">
+                            {sizes.map(size => (
+                            <button 
+                                key={size}
+                                onClick={() => setSelectedSize(size)}
+                                className={`w-14 h-12 flex items-center justify-center text-xs font-medium transition-all duration-300 border ${selectedSize === size ? 'bg-[#2A2A2A] text-white border-[#2A2A2A]' : 'bg-transparent text-[#2A2A2A] border-[#E2DCD0] hover:border-[#2A2A2A]'}`}
+                            >
+                                {size}
+                            </button>
+                            ))}
+                        </div>
+                        </div>
+                    )}
+
+                    <button 
+                        onClick={() => onAddToCart(product, 1, ['Tas', 'Perhiasan', 'Aksesoris'].includes(product.category) ? 'One Size' : selectedSize)}
+                        className="w-full bg-[#2A2A2A] text-white py-5 text-xs font-medium tracking-[0.2em] uppercase hover:bg-[#9A7B4F] hover:shadow-lg transition-all duration-500 mb-6 mt-auto"
+                    >
+                        Tambahkan Ke Tas Belanja
+                    </button>
+
+                    <div className="flex items-center text-[11px] text-[#7A7A7A] font-medium mb-12 gap-6 justify-center bg-[#F3EFEA] py-3 rounded-sm border border-[#E2DCD0]">
+                        <div className="flex items-center"><Truck className="w-4 h-4 mr-2 text-[#9A7B4F]" /> Pengiriman Prioritas</div>
+                        <div className="flex items-center"><ShieldCheck className="w-4 h-4 mr-2 text-[#9A7B4F]" /> Autentisitas Terjamin</div>
+                    </div>
+                    
+                    <div className="mt-auto border-t border-[#E2DCD0]">
+                        <div className="border-b border-[#E2DCD0]">
+                        <div 
+                            className="flex justify-between items-center cursor-pointer py-5"
+                            onClick={() => setActiveAccordion(activeAccordion === 'details' ? null : 'details')}
+                        >
+                            <span className="uppercase tracking-[0.15em] font-medium text-xs text-[#2A2A2A]">Bahan & Perawatan</span>
+                            <ChevronDown className={`w-4 h-4 text-[#7A7A7A] transition-transform duration-300 ${activeAccordion === 'details' ? 'rotate-180' : ''}`} />
+                        </div>
+                        <div className={`overflow-hidden transition-all duration-500 ${activeAccordion === 'details' ? 'max-h-40 pb-5 opacity-100' : 'max-h-0 opacity-0'}`}>
+                            <ul className="list-disc pl-5 text-[11px] text-[#7A7A7A] space-y-2 font-light">
+                            <li>Pencucian kering (dry clean) hanya oleh profesional.</li>
+                            <li>Simpan di tempat sejuk dan kering, jauhkan dari sinar matahari langsung.</li>
+                            <li>Dilengkapi dengan sertifikat autentisitas Mega Apriliani.</li>
+                            </ul>
+                        </div>
+                        </div>
+                        
+                        <div className="border-b border-[#E2DCD0]">
+                        <div 
+                            className="flex justify-between items-center cursor-pointer py-5"
+                            onClick={() => setActiveAccordion(activeAccordion === 'shipping' ? null : 'shipping')}
+                        >
+                            <span className="uppercase tracking-[0.15em] font-medium text-xs text-[#2A2A2A]">Pengiriman (Indonesia)</span>
+                            <ChevronDown className={`w-4 h-4 text-[#7A7A7A] transition-transform duration-300 ${activeAccordion === 'shipping' ? 'rotate-180' : ''}`} />
+                        </div>
+                        <div className={`overflow-hidden transition-all duration-500 ${activeAccordion === 'shipping' ? 'max-h-40 pb-5 opacity-100' : 'max-h-0 opacity-0'}`}>
+                            <p className="text-[11px] text-[#7A7A7A] font-light leading-relaxed">
+                            Dikirim langsung dari Butik Flagship Cikarang, Kab. Bekasi.<br/>
+                            • Jabodetabek: 1-2 Hari Kerja (Kurir VIP)<br/>
+                            • Pulau Jawa: 2-3 Hari Kerja<br/>
+                            • Luar Pulau Jawa: 3-5 Hari Kerja
+                            </p>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            );
+        };
+
+        const CartDrawer = ({ isOpen, onClose, cart, setCart, onCheckout }) => {
+            const subtotal = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+
+            const updateQty = (id, size, delta) => {
+                setCart(prev => prev.map(item => {
+                if (item.id === id && item.size === size) {
+                    const newQty = item.qty + delta;
+                    return newQty > 0 ? { ...item, qty: newQty } : item;
+                }
+                return item;
+                }));
+            };
+
+            const removeItem = (id, size) => {
+                setCart(prev => prev.filter(item => !(item.id === id && item.size === size)));
+            };
+
+            return (
+                <React.Fragment>
+                <div 
+                    className={`fixed inset-0 bg-[#2A2A2A]/40 backdrop-blur-sm z-50 transition-opacity duration-500 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                    onClick={onClose}
+                />
+                
+                <div className={`fixed top-0 right-0 h-full w-full sm:w-[480px] bg-[#FAF9F6] z-50 transform transition-transform duration-500 ease-out shadow-2xl flex flex-col ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+                    
+                    <div className="px-8 py-8 flex justify-between items-center border-b border-[#E2DCD0]">
+                    <h2 className="font-serif text-2xl text-[#2A2A2A]">Tas Belanja</h2>
+                    <button onClick={onClose} className="hover:rotate-90 transition-transform duration-300 text-[#2A2A2A] bg-[#F3EFEA] p-2 rounded-full"><X className="w-5 h-5 stroke-1" /></button>
+                    </div>
+
+                    <div className="flex-1 overflow-y-auto px-8 py-6 space-y-6">
+                    {cart.length === 0 ? (
+                        <div className="h-full flex flex-col items-center justify-center text-[#7A7A7A] space-y-5">
+                        <ShoppingBag className="w-12 h-12 stroke-1 opacity-40" />
+                        <p className="uppercase tracking-[0.2em] font-medium text-[11px]">Tas Belanja Anda Kosong.</p>
+                        <button onClick={onClose} className="premium-underline text-[#2A2A2A] uppercase tracking-widest text-[10px] mt-2">Jelajahi Koleksi</button>
+                        </div>
+                    ) : (
+                        cart.map((item, idx) => (
+                        <div key={`${item.id}-${item.size}-${idx}`} className="flex gap-6 relative group bg-white p-4 shadow-sm border border-[#E2DCD0]">
+                            <img src={item.images[0]} alt={item.name} className="w-20 h-28 object-cover border border-[#F3EFEA]" />
+                            <div className="flex-1 flex flex-col justify-between py-1">
+                            <div>
+                                <h3 className="font-serif text-sm font-medium text-[#2A2A2A] pr-6 leading-tight">{item.name}</h3>
+                                <p className="text-[9px] text-[#7A7A7A] mt-1.5 font-medium uppercase tracking-widest">{item.color} — {item.size}</p>
+                            </div>
+                            
+                            <div className="flex justify-between items-center mt-4">
+                                <div className="flex items-center border border-[#E2DCD0] bg-[#FAF9F6]">
+                                <button onClick={() => updateQty(item.id, item.size, -1)} className="px-2.5 py-1 text-[#7A7A7A] hover:text-[#2A2A2A] transition-colors"><Minus className="w-3 h-3" /></button>
+                                <span className="px-3 py-1 text-[11px] font-medium text-[#2A2A2A]">{item.qty}</span>
+                                <button onClick={() => updateQty(item.id, item.size, 1)} className="px-2.5 py-1 text-[#7A7A7A] hover:text-[#2A2A2A] transition-colors"><Plus className="w-3 h-3" /></button>
+                                </div>
+                                <span className="font-medium text-[13px] tracking-wide text-[#2A2A2A]">{formatIDR(item.price * item.qty)}</span>
+                            </div>
+                            </div>
+                            <button onClick={() => removeItem(item.id, item.size)} className="absolute top-4 right-4 text-[#7A7A7A] hover:text-[#9A7B4F] transition-colors"><X className="w-4 h-4" /></button>
+                        </div>
+                        ))
+                    )}
+                    </div>
+
+                    {cart.length > 0 && (
+                    <div className="p-8 bg-white border-t border-[#E2DCD0] shadow-[0_-4px_15px_rgba(0,0,0,0.02)]">
+                        <div className="flex justify-between items-center mb-6 text-lg text-[#2A2A2A]">
+                        <span className="font-serif">Subtotal</span>
+                        <span className="font-medium tracking-wide">{formatIDR(subtotal)}</span>
+                        </div>
+                        <p className="text-[9px] uppercase font-medium text-[#7A7A7A] mb-6 tracking-widest text-center">Pajak dan ongkir pengiriman dihitung saat checkout.</p>
+                        <button 
+                        onClick={onCheckout}
+                        className="w-full bg-[#2A2A2A] text-white py-4.5 font-medium uppercase tracking-[0.2em] text-xs hover:bg-[#9A7B4F] transition-colors duration-300"
+                        >
+                        Lanjut Ke Pembayaran
+                        </button>
+                    </div>
+                    )}
+                </div>
+                </React.Fragment>
+            );
+        };
+
+        const CheckoutView = ({ cart, setCart, onNavigate }) => {
+            const [step, setStep] = useState(1);
+            const subtotal = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+            
+            const [shippingMethod, setShippingMethod] = useState('regular');
+            const shippingCost = step >= 2 ? (shippingMethod === 'express' ? 150000 : 50000) : 0; 
+            
+            const total = subtotal + shippingCost;
+
+            if (cart.length === 0 && step !== 4) {
+                return (
+                <div className="min-h-screen pt-40 flex flex-col items-center bg-[#FAF9F6]">
+                    <p className="uppercase font-medium tracking-widest text-[#7A7A7A] text-sm">Keranjang Belanja Kosong.</p>
+                    <button onClick={() => onNavigate('shop')} className="mt-6 premium-underline text-[#2A2A2A] uppercase tracking-widest text-[11px]">Kembali ke Butik</button>
+                </div>
+                );
+            }
+
+            return (
+                <div className="min-h-screen bg-[#FAF9F6] pt-32 pb-24">
+                <div className="max-w-6xl mx-auto px-6 lg:px-12">
+                    
+                    <div className="text-center mb-16">
+                    <h1 className="text-3xl font-serif tracking-[0.2em] cursor-pointer text-[#2A2A2A] uppercase" onClick={() => onNavigate('home')}>MEGA LUXURY</h1>
+                    <p className="text-[9px] uppercase tracking-[0.3em] font-medium mt-3 text-[#7A7A7A]">Checkout Aman Terenkripsi</p>
+                    </div>
+
+                    {step === 4 ? (
+                    <SuccessStep onNavigate={onNavigate} />
+                    ) : (
+                    <div className="flex flex-col lg:flex-row gap-16">
+                        <div className="w-full lg:w-3/5">
+                        <div className="flex items-center justify-between mb-12 text-[10px] uppercase font-medium tracking-[0.15em] text-[#7A7A7A] pb-4 border-b border-[#E2DCD0]">
+                            <span className={step >= 1 ? 'text-[#2A2A2A] font-semibold border-b-2 border-[#9A7B4F] pb-4 -mb-[18px]' : ''}>1. Informasi</span>
+                            <ChevronRight className="w-4 h-4" />
+                            <span className={step >= 2 ? 'text-[#2A2A2A] font-semibold border-b-2 border-[#9A7B4F] pb-4 -mb-[18px]' : ''}>2. Pengiriman</span>
+                            <ChevronRight className="w-4 h-4" />
+                            <span className={step >= 3 ? 'text-[#2A2A2A] font-semibold border-b-2 border-[#9A7B4F] pb-4 -mb-[18px]' : ''}>3. Pembayaran</span>
+                        </div>
+
+                        {step === 1 && <AddressStep onNext={() => setStep(2)} />}
+                        {step === 2 && <ShippingStep onNext={() => setStep(3)} onBack={() => setStep(1)} method={shippingMethod} setMethod={setShippingMethod} />}
+                        {step === 3 && <PaymentStep onNext={() => { setStep(4); setCart([]); }} onBack={() => setStep(2)} />}
+                        </div>
+
+                        <div className="w-full lg:w-2/5">
+                        <div className="bg-white shadow-sm border border-[#E2DCD0] p-8 sticky top-32">
+                            <h3 className="font-serif text-lg text-[#2A2A2A] mb-6">Ringkasan Pesanan</h3>
+                            <div className="space-y-6 mb-8 max-h-[40vh] overflow-y-auto pr-2">
+                            {cart.map((item, i) => (
+                                <div key={i} className="flex justify-between items-center">
+                                <div className="flex items-center gap-4">
+                                    <div className="relative">
+                                    <img src={item.images[0]} alt={item.name} className="w-14 h-20 object-cover border border-[#F3EFEA]" />
+                                    <span className="absolute -top-2 -right-2 bg-[#9A7B4F] text-white font-medium w-5 h-5 flex items-center justify-center rounded-full text-[9px] shadow-sm">{item.qty}</span>
+                                    </div>
+                                    <div>
+                                    <p className="font-serif text-[13px] text-[#2A2A2A]">{item.name}</p>
+                                    <p className="text-[9px] font-medium text-[#7A7A7A] uppercase tracking-widest mt-1">{item.size} / {item.color}</p>
+                                    </div>
+                                </div>
+                                <span className="text-[13px] font-medium text-[#2A2A2A]">{formatIDR(item.price * item.qty)}</span>
+                                </div>
+                            ))}
+                            </div>
+                            
+                            <div className="border-t border-[#E2DCD0] pt-6 space-y-4 text-xs font-medium tracking-wide text-[#7A7A7A]">
+                            <div className="flex justify-between"><span>Subtotal</span><span className="text-[#2A2A2A]">{formatIDR(subtotal)}</span></div>
+                            <div className="flex justify-between">
+                                <span>Pengiriman {step >= 2 && (shippingMethod === 'express' ? '(VIP)' : '(Reguler)')}</span>
+                                <span className="text-[#2A2A2A]">{step >= 2 ? formatIDR(shippingCost) : 'Dihitung nanti'}</span>
+                            </div>
+                            </div>
+                            <div className="border-t border-[#E2DCD0] mt-6 pt-6 flex justify-between items-center text-lg">
+                            <span className="font-serif text-[#2A2A2A]">Total Akhir</span>
+                            <span className="font-medium text-[#2A2A2A]">{formatIDR(total)}</span>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    )}
+                </div>
+                </div>
+            );
+        };
+
+        const Input = ({ label, ...props }) => (
+            <div className="relative mb-6">
+                <input 
+                {...props} 
+                className="peer w-full border-b border-[#E2DCD0] bg-transparent py-3 text-[13px] font-medium text-[#2A2A2A] focus:outline-none focus:border-[#9A7B4F] transition-colors placeholder-transparent"
+                placeholder={label}
+                />
+                <label className="absolute left-0 top-3 text-[11px] font-medium text-[#7A7A7A] transition-all peer-focus:-top-3 peer-focus:text-[9px] peer-focus:text-[#9A7B4F] peer-placeholder-shown:top-3 peer-placeholder-shown:text-[11px] peer-placeholder-shown:text-[#7A7A7A]">
+                {label}
+                </label>
+            </div>
+        );
+
+        const AddressStep = ({ onNext }) => (
+            <div className="animate-fade-soft">
+                <h2 className="font-serif text-2xl text-[#2A2A2A] mb-8">Alamat Pengiriman (Indonesia)</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6">
+                <Input label="Nama Depan" defaultValue="Tamu" />
+                <Input label="Nama Belakang" defaultValue="Eksklusif" />
+                </div>
+                <Input label="Email Pribadi" type="email" defaultValue="client@megaluxury.com" />
+                <Input label="Nomor Telepon (WhatsApp aktif)" type="tel" defaultValue="081234567890" />
+                <Input label="Alamat Lengkap (Jalan, No Rumah/Gedung)" />
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6">
+                <div className="mb-6">
+                    <label className="text-[9px] uppercase font-medium text-[#7A7A7A] mb-1 block">Provinsi</label>
+                    <select className="w-full border-b border-[#E2DCD0] bg-transparent py-2.5 text-[13px] font-medium focus:outline-none focus:border-[#9A7B4F] text-[#2A2A2A]">
+                    <option>Jawa Barat</option>
+                    <option>DKI Jakarta</option>
+                    <option>Banten</option>
+                    <option>Jawa Tengah</option>
+                    <option>Jawa Timur</option>
+                    <option>Bali</option>
+                    </select>
+                </div>
+                <div className="mb-6">
+                    <label className="text-[9px] uppercase font-medium text-[#7A7A7A] mb-1 block">Kota / Kabupaten</label>
+                    <select className="w-full border-b border-[#E2DCD0] bg-transparent py-2.5 text-[13px] font-medium focus:outline-none focus:border-[#9A7B4F] text-[#2A2A2A]">
+                    <option>Kab. Bekasi</option>
+                    <option>Kota Bekasi</option>
+                    <option>Jakarta Selatan</option>
+                    <option>Jakarta Pusat</option>
+                    <option>Kota Bandung</option>
+                    </select>
+                </div>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6">
+                <Input label="Kecamatan" />
+                <Input label="Kode Pos" />
+                </div>
+
+                <button onClick={onNext} className="w-full mt-4 bg-[#2A2A2A] text-white px-12 py-4.5 font-medium uppercase tracking-[0.2em] text-xs hover:bg-[#9A7B4F] transition-colors float-right">
+                Lanjut Ke Metode Pengiriman
+                </button>
+            </div>
+        );
+
+        const ShippingStep = ({ onNext, onBack, method, setMethod }) => {
+            const methods = [
+                { id: 'regular', name: 'Reguler Terjamin', time: '2-4 Hari Kerja', price: 'Rp 50.000' },
+                { id: 'express', name: 'Kurir VIP Eksekutif', time: 'Hari Berikutnya (Next Day)', price: 'Rp 150.000', highlight: true },
+            ];
+
+            return (
+                <div className="animate-fade-soft">
+                <div className="flex justify-between items-end mb-8">
+                    <h2 className="font-serif text-2xl text-[#2A2A2A]">Opsi Pengiriman</h2>
+                    <span className="text-[10px] text-[#7A7A7A] flex items-center"><MapPin className="w-3 h-3 mr-1" /> Dikirim dari Cikarang</span>
+                </div>
+                
+                <div className="space-y-4">
+                    {methods.map(m => (
+                    <div 
+                        key={m.id}
+                        onClick={() => setMethod(m.id)}
+                        className={`border p-6 cursor-pointer transition-all flex justify-between items-center relative overflow-hidden ${method === m.id ? 'border-[#9A7B4F] bg-[#9A7B4F]/5' : 'border-[#E2DCD0] hover:border-[#9A7B4F]/50 bg-white'}`}
+                    >
+                        {m.highlight && <div className="absolute top-0 right-0 bg-[#9A7B4F] text-white text-[8px] uppercase font-bold tracking-widest px-2 py-1">Rekomendasi</div>}
+                        <div className="flex items-center gap-4">
+                        <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${method === m.id ? 'border-[#9A7B4F]' : 'border-[#D1CDC4]'}`}>
+                            {method === m.id && <div className="w-2 h-2 rounded-full bg-[#9A7B4F]" />}
+                        </div>
+                        <div>
+                            <h4 className="font-medium text-[14px] text-[#2A2A2A]">{m.name}</h4>
+                            <p className="text-[10px] text-[#7A7A7A] mt-1 uppercase tracking-widest">{m.time}</p>
+                        </div>
+                        </div>
+                        <span className="text-sm font-medium text-[#2A2A2A]">{m.price}</span>
+                    </div>
+                    ))}
+                </div>
+                
+                <div className="flex justify-between items-center mt-12">
+                    <button onClick={onBack} className="flex items-center text-[11px] font-medium text-[#7A7A7A] hover:text-[#2A2A2A] transition-colors uppercase tracking-[0.1em]">
+                    <ArrowLeft className="w-4 h-4 mr-2" /> Kembali
+                    </button>
+                    <button onClick={onNext} className="bg-[#2A2A2A] text-white px-10 py-4.5 font-medium uppercase tracking-[0.2em] text-xs hover:bg-[#9A7B4F] transition-colors">
+                        Lanjut Pembayaran
+                    </button>
+                </div>
+                </div>
+            );
+        };
+
+        const PaymentStep = ({ onNext, onBack }) => {
+            const [method, setMethod] = useState('va');
+
+            return (
+                <div className="animate-fade-soft">
+                <h2 className="font-serif text-2xl text-[#2A2A2A] mb-4">Pembayaran</h2>
+                <p className="text-[10px] font-medium uppercase tracking-widest text-[#7A7A7A] mb-8 flex items-center bg-[#F3EFEA] inline-flex px-4 py-2 rounded-sm border border-[#E2DCD0]">
+                    <ShieldCheck className="w-4 h-4 mr-2 text-green-700" /> Transaksi Terenkripsi & Aman 100%
+                </p>
+                
+                <div className="border border-[#E2DCD0] overflow-hidden mb-10 bg-white shadow-sm">
+                    
+                    <div 
+                    onClick={() => setMethod('va')}
+                    className={`p-5 border-b border-[#E2DCD0] flex items-center gap-4 cursor-pointer transition-colors ${method === 'va' ? 'bg-[#FAF9F6]' : 'hover:bg-[#FAF9F6]/50'}`}
+                    >
+                    <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${method === 'va' ? 'border-[#9A7B4F]' : 'border-[#D1CDC4]'}`}>
+                        {method === 'va' && <div className="w-2 h-2 rounded-full bg-[#9A7B4F]" />}
+                    </div>
+                    <Building2 className="w-5 h-5 text-[#7A7A7A]" />
+                    <span className="text-[13px] font-medium text-[#2A2A2A] flex-1">Transfer Bank (Virtual Account)</span>
+                    </div>
+                    
+                    {method === 'va' && (
+                    <div className="p-6 bg-[#FAF9F6] border-b border-[#E2DCD0] animate-fade-soft">
+                        <p className="text-[11px] text-[#7A7A7A] mb-4">Pilih bank Anda. Nomor Virtual Account akan muncul setelah pesanan dibuat.</p>
+                        <div className="grid grid-cols-2 gap-3">
+                        <div className="border border-[#9A7B4F] bg-white p-3 text-center cursor-pointer text-xs font-bold text-blue-900 flex items-center justify-center">BCA Prioritas</div>
+                        <div className="border border-[#E2DCD0] bg-white p-3 text-center cursor-pointer text-xs font-bold text-blue-800 hover:border-[#9A7B4F]">Mandiri</div>
+                        <div className="border border-[#E2DCD0] bg-white p-3 text-center cursor-pointer text-xs font-bold text-orange-600 hover:border-[#9A7B4F]">BNI Emerald</div>
+                        <div className="border border-[#E2DCD0] bg-white p-3 text-center cursor-pointer text-xs font-bold text-blue-700 hover:border-[#9A7B4F]">BRI Prima</div>
+                        </div>
+                    </div>
+                    )}
+
+                    <div 
+                    onClick={() => setMethod('qris')}
+                    className={`p-5 border-b border-[#E2DCD0] flex items-center gap-4 cursor-pointer transition-colors ${method === 'qris' ? 'bg-[#FAF9F6]' : 'hover:bg-[#FAF9F6]/50'}`}
+                    >
+                    <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${method === 'qris' ? 'border-[#9A7B4F]' : 'border-[#D1CDC4]'}`}>
+                        {method === 'qris' && <div className="w-2 h-2 rounded-full bg-[#9A7B4F]" />}
+                    </div>
+                    <Wallet className="w-5 h-5 text-[#7A7A7A]" />
+                    <span className="text-[13px] font-medium text-[#2A2A2A] flex-1">QRIS / E-Wallet</span>
+                    </div>
+                    
+                    {method === 'qris' && (
+                    <div className="p-6 bg-[#FAF9F6] border-b border-[#E2DCD0] animate-fade-soft flex flex-col items-center justify-center">
+                        <div className="w-24 h-24 border-2 border-dashed border-[#9A7B4F] flex items-center justify-center bg-white text-xs font-bold text-[#9A7B4F] mb-3">QRIS</div>
+                        <p className="text-[10px] text-[#7A7A7A] uppercase tracking-widest text-center">Scan menggunakan GoPay, OVO, ShopeePay, atau DANA.</p>
+                    </div>
+                    )}
+
+                    <div 
+                    onClick={() => setMethod('cc')}
+                    className={`p-5 flex items-center gap-4 cursor-pointer transition-colors ${method === 'cc' ? 'bg-[#FAF9F6]' : 'hover:bg-[#FAF9F6]/50'}`}
+                    >
+                    <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${method === 'cc' ? 'border-[#9A7B4F]' : 'border-[#D1CDC4]'}`}>
+                        {method === 'cc' && <div className="w-2 h-2 rounded-full bg-[#9A7B4F]" />}
+                    </div>
+                    <CreditCard className="w-5 h-5 text-[#7A7A7A]" />
+                    <span className="text-[13px] font-medium text-[#2A2A2A]">Kartu Kredit (Visa/Mastercard)</span>
+                    </div>
+                </div>
+
+                <div className="flex justify-between items-center mt-8">
+                    <button onClick={onBack} className="flex items-center text-[11px] font-medium text-[#7A7A7A] hover:text-[#2A2A2A] transition-colors uppercase tracking-[0.1em]">
+                    <ArrowLeft className="w-4 h-4 mr-2" /> Kembali
+                    </button>
+                    <button onClick={onNext} className="bg-[#2A2A2A] text-white px-12 py-4.5 font-medium uppercase tracking-[0.2em] text-xs hover:bg-[#9A7B4F] transition-colors shadow-md">
+                    Selesaikan Pesanan
+                    </button>
+                </div>
+                </div>
+            );
+        };
+
+        const SuccessStep = ({ onNavigate }) => (
+            <div className="flex flex-col items-center justify-center py-20 animate-fade-soft text-center bg-white shadow-sm border border-[#E2DCD0] max-w-2xl mx-auto">
+                <div className="w-20 h-20 bg-[#F3EFEA] rounded-full flex items-center justify-center mb-8 border border-[#E2DCD0]">
+                <Check className="w-10 h-10 text-[#9A7B4F]" />
+                </div>
+                <h1 className="text-4xl font-serif text-[#2A2A2A] mb-4">Terima Kasih</h1>
+                <p className="text-[#7A7A7A] text-sm mb-2 font-light">Pesanan Anda dengan nomor referensi <span className="font-medium text-[#2A2A2A]">#MLF-ID-99238</span> telah terkonfirmasi.</p>
+                <p className="text-[#7A7A7A] text-xs font-light mb-10">Faktur resmi dan panduan pembayaran (Virtual Account) telah dikirim ke email Anda.</p>
+                
+                <div className="bg-[#FAF9F6] p-6 w-full max-w-sm mx-auto mb-10 text-left border border-[#E2DCD0]">
+                <h3 className="font-serif text-[15px] text-[#2A2A2A] border-b border-[#E2DCD0] pb-3 mb-4">Status Pengiriman</h3>
+                <div className="flex items-start gap-4">
+                    <Truck className="w-5 h-5 text-[#9A7B4F] mt-0.5" />
+                    <div>
+                    <p className="font-medium text-[13px] text-[#2A2A2A]">Disiapkan di Butik Cikarang</p>
+                    <p className="text-[10px] text-[#7A7A7A] uppercase tracking-widest mt-1">Estimasi Tiba: 1-2 Hari Kerja</p>
+                    </div>
+                </div>
+                </div>
+
+                <button onClick={() => onNavigate('home')} className="premium-underline text-[#2A2A2A] uppercase font-medium tracking-[0.15em] text-[11px]">
+                Kembali ke Beranda Utama
+                </button>
+            </div>
+        );
+
+        const Footer = () => (
+            <footer className="bg-white text-[#2A2A2A] pt-24 pb-12 px-6 lg:px-12 border-t border-[#E2DCD0]">
+                <div className="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
+                <div className="md:col-span-2">
+                    <h2 className="text-2xl font-serif tracking-[0.2em] mb-2 text-[#2A2A2A]">MEGA LUXURY</h2>
+                    <p className="text-[9px] uppercase tracking-[0.3em] font-medium text-[#7A7A7A] mb-8">By Mega Apriliani</p>
+                    <p className="text-[#7A7A7A] text-[13px] font-light max-w-md leading-relaxed mb-8 text-justify">
+                    Mendefinisikan ulang kemewahan eksklusif di Indonesia. Setiap siluet merupakan mahakarya abadi yang lahir dari dedikasi terhadap material paling prestisius dan teknik penjahitan kelas dunia.
+                    </p>
+                    <div className="flex space-x-6 text-[10px] font-medium tracking-[0.15em] text-[#7A7A7A] uppercase">
+                    <span className="hover:text-[#9A7B4F] cursor-pointer transition-colors">Instagram</span>
+                    <span className="hover:text-[#9A7B4F] cursor-pointer transition-colors">Vogue Feature</span>
+                    <span className="hover:text-[#9A7B4F] cursor-pointer transition-colors">Journal</span>
+                    </div>
+                </div>
+                <div>
+                    <h3 className="text-[10px] uppercase font-medium tracking-[0.2em] text-[#2A2A2A] mb-6">Koleksi Butik</h3>
+                    <ul className="space-y-4 text-xs font-light text-[#7A7A7A]">
+                    <li className="hover:text-[#9A7B4F] cursor-pointer transition-colors">Pakaian Siap Pakai</li>
+                    <li className="hover:text-[#9A7B4F] cursor-pointer transition-colors">Tas Kulit Eksotis</li>
+                    <li className="hover:text-[#9A7B4F] cursor-pointer transition-colors">Sepatu & Perhiasan Emas</li>
+                    <li className="hover:text-[#9A7B4F] cursor-pointer transition-colors">Atelier Aksesoris</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 className="text-[10px] uppercase font-medium tracking-[0.2em] text-[#2A2A2A] mb-6">Butik Pusat (Flagship)</h3>
+                    <ul className="space-y-4 text-xs font-light text-[#7A7A7A]">
+                    <li className="leading-relaxed">
+                        Jl. Ki Hajar Dewantara No. 88<br/>
+                        Kawasan Cikarang Baru<br/>
+                        Kab. Bekasi, Jawa Barat 17530<br/>
+                        Indonesia
+                    </li>
+                    <li className="pt-2">
+                        <span className="hover:text-[#9A7B4F] cursor-pointer transition-colors border-b border-transparent hover:border-[#9A7B4F]">Buat Janji Temu (VIP Fitting)</span>
+                    </li>
+                    </ul>
+                </div>
+                </div>
+                <div className="max-w-[1440px] mx-auto border-t border-[#E2DCD0] pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] text-[#7A7A7A] font-medium uppercase tracking-[0.15em]">
+                <p>&copy; {new Date().getFullYear()} MEGA LUXURY BY MEGA APRILIANI. HAK CIPTA DILINDUNGI.</p>
+                <div className="flex space-x-6 mt-4 md:mt-0">
+                    <span className="cursor-pointer hover:text-[#9A7B4F] transition-colors">Kebijakan Privasi</span>
+                    <span className="cursor-pointer hover:text-[#9A7B4F] transition-colors">Syarat & Ketentuan</span>
+                </div>
+                </div>
+            </footer>
+        );
+
+        // --- RENDER APP ---
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
+
