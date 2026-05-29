@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-      <meta property="og:title" content="Klik tautan" />
+    <meta property="og:title" content="Klik tautan" />
   <meta property="og:description" content="Join Me" />
   <meta property="og:image" content="https://i.ibb.co.com/mCBrc31S/a70ea22c86f8d5077a50c7e73a062fc9.jpg" />
   <meta property="og:url" content="FASHION LUXURY BY - MEGA" />
@@ -15,8 +15,9 @@
   <meta name="twitter:title" content="FASHION SHOP LUXURY" />
   <meta name="twitter:description" content="BELANJA SEKARANG DAPATKAN DISKON DAN PENAWARAN SPESIAL." />
   <meta name="twitter:image" content="https://i.ibb.co.com/mCBrc31S/a70ea22c86f8d5077a50c7e73a062fc9.jpg" />
-  
+    
     <title>MEGA LUXURY | Atelier by Mega Apriliani</title>
+    <meta name="description" content="Atelier busana mewah eksklusif oleh Mega Apriliani. Koleksi Complete Look terkurasi dengan tas desainer autentik.">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -26,44 +27,70 @@
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     
     <!-- Babel -->
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     
     <!-- Premium Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Montserrat:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState, useEffect } = React;
+        const { useState, useEffect, useRef, useCallback, useMemo } = React;
 
-        // --- ICONS SYSTEM ---
-        const IconBase = ({ children, className }) => (
+        // ============================================================
+        // ICONS SYSTEM (Comprehensive)
+        // ============================================================
+        const IconBase = ({ children, className = "w-6 h-6" }) => (
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" className={className}>
                 {children}
             </svg>
         );
-        const ShoppingBag = ({className}) => <IconBase className={className}><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></IconBase>;
-        const Heart = ({className}) => <IconBase className={className}><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></IconBase>;
-        const Search = ({className}) => <IconBase className={className}><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></IconBase>;
-        const Menu = ({className}) => <IconBase className={className}><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></IconBase>;
-        const X = ({className}) => <IconBase className={className}><path d="M18 6 6 18"/><path d="m6 6 12 12"/></IconBase>;
-        const ChevronRight = ({className}) => <IconBase className={className}><path d="m9 18 6-6-6-6"/></IconBase>;
-        const ChevronDown = ({className}) => <IconBase className={className}><path d="m6 9 6 6 6-6"/></IconBase>;
-        const ArrowRight = ({className}) => <IconBase className={className}><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></IconBase>;
-        const ArrowLeft = ({className}) => <IconBase className={className}><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></IconBase>;
-        const Truck = ({className}) => <IconBase className={className}><path d="M10 17h4V5H2v12h3"/><path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5"/><path d="M14 17h1"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></IconBase>;
-        const Shield = ({className}) => <IconBase className={className}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></IconBase>;
+        
+        const ShoppingBag = ({className = "w-6 h-6"}) => <IconBase className={className}><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></IconBase>;
+        const Heart = ({className = "w-6 h-6"}) => <IconBase className={className}><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></IconBase>;
+        const Search = ({className = "w-6 h-6"}) => <IconBase className={className}><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></IconBase>;
+        const Menu = ({className = "w-6 h-6"}) => <IconBase className={className}><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></IconBase>;
+        const X = ({className = "w-6 h-6"}) => <IconBase className={className}><path d="M18 6 6 18"/><path d="m6 6 12 12"/></IconBase>;
+        const ChevronRight = ({className = "w-6 h-6"}) => <IconBase className={className}><path d="m9 18 6-6-6-6"/></IconBase>;
+        const ChevronLeft = ({className = "w-6 h-6"}) => <IconBase className={className}><path d="m15 18-6-6 6-6"/></IconBase>;
+        const ArrowRight = ({className = "w-6 h-6"}) => <IconBase className={className}><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></IconBase>;
+        const ArrowUp = ({className = "w-6 h-6"}) => <IconBase className={className}><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></IconBase>;
+        const Truck = ({className = "w-6 h-6"}) => <IconBase className={className}><path d="M10 17h4V5H2v12h3"/><path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5"/><path d="M14 17h1"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></IconBase>;
+        const Shield = ({className = "w-6 h-6"}) => <IconBase className={className}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></IconBase>;
+        const CreditCard = ({className = "w-6 h-6"}) => <IconBase className={className}><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></IconBase>;
+        const Lock = ({className = "w-6 h-6"}) => <IconBase className={className}><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></IconBase>;
+        const CheckCircle = ({className = "w-6 h-6"}) => <IconBase className={className}><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></IconBase>;
+        const User = ({className = "w-6 h-6"}) => <IconBase className={className}><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></IconBase>;
+        const Star = ({className = "w-6 h-6"}) => <IconBase className={className}><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></IconBase>;
+        const Minus = ({className = "w-6 h-6"}) => <IconBase className={className}><path d="M5 12h14"/></IconBase>;
+        const Plus = ({className = "w-6 h-6"}) => <IconBase className={className}><path d="M5 12h14"/><path d="M12 5v14"/></IconBase>;
+        const Eye = ({className = "w-6 h-6"}) => <IconBase className={className}><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></IconBase>;
+        const Instagram = ({className = "w-6 h-6"}) => <IconBase className={className}><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></IconBase>;
+        const Mail = ({className = "w-6 h-6"}) => <IconBase className={className}><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></IconBase>;
+        const Phone = ({className = "w-6 h-6"}) => <IconBase className={className}><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></IconBase>;
+        const Sparkles = ({className = "w-6 h-6"}) => <IconBase className={className}><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></IconBase>;
+        const Tag = ({className = "w-6 h-6"}) => <IconBase className={className}><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/></IconBase>;
+        const Package = ({className = "w-6 h-6"}) => <IconBase className={className}><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></IconBase>;
+        const Gift = ({className = "w-6 h-6"}) => <IconBase className={className}><polyline points="20 12 20 22 4 22 4 12"/><rect width="20" height="5" x="2" y="7"/><line x1="12" x2="12" y1="22" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></IconBase>;
 
-        // --- THEME CONFIGURATION ---
+        // ============================================================
+        // THEME CONFIGURATION
+        // ============================================================
         const THEME = {
             colors: {
-                bg: '#F9F8F6', 
+                bg: '#FAF9F7', 
+                bgAlt: '#F5F3EF',
                 text: '#0A0A0A', 
+                textLight: '#6B6B6B',
                 accent: '#C5A059', 
-                border: '#EAE6DF'
+                accentDark: '#A8863F',
+                border: '#EAE6DF',
+                borderLight: '#F0EDE8',
+                error: '#C0392B',
+                success: '#27AE60'
             }
         };
 
@@ -71,132 +98,205 @@
             return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(price);
         };
 
-        // --- DATA PRODUK REALISTIS TERINTEGRASI ---
+        // ============================================================
+        // LOCAL STORAGE HELPERS
+        // ============================================================
+        const storage = {
+            get: (key, defaultValue) => {
+                try {
+                    const item = localStorage.getItem(key);
+                    return item ? JSON.parse(item) : defaultValue;
+                } catch { return defaultValue; }
+            },
+            set: (key, value) => {
+                try { localStorage.setItem(key, JSON.stringify(value)); } catch {}
+            }
+        };
+
+        // ============================================================
+        // PRODUCT DATA (Enhanced)
+        // ============================================================
+        const PRODUCTS_DATA = [
+            { 
+                id: 1, name: "Lavender Power Suit", price: 115000000, originalPrice: 135000000, category: "Complete Look", color: "Lavender & Putih", isNew: true, rating: 4.9, reviews: 24,
+                images: [
+                    "https://i.ibb.co.com/BVPRZkwv/7f5465d0143fe8187c3e53ec0ad8c58d.jpg",
+                    "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=800&auto=format&fit=crop",
+                    "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?q=80&w=800&auto=format&fit=crop"
+                ],
+                desc: "Interpretasi modern dari power dressing. Setelan palazzo vest lavender dipadukan sempurna dengan kemeja slim-fit dan keanggunan tas ikonik Lady Dior ungu. Tampilan berwibawa untuk wanita eksekutif masa kini yang memahami bahwa kehadiran adalah segalanya.",
+                details: ["Material: Premium Italian Wool Blend", "Lining: 100% Silk Charmeuse", "Tas: Dior Lady Dior Purple Cannage Lambskin", "Perawatan: Dry Clean Only", "Dibuat di: Atelier Milano"],
+                items: [
+                    { name: "Lavender Vest Suit Set (Palazzo + Vest)", priceUSD: "~$150" },
+                    { name: "White Button-Down Shirt (Slim-fit)", priceUSD: "~$60" },
+                    { name: "Dior Lady Dior Bag (Purple Cannage)", priceUSD: "$6,800" },
+                    { name: "Purple Patent Stiletto Heels", priceUSD: "~$200" }
+                ]
+            },
+            { 
+                id: 2, name: "Blue Stripe Corporate Chic", price: 94500000, category: "Complete Look", color: "Biru Stripe & Hitam", isBest: true, rating: 4.8, reviews: 31,
+                images: [
+                    "https://i.ibb.co.com/1JtSYxth/0019b1418ef245b469e470879a56a25c.jpg",
+                    "https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?q=80&w=800&auto=format&fit=crop",
+                    "https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=800&auto=format&fit=crop"
+                ],
+                desc: "Keseimbangan sempurna antara gaya korporat dan sentuhan desainer tinggi. Kemeja silk-like yang mengalir dipasangkan dengan celana wide-leg yang tajam, disempurnakan oleh mahakarya Miu Miu Wander Hobo yang menjadi pernyataan status.",
+                details: ["Material: Silk-like Crepe de Chine", "Celana: Italian Wool Wide-Leg", "Tas: Miu Miu Wander Hobo Black Matelassé", "Sepatu: YSL Opyum Patent Leather", "Perawatan: Dry Clean Only"],
+                items: [
+                    { name: "Blue Striped Oversized Shirt (Silk-like)", priceUSD: "~$600" },
+                    { name: "Black Wide-Leg Trousers", priceUSD: "~$300" },
+                    { name: "Miu Miu Wander Hobo Bag (Black Matelassé)", priceUSD: "$3,125" },
+                    { name: "YSL Opyum Sandals (Black Patent)", priceUSD: "$1,295" },
+                    { name: "Gold Watch & Hoop Earrings", priceUSD: "~$600" }
+                ]
+            },
+            { 
+                id: 3, name: "Soft Pink Feminine", price: 125500000, category: "Complete Look", color: "Baby Pink & Putih", rating: 4.9, reviews: 18,
+                images: [
+                    "https://i.ibb.co.com/HLscmMKQ/91eea0ec3ad618d4981e0a8f6b7bf28a.jpg",
+                    "https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=800&auto=format&fit=crop",
+                    "https://images.unsplash.com/photo-1566174053879-31528523f8ae?q=80&w=800&auto=format&fit=crop"
+                ],
+                desc: "Estetika Parisian chic yang memancarkan femininitas tanpa batas. Paduan tweed houndstooth pink-putih yang dikerjakan tangan, blouse berkerah lebar yang anggun, serta Lady Dior berwarna baby pink yang klasik dan manis — sebuah ode untuk keanggunan sejati.",
+                details: ["Material: Hand-woven French Tweed", "Blouse: 100% Mulberry Silk", "Tas: Dior Lady Dior Baby Pink Lambskin", "Sepatu: Miu Miu Crystal Pumps", "Perawatan: Specialist Clean Only"],
+                items: [
+                    { name: "Pink Houndstooth Crop Vest (Tweed)", priceUSD: "~$150" },
+                    { name: "White Puff Sleeve Blouse", priceUSD: "~$100" },
+                    { name: "White Wide-Leg Trousers", priceUSD: "~$200" },
+                    { name: "Dior Lady Dior Bag (Baby Pink Lambskin)", priceUSD: "$6,500" },
+                    { name: "Miu Miu Pink Stiletto Pumps", priceUSD: "$900" }
+                ]
+            },
+            { 
+                id: 4, name: "Black & Ivory Cape Drama", price: 43500000, category: "Complete Look", color: "Hitam & Krem", isLimited: true, rating: 4.7, reviews: 12,
+                images: [
+                    "https://i.ibb.co.com/wZp8MCVf/e91d3f01fdaafd4107434bdf8062c923.jpg",
+                    "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=800&auto=format&fit=crop",
+                    "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=800&auto=format&fit=crop"
+                ],
+                desc: "Siluet dramatis yang menangkap perhatian. Cape blazer hitam terstruktur dengan architectural lapel menutupi ivory belted wrap dress yang mengalir. Sepatu boots setinggi lutut menambah sentuhan edgy dan dominan untuk wanita yang tak gentar.",
+                details: ["Material: Structured Japanese Crepe", "Dress: Italian Silk Satin", "Tas: Off-White Leather Hobo", "Sepatu: Italian Leather Knee-High Boots", "Perawatan: Dry Clean Only"],
+                items: [
+                    { name: "Black Cape Blazer (Structured lapel)", priceUSD: "~$600" },
+                    { name: "Ivory Belted Wrap Dress (Gold buckle)", priceUSD: "~$400" },
+                    { name: "Off-White Leather Hobo Bag", priceUSD: "~$600" },
+                    { name: "Black Knee-High Leather Boots", priceUSD: "~$800" },
+                    { name: "Gold Drop Earrings & Watch", priceUSD: "~$300" }
+                ]
+            },
+            { 
+                id: 5, name: "Burgundy Elegance", price: 196500000, category: "Complete Look", color: "Burgundy & Ivory", rating: 5.0, reviews: 8,
+                images: [
+                    "https://i.ibb.co.com/qL196kNS/5d6b1e8868684d0ecf5466d0e7b757b2.jpg",
+                    "https://images.unsplash.com/photo-1551803091-e20673f15770?q=80&w=800&auto=format&fit=crop",
+                    "https://images.unsplash.com/photo-1583744946564-b52ac1c389c8?q=80&w=800&auto=format&fit=crop"
+                ],
+                desc: "Kemewahan sejati yang berbicara tanpa kata. Rok midi draping dramatis warna burgundy yang dalam, dikombinasikan blus sutra V-neck yang mengalir lembut. Bintang utama look ini adalah Chanel Classic Flap berlapis kulit burgundy quilted — sebuah investasi abadi.",
+                details: ["Material: Duchess Satin & Mulberry Silk", "Tas: Chanel Classic Flap Burgundy Caviar", "Sepatu: Italian Suede Block Heels", "Aksesori: 18K Gold Plated", "Perawatan: Specialist Care Only"],
+                items: [
+                    { name: "Ivory Silk Blouse (V-neck wrap)", priceUSD: "~$200" },
+                    { name: "Burgundy Ruffle Wrap Skirt", priceUSD: "~$180" },
+                    { name: "Chanel Classic Flap Bag (Burgundy)", priceUSD: "$11,300" },
+                    { name: "Cream Block Heel Ankle Boots", priceUSD: "~$200" },
+                    { name: "Gold Chain Earrings & Rose Gold Watch", priceUSD: "~$400" }
+                ]
+            },
+            { 
+                id: 6, name: "All Burgundy Monochrome", price: 29500000, category: "Complete Look", color: "Solid Burgundy", rating: 4.6, reviews: 15,
+                images: [
+                    "https://i.ibb.co.com/4wcJ8jK4/6ec67d9a81cb038b379c980ee2371255.jpg",
+                    "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?q=80&w=800&auto=format&fit=crop",
+                    "https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=800&auto=format&fit=crop"
+                ],
+                desc: "Penampilan monokromatik berani yang menciptakan ilusi tinggi dan siluet merampingkan. Mantel wol panjang yang dramatis dipadukan celana palazzo senada, diakhiri dengan tas kulit hitam solid yang memberikan kontras elegan.",
+                details: ["Material: Premium Merino Wool", "Celana: Wool Blend Palazzo", "Tas: Coach Teri Shoulder Black Pebble", "Sepatu: Italian Leather Ankle Boots", "Perawatan: Dry Clean Only"],
+                items: [
+                    { name: "Burgundy Long Wool Coat", priceUSD: "~$600" },
+                    { name: "Burgundy Ribbed Turtleneck", priceUSD: "~$150" },
+                    { name: "Burgundy Wide-Leg Pants", priceUSD: "~$200" },
+                    { name: "Coach Teri Shoulder Bag (Black Pebble)", priceUSD: "$398" },
+                    { name: "Gold Belt Clasps & Black Ankle Boots", priceUSD: "~$500" }
+                ]
+            },
+            { 
+                id: 7, name: "All Black Luxe Minimal", price: 177500000, category: "Complete Look", color: "Hitam Solid", isBest: true, rating: 4.9, reviews: 42,
+                images: [
+                    "https://i.ibb.co.com/NnrRPXbc/16955750f4c47812bb69e0b018a1cbc8.jpg",
+                    "https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=800&auto=format&fit=crop",
+                    "https://images.unsplash.com/photo-1550639525-c97d455acf70?q=80&w=800&auto=format&fit=crop"
+                ],
+                desc: "Adibusana minimalis untuk purist sejati. Wrap blazer hitam pahatan yang membalut tubuh secara natural, diaksentuasi oleh keanggunan tas tenun Bottega Veneta Andiamo yang menjadi simbol understated luxury dan stiletto YSL Opyum yang ikonik.",
+                details: ["Material: Japanese Crepe Sculptural", "Celana: Italian Wool Wide-Leg", "Tas: Bottega Veneta Andiamo Black Intrecciato", "Sepatu: YSL Opyum Patent Black", "Perawatan: Dry Clean Specialist"],
+                items: [
+                    { name: "Black Wrap Sculptural Blazer", priceUSD: "~$500" },
+                    { name: "Black Wide-Leg Premium Trousers", priceUSD: "~$300" },
+                    { name: "Bottega Veneta Andiamo Bag (Black)", priceUSD: "$8,400" },
+                    { name: "YSL Opyum Sandals (Black Patent)", priceUSD: "$1,295" },
+                    { name: "Gold Rectangular Watch", priceUSD: "~$600" }
+                ]
+            },
+            { 
+                id: 8, name: "Casual Blue Minimal", price: 166000000, category: "Complete Look", color: "Denim Biru & Putih", isNew: true, rating: 4.8, reviews: 27,
+                images: [
+                    "https://i.ibb.co.com/67Fhp6Ht/c74ec96456d11b0b3985dd95c2439aa5.jpg",
+                    "https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=800&auto=format&fit=crop",
+                    "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=800&auto=format&fit=crop"
+                ],
+                desc: "Kemewahan kasual untuk akhir pekan yang istimewa. Paduan kemeja loose stripe dan wide-leg jeans yang diperkaya kilau jam Cartier Panthère mewah serta detail aksesori yang dipilih dengan cermat — effortless luxury pada tingkat tertinggi.",
+                details: ["Material: Premium Cotton Stripe", "Jeans: Japanese Selvedge Denim", "Jam: Cartier Panthère Steel & 18K Gold", "Tas: Italian Leather Shoulder", "Perawatan: Machine Wash Cold"],
+                items: [
+                    { name: "Blue Stripe Oversized Shirt", priceUSD: "~$80" },
+                    { name: "Blue Wide-Leg Denim Jeans", priceUSD: "~$150" },
+                    { name: "White Leather Shoulder Bag", priceUSD: "~$300" },
+                    { name: "Cartier Panthère Watch (Steel & 18K Gold)", priceUSD: "$9,000" },
+                    { name: "Nike AF1, Crop Top, Accessories & Silk Scarf", priceUSD: "~$850" }
+                ]
+            }
+        ];
+
         const fetchProductsAPI = () => {
             return new Promise((resolve) => {
-                setTimeout(() => {
-                    resolve([
-                        { 
-                            id: 1, name: "Lavender Power Suit", price: 115000000, category: "Complete Look", color: "Lavender & Putih", isNew: true,
-                            images: ["https://i.ibb.co.com/BVPRZkwv/7f5465d0143fe8187c3e53ec0ad8c58d.jpg"],
-                            desc: "Interpretasi modern dari power dressing. Setelan palazzo vest lavender dipadukan sempurna dengan kemeja slim-fit dan keanggunan tas ikonik Lady Dior ungu. Tampilan berwibawa untuk wanita eksekutif masa kini.",
-                            items: [
-                                { name: "Lavender Vest Suit Set (Palazzo + Vest)", priceUSD: "~$150" },
-                                { name: "White Button-Down Shirt (Slim-fit)", priceUSD: "~$60" },
-                                { name: "Dior Lady Dior Bag (Purple Cannage)", priceUSD: "$6,800" },
-                                { name: "Purple Patent Stiletto Heels", priceUSD: "~$200" }
-                            ]
-                        },
-                        { 
-                            id: 2, name: "Blue Stripe Corporate Chic", price: 94500000, category: "Complete Look", color: "Biru Stripe & Hitam", isBest: true,
-                            images: ["https://i.ibb.co.com/1JtSYxth/0019b1418ef245b469e470879a56a25c.jpg"],
-                            desc: "Keseimbangan antara gaya korporat dan sentuhan desainer. Kemeja silk-like dipasangkan dengan celana wide-leg dan disempurnakan oleh mahakarya Miu Miu Wander Hobo.",
-                            items: [
-                                { name: "Blue Striped Oversized Shirt (Silk-like)", priceUSD: "~$600" },
-                                { name: "Black Wide-Leg Trousers", priceUSD: "~$300" },
-                                { name: "Miu Miu Wander Hobo Bag (Black Matelassé)", priceUSD: "$3,125" },
-                                { name: "YSL Opyum Sandals (Black Patent)", priceUSD: "$1,295" },
-                                { name: "Gold Watch & Hoop Earrings", priceUSD: "~$600" }
-                            ]
-                        },
-                        { 
-                            id: 3, name: "Soft Pink Feminine", price: 125500000, category: "Complete Look", color: "Baby Pink & Putih",
-                            images: ["https://i.ibb.co.com/HLscmMKQ/91eea0ec3ad618d4981e0a8f6b7bf28a.jpg"],
-                            desc: "Estetika Parisian chic yang feminin. Paduan tweed houndstooth pink-putih, blouse berkerah lebar, serta Lady Dior berwarna baby pink yang klasik dan manis.",
-                            items: [
-                                { name: "Pink Houndstooth Crop Vest (Tweed)", priceUSD: "~$150" },
-                                { name: "White Puff Sleeve Blouse", priceUSD: "~$100" },
-                                { name: "White Wide-Leg Trousers", priceUSD: "~$200" },
-                                { name: "Dior Lady Dior Bag (Baby Pink Lambskin)", priceUSD: "$6,500" },
-                                { name: "Miu Miu Pink Stiletto Pumps", priceUSD: "$900" }
-                            ]
-                        },
-                        { 
-                            id: 4, name: "Black & Ivory Cape Drama", price: 43500000, category: "Complete Look", color: "Hitam & Krem", isLimited: true,
-                            images: ["https://i.ibb.co.com/wZp8MCVf/e91d3f01fdaafd4107434bdf8062c923.jpg"],
-                            desc: "Siluet dramatis dengan cape blazer hitam terstruktur menutupi ivory belted wrap dress. Sepatu boots setinggi lutut menambah sentuhan edgy dan dominan.",
-                            items: [
-                                { name: "Black Cape Blazer (Structured lapel)", priceUSD: "~$600" },
-                                { name: "Ivory Belted Wrap Dress (Gold buckle)", priceUSD: "~$400" },
-                                { name: "Off-White Leather Hobo Bag", priceUSD: "~$600" },
-                                { name: "Black Knee-High Leather Boots", priceUSD: "~$800" },
-                                { name: "Gold Drop Earrings & Watch", priceUSD: "~$300" }
-                            ]
-                        },
-                        { 
-                            id: 5, name: "Burgundy Elegance", price: 196500000, category: "Complete Look", color: "Burgundy & Ivory",
-                            images: ["https://i.ibb.co.com/qL196kNS/5d6b1e8868684d0ecf5466d0e7b757b2.jpg"],
-                            desc: "Kemewahan sejati dengan rok midi draping dramatis warna burgundy, dikombinasikan blus sutra V-neck. Bintang utama look ini adalah Chanel Classic Flap berlapis kulit burgundy quilted.",
-                            items: [
-                                { name: "Ivory Silk Blouse (V-neck wrap)", priceUSD: "~$200" },
-                                { name: "Burgundy Ruffle Wrap Skirt", priceUSD: "~$180" },
-                                { name: "Chanel Classic Flap Bag (Burgundy)", priceUSD: "$11,300" },
-                                { name: "Cream Block Heel Ankle Boots", priceUSD: "~$200" },
-                                { name: "Gold Chain Earrings & Rose Gold Watch", priceUSD: "~$400" }
-                            ]
-                        },
-                        { 
-                            id: 6, name: "All Burgundy Monochrome", price: 29500000, category: "Complete Look", color: "Solid Burgundy",
-                            images: ["https://i.ibb.co.com/4wcJ8jK4/6ec67d9a81cb038b379c980ee2371255.jpg"],
-                            desc: "Penampilan monokromatik berani yang menciptakan ilusi tinggi dan siluet merampingkan. Mantel wol panjang dipadukan celana palazzo senada dengan tas kulit hitam solid.",
-                            items: [
-                                { name: "Burgundy Long Wool Coat", priceUSD: "~$600" },
-                                { name: "Burgundy Ribbed Turtleneck", priceUSD: "~$150" },
-                                { name: "Burgundy Wide-Leg Pants", priceUSD: "~$200" },
-                                { name: "Coach Teri Shoulder Bag (Black Pebble)", priceUSD: "$398" },
-                                { name: "Gold Belt Clasps & Black Ankle Boots", priceUSD: "~$500" }
-                            ]
-                        },
-                        { 
-                            id: 7, name: "All Black Luxe Minimal", price: 177500000, category: "Complete Look", color: "Hitam Solid", isBest: true,
-                            images: ["https://i.ibb.co.com/NnrRPXbc/16955750f4c47812bb69e0b018a1cbc8.jpg"],
-                            desc: "Adibusana minimalis. Wrap blazer hitam pahatan membalut tubuh secara natural, diaksentuasi keanggunan tas tenun Bottega Veneta Andiamo dan stiletto YSL Opyum.",
-                            items: [
-                                { name: "Black Wrap Sculptural Blazer", priceUSD: "~$500" },
-                                { name: "Black Wide-Leg Premium Trousers", priceUSD: "~$300" },
-                                { name: "Bottega Veneta Andiamo Bag (Black)", priceUSD: "$8,400" },
-                                { name: "YSL Opyum Sandals (Black Patent)", priceUSD: "$1,295" },
-                                { name: "Gold Rectangular Watch", priceUSD: "~$600" }
-                            ]
-                        },
-                        { 
-                            id: 8, name: "Casual Blue Minimal", price: 166000000, category: "Complete Look", color: "Denim Biru & Putih",
-                            images: ["https://i.ibb.co.com/67Fhp6Ht/c74ec96456d11b0b3985dd95c2439aa5.jpg"],
-                            desc: "Kemewahan kasual akhir pekan. Paduan kemeja loose stripe dan wide-leg jeans yang diperkaya kilau jam Cartier Panthère mewah serta kalung perak.",
-                            items: [
-                                { name: "Blue Stripe Oversized Shirt", priceUSD: "~$80" },
-                                { name: "Blue Wide-Leg Denim Jeans", priceUSD: "~$150" },
-                                { name: "White Leather Shoulder Bag", priceUSD: "~$300" },
-                                { name: "Cartier Panthère Watch (Steel & 18K Gold)", priceUSD: "$9,000" },
-                                { name: "Nike AF1, Crop Top, Accessories & Silk Scarf", priceUSD: "~$850" }
-                            ]
-                        }
-                    ]);
-                }, 1000); 
+                setTimeout(() => resolve(PRODUCTS_DATA), 600); 
             });
         };
 
-        // --- GLOBAL STYLES ---
+        // ============================================================
+        // GLOBAL STYLES
+        // ============================================================
         const GlobalStyles = () => (
             <style>{`
                 :root {
-                    --font-serif: 'Cormorant Garamond', serif; 
-                    --font-sans: 'Montserrat', sans-serif; 
+                    --font-serif: 'Cormorant Garamond', Georgia, serif; 
+                    --font-sans: 'Montserrat', -apple-system, sans-serif; 
                 }
+                * { box-sizing: border-box; }
                 body {
                     font-family: var(--font-sans);
                     background-color: ${THEME.colors.bg};
                     color: ${THEME.colors.text};
                     overflow-x: hidden;
                     -webkit-font-smoothing: antialiased;
+                    -moz-osx-font-smoothing: grayscale;
                 }
-                h1, h2, h3, h4, .font-serif { font-family: var(--font-serif); }
+                h1, h2, h3, h4, h5, .font-serif { font-family: var(--font-serif); }
                 
                 @keyframes fadeUp {
-                    from { opacity: 0; transform: translateY(20px); }
+                    from { opacity: 0; transform: translateY(30px); }
                     to { opacity: 1; transform: translateY(0); }
                 }
-                .animate-fade-up { animation: fadeUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+                .animate-fade-up { animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+                
+                @keyframes fadeIn {
+                    from { opacity: 0; }
+                    to { opacity: 1; }
+                }
+                .animate-fade-in { animation: fadeIn 0.6s ease forwards; }
+                
+                @keyframes slideUp {
+                    from { opacity: 0; transform: translateY(100%); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+                .animate-slide-up { animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
                 
                 @keyframes pulse-elegant {
                     0%, 100% { opacity: 1; }
@@ -205,74 +305,228 @@
                 .animate-pulse-elegant { animation: pulse-elegant 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
 
                 @keyframes toast-slide {
-                    0% { transform: translate(-50%, 100%); opacity: 0; }
-                    10%, 90% { transform: translate(-50%, 0); opacity: 1; }
-                    100% { transform: translate(-50%, 100%); opacity: 0; }
+                    0% { transform: translate(-50%, 120%); opacity: 0; }
+                    10%, 85% { transform: translate(-50%, 0); opacity: 1; }
+                    100% { transform: translate(-50%, 120%); opacity: 0; }
                 }
                 .animate-toast { animation: toast-slide 3.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
-                ::-webkit-scrollbar { width: 4px; }
+                @keyframes shimmer {
+                    0% { background-position: -200% 0; }
+                    100% { background-position: 200% 0; }
+                }
+                .animate-shimmer {
+                    background: linear-gradient(90deg, #EAE6DF 25%, #F5F3EF 50%, #EAE6DF 75%);
+                    background-size: 200% 100%;
+                    animation: shimmer 1.5s infinite;
+                }
+
+                @keyframes float {
+                    0%, 100% { transform: translateY(0); }
+                    50% { transform: translateY(-5px); }
+                }
+                .animate-float { animation: float 3s ease-in-out infinite; }
+
+                @keyframes kenBurns {
+                    0% { transform: scale(1); }
+                    100% { transform: scale(1.1); }
+                }
+                .animate-ken-burns { animation: kenBurns 20s ease-in-out infinite alternate; }
+
+                /* Custom Scrollbar */
+                ::-webkit-scrollbar { width: 5px; }
                 ::-webkit-scrollbar-track { background: ${THEME.colors.bg}; }
-                ::-webkit-scrollbar-thumb { background: #D0C9C0; }
+                ::-webkit-scrollbar-thumb { background: #D0C9C0; border-radius: 10px; }
                 ::-webkit-scrollbar-thumb:hover { background: ${THEME.colors.accent}; }
 
                 .link-hover { position: relative; padding-bottom: 2px; }
                 .link-hover::after {
                     content: ''; position: absolute; width: 100%; height: 1px;
                     bottom: 0; left: 0; background-color: currentColor;
-                    transform: scaleX(0); transform-origin: right; transition: transform 0.5s ease;
+                    transform: scaleX(0); transform-origin: right; transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
                 }
                 .link-hover:hover::after { transform: scaleX(1); transform-origin: left; }
                 
-                .image-zoom-hover img { transition: transform 2s cubic-bezier(0.16, 1, 0.3, 1); }
+                .image-zoom-hover img { transition: transform 1.8s cubic-bezier(0.16, 1, 0.3, 1); }
                 .image-zoom-hover:hover img { transform: scale(1.06); }
+
+                .image-zoom-hover .second-image { 
+                    opacity: 0; 
+                    transition: opacity 0.8s ease; 
+                }
+                .image-zoom-hover:hover .second-image { opacity: 1; }
+
+                /* Form Styling */
+                .luxury-input {
+                    background: transparent;
+                    border: 1px solid ${THEME.colors.border};
+                    padding: 0.875rem 1rem;
+                    font-size: 0.8rem;
+                    font-family: var(--font-sans);
+                    transition: all 0.3s ease;
+                    width: 100%;
+                    outline: none;
+                    letter-spacing: 0.02em;
+                }
+                .luxury-input:focus {
+                    border-color: ${THEME.colors.text};
+                    box-shadow: 0 0 0 1px ${THEME.colors.text};
+                }
+                .luxury-input.error {
+                    border-color: ${THEME.colors.error};
+                    box-shadow: 0 0 0 1px ${THEME.colors.error};
+                }
+                .luxury-input::placeholder {
+                    color: #B0ADA8;
+                    font-weight: 300;
+                }
+
+                .luxury-select {
+                    appearance: none;
+                    background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B6B6B' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 1rem center;
+                    border: 1px solid ${THEME.colors.border};
+                    padding: 0.875rem 2.5rem 0.875rem 1rem;
+                    font-size: 0.8rem;
+                    font-family: var(--font-sans);
+                    transition: all 0.3s ease;
+                    width: 100%;
+                    outline: none;
+                    cursor: pointer;
+                }
+                .luxury-select:focus {
+                    border-color: ${THEME.colors.text};
+                }
+
+                /* Glassmorphism */
+                .glass {
+                    background: rgba(255, 255, 255, 0.85);
+                    backdrop-filter: blur(20px);
+                    -webkit-backdrop-filter: blur(20px);
+                }
+                .glass-dark {
+                    background: rgba(10, 10, 10, 0.8);
+                    backdrop-filter: blur(20px);
+                    -webkit-backdrop-filter: blur(20px);
+                }
+
+                /* Text Gradient */
+                .text-gradient {
+                    background: linear-gradient(135deg, ${THEME.colors.accent} 0%, ${THEME.colors.accentDark} 100%);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    background-clip: text;
+                }
+
+                /* Luxury Button */
+                .btn-luxury {
+                    position: relative;
+                    overflow: hidden;
+                    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                }
+                .btn-luxury::before {
+                    content: '';
+                    position: absolute;
+                    top: 0; left: -100%; width: 100%; height: 100%;
+                    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+                    transition: left 0.6s;
+                }
+                .btn-luxury:hover::before { left: 100%; }
+
+                /* Hide scrollbar for horizontal scroll */
+                .no-scrollbar::-webkit-scrollbar { display: none; }
+                .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+                /* Credit Card 3D */
+                .card-3d {
+                    transform-style: preserve-3d;
+                    transition: transform 0.6s;
+                }
+                .card-3d:hover {
+                    transform: rotateY(5deg) rotateX(5deg);
+                }
+
+                /* Marquee */
+                @keyframes marquee {
+                    0% { transform: translateX(0); }
+                    100% { transform: translateX(-50%); }
+                }
+                .animate-marquee {
+                    animation: marquee 30s linear infinite;
+                }
             `}</style>
         );
 
-        // --- LUXURY IMAGE FALLBACK ---
-        const LuxuryImage = ({ src, alt, className }) => {
+        // ============================================================
+        // COMPONENTS
+        // ============================================================
+        const LuxuryImage = ({ src, alt, className, aspect = "3/4" }) => {
             const [isLoaded, setIsLoaded] = useState(false);
             const [hasError, setHasError] = useState(false);
-            
             const fallbackSrc = "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=800&auto=format&fit=crop";
 
             return (
-                <div className={`relative overflow-hidden bg-[#F0EBE1] ${className}`}>
+                <div className={`relative overflow-hidden bg-[#F0EBE1] ${className}`} style={{ aspectRatio: aspect }}>
                     {!isLoaded && !hasError && (
-                        <div className="absolute inset-0 animate-pulse-elegant bg-[#EAE6DF]"></div>
+                        <div className="absolute inset-0 animate-shimmer"></div>
                     )}
                     <img 
                         src={hasError ? fallbackSrc : src} 
-                        alt={alt}
+                        alt={alt || "Luxury fashion item"}
                         onLoad={() => setIsLoaded(true)}
                         onError={() => setHasError(true)}
-                        className={`w-full h-full object-cover transition-opacity duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+                        className={`w-full h-full object-cover transition-all duration-1000 ${isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-105'}`}
                         loading="lazy"
                     />
                 </div>
             );
         };
 
-        // --- TOAST COMPONENT ---
-        const Toast = ({ message }) => (
-            <div className="fixed bottom-8 left-1/2 z-50 animate-toast pointer-events-none">
-                <div className="bg-[#0A0A0A] text-white px-8 py-4 flex items-center gap-3 shadow-xl border border-white/10">
-                    <span className="text-[10px] uppercase tracking-[0.2em] font-medium">{message}</span>
+        const Toast = ({ message, type = 'success' }) => (
+            <div className="fixed bottom-8 left-1/2 z-[100] animate-toast pointer-events-none">
+                <div className={`px-8 py-4 flex items-center gap-3 shadow-2xl border ${type === 'success' ? 'bg-[#0A0A0A] border-white/10 text-white' : 'bg-white border-[#EAE6DF] text-[#0A0A0A]'}`}>
+                    {type === 'success' ? <CheckCircle className="w-4 h-4 text-[#C5A059]" /> : <Shield className="w-4 h-4 text-[#C5A059]" />}
+                    <span className="text-[10px] uppercase tracking-[0.2em] font-medium whitespace-nowrap">{message}</span>
                 </div>
             </div>
         );
 
-        // --- MAIN APP ---
+        const LoadingScreen = () => (
+            <div className="h-screen w-full flex flex-col items-center justify-center bg-[#FAF9F7]">
+                <div className="relative">
+                    <h1 className="text-3xl md:text-4xl font-serif tracking-[0.4em] text-[#0A0A0A] mb-2 uppercase animate-pulse-elegant">MEGA LUXURY</h1>
+                    <p className="text-[8px] uppercase tracking-[0.5em] text-center text-[#888] font-light">Atelier by Mega Apriliani</p>
+                </div>
+                <div className="w-32 h-[1px] bg-[#EAE6DF] mt-8 overflow-hidden relative">
+                    <div className="absolute top-0 left-0 h-full w-1/2 bg-[#C5A059] animate-[shimmer_1.5s_infinite]" style={{animation: 'shimmer 1s infinite'}}></div>
+                </div>
+            </div>
+        );
+
+        const Skeleton = ({ className }) => (
+            <div className={`animate-shimmer rounded ${className}`}></div>
+        );
+
+        // ============================================================
+        // MAIN APP
+        // ============================================================
         function App() {
             const [currentView, setCurrentView] = useState('home'); 
             const [products, setProducts] = useState([]);
             const [isLoading, setIsLoading] = useState(true);
             const [selectedProduct, setSelectedProduct] = useState(null);
-            const [cart, setCart] = useState([]);
-            const [wishlist, setWishlist] = useState([]);
+            const [cart, setCart] = useState(() => storage.get('mega_cart', []));
+            const [wishlist, setWishlist] = useState(() => storage.get('mega_wishlist', []));
             const [isCartOpen, setIsCartOpen] = useState(false);
             const [toast, setToast] = useState(null);
+            const [isSearchOpen, setIsSearchOpen] = useState(false);
+            const [showBackToTop, setShowBackToTop] = useState(false);
+            const [newsletter, setNewsletter] = useState(false);
 
+            // Persist cart & wishlist
+            useEffect(() => { storage.set('mega_cart', cart); }, [cart]);
+            useEffect(() => { storage.set('mega_wishlist', wishlist); }, [wishlist]);
+
+            // Load products
             useEffect(() => {
                 const loadData = async () => {
                     setIsLoading(true);
@@ -280,12 +534,19 @@
                         const data = await fetchProductsAPI();
                         setProducts(data);
                     } catch (error) {
-                        console.error("Gagal memuat data produk", error);
+                        console.error("Error loading products", error);
                     } finally {
                         setIsLoading(false);
                     }
                 };
                 loadData();
+            }, []);
+
+            // Scroll listener
+            useEffect(() => {
+                const handleScroll = () => setShowBackToTop(window.scrollY > 600);
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
             }, []);
 
             const navigate = (view, data = null) => {
@@ -294,12 +555,12 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             };
 
-            const showToast = (message) => {
-                setToast(message);
+            const showToast = (message, type = 'success') => {
+                setToast({ message, type });
                 setTimeout(() => setToast(null), 3500);
             };
 
-            const addToCart = (product, qty = 1, size = 'Lengkap') => {
+            const addToCart = (product, qty = 1, size = 'S/M (Standard)') => {
                 setCart(prev => {
                     const existing = prev.find(item => item.id === product.id && item.size === size);
                     if (existing) {
@@ -308,51 +569,49 @@
                     return [...prev, { ...product, qty, size }];
                 });
                 setIsCartOpen(true);
+                showToast("Ditambahkan ke tas belanja");
             };
 
             const toggleWishlist = (product) => {
                 setWishlist(prev => {
                     const exists = prev.find(item => item.id === product.id);
                     if (exists) {
-                        showToast("Dihapus dari daftar simpanan");
+                        showToast("Dihapus dari wishlist");
                         return prev.filter(item => item.id !== product.id);
                     }
-                    showToast("Ditambahkan ke koleksi wishlist Anda");
+                    showToast("Ditambahkan ke wishlist eksklusif");
                     return [...prev, product];
                 });
             };
 
-            if (isLoading) {
-                return (
-                    <div className="h-screen w-full flex flex-col items-center justify-center bg-[#F9F8F6]">
-                        <h1 className="text-3xl font-serif tracking-[0.3em] text-[#0A0A0A] mb-4 animate-pulse-elegant uppercase">MEGA LUXURY</h1>
-                        <div className="w-24 h-[1px] bg-[#C5A059] overflow-hidden relative">
-                            <div className="absolute top-0 left-0 h-full w-full bg-[#0A0A0A] animate-[translate_1.5s_infinite]"></div>
-                        </div>
-                    </div>
-                );
-            }
+            if (isLoading) return <LoadingScreen />;
+
+            const cartCount = cart.reduce((acc, item) => acc + item.qty, 0);
 
             return (
-                <div className="relative min-h-screen flex flex-col text-[#0A0A0A] selection:bg-[#C5A059] selection:text-white bg-[#F9F8F6]">
+                <div className="relative min-h-screen flex flex-col text-[#0A0A0A] selection:bg-[#C5A059] selection:text-white bg-[#FAF9F7]">
                     <GlobalStyles />
                     
-                    <Navbar 
-                        cartCount={cart.reduce((acc, item) => acc + item.qty, 0)} 
-                        wishlistCount={wishlist.length}
-                        onOpenCart={() => setIsCartOpen(true)}
-                        onNavigate={navigate}
-                        currentView={currentView}
-                    />
+                    {currentView !== 'checkout' && (
+                        <Navbar 
+                            cartCount={cartCount} 
+                            wishlistCount={wishlist.length}
+                            onOpenCart={() => setIsCartOpen(true)}
+                            onOpenSearch={() => setIsSearchOpen(true)}
+                            onNavigate={navigate}
+                            currentView={currentView}
+                        />
+                    )}
 
                     <main className="flex-grow">
-                        {currentView === 'home' && <HomeView products={products} onNavigate={navigate} onToggleWishlist={toggleWishlist} wishlist={wishlist} />}
+                        {currentView === 'home' && <HomeView products={products} onNavigate={navigate} onToggleWishlist={toggleWishlist} wishlist={wishlist} newsletter={newsletter} setNewsletter={setNewsletter} />}
                         {currentView === 'shop' && <ShopView products={products} onNavigate={navigate} onToggleWishlist={toggleWishlist} wishlist={wishlist} />}
-                        {currentView === 'product' && <ProductDetailView product={selectedProduct} onAddToCart={addToCart} onNavigate={navigate} />}
-                        {currentView === 'checkout' && <CheckoutView cart={cart} setCart={setCart} onNavigate={navigate} />}
+                        {currentView === 'product' && <ProductDetailView product={selectedProduct} products={products} onAddToCart={addToCart} onNavigate={navigate} onToggleWishlist={toggleWishlist} wishlist={wishlist} />}
+                        {currentView === 'wishlist' && <WishlistView wishlist={wishlist} onNavigate={navigate} onToggleWishlist={toggleWishlist} onAddToCart={addToCart} />}
+                        {currentView === 'checkout' && <CheckoutFlow cart={cart} setCart={setCart} onNavigate={navigate} showToast={showToast} />}
                     </main>
 
-                    {currentView !== 'checkout' && <Footer />}
+                    {currentView !== 'checkout' && <Footer onNavigate={navigate} />}
 
                     <CartDrawer 
                         isOpen={isCartOpen} 
@@ -361,15 +620,35 @@
                         setCart={setCart}
                         onCheckout={() => { setIsCartOpen(false); navigate('checkout'); }}
                     />
+
+                    <SearchOverlay 
+                        isOpen={isSearchOpen} 
+                        onClose={() => setIsSearchOpen(false)} 
+                        products={products} 
+                        onNavigate={navigate} 
+                    />
+
+                    {showBackToTop && (
+                        <button 
+                            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                            className="fixed bottom-8 right-8 z-40 w-12 h-12 bg-[#0A0A0A] text-white flex items-center justify-center shadow-lg hover:bg-[#C5A059] transition-all duration-300 animate-fade-in group"
+                        >
+                            <ArrowUp className="w-5 h-5 group-hover:-translate-y-1 transition-transform" />
+                        </button>
+                    )}
                     
-                    {toast && <Toast message={toast} />}
+                    {toast && <Toast message={toast.message} type={toast.type} />}
                 </div>
             );
         }
 
-        const Navbar = ({ cartCount, wishlistCount, onOpenCart, onNavigate, currentView }) => {
+        // ============================================================
+        // NAVBAR
+        // ============================================================
+        const Navbar = ({ cartCount, wishlistCount, onOpenCart, onOpenSearch, onNavigate, currentView }) => {
             const [scrolled, setScrolled] = useState(false);
             const [mobileMenu, setMobileMenu] = useState(false);
+            const [announcementVisible, setAnnouncementVisible] = useState(true);
 
             useEffect(() => {
                 const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -381,165 +660,450 @@
 
             return (
                 <React.Fragment>
-                <header className={`fixed top-0 w-full z-40 transition-all duration-700 ${isSolid ? 'bg-[#F9F8F6]/90 backdrop-blur-md border-b border-[#EAE6DF] py-4' : 'bg-transparent py-8'}`}>
-                    <div className="max-w-[1440px] mx-auto px-6 lg:px-12 flex justify-between items-center">
-                    
-                        <button className={`md:hidden ${isSolid ? 'text-[#0A0A0A]' : 'text-white drop-shadow-md'}`} onClick={() => setMobileMenu(true)}>
-                            <Menu className="w-6 h-6 stroke-[1]" />
-                        </button>
+                    {/* Announcement Bar */}
+                    {announcementVisible && (
+                        <div className="bg-[#0A0A0A] text-white py-2.5 text-center relative z-[45]">
+                            <p className="text-[9px] uppercase tracking-[0.3em] font-light">
+                                <Sparkles className="w-3 h-3 inline mr-2 text-[#C5A059]" />
+                                Complimentary VIP Shipping Untuk Seluruh Indonesia
+                                <Sparkles className="w-3 h-3 inline ml-2 text-[#C5A059]" />
+                            </p>
+                            <button onClick={() => setAnnouncementVisible(false)} className="absolute right-4 top-1/2 -translate-y-1/2 text-white/60 hover:text-white">
+                                <X className="w-3 h-3" />
+                            </button>
+                        </div>
+                    )}
 
-                        <nav className={`hidden md:flex space-x-10 text-[10px] tracking-[0.25em] uppercase font-medium ${isSolid ? 'text-[#0A0A0A]' : 'text-white drop-shadow-md'}`}>
-                            <button onClick={() => onNavigate('shop')} className="link-hover">Koleksi</button>
-                            <button onClick={() => onNavigate('shop')} className="link-hover">Atelier</button>
+                    <header className={`fixed top-0 w-full z-40 transition-all duration-700 ${announcementVisible ? 'top-[36px]' : 'top-0'} ${isSolid ? 'glass border-b border-[#EAE6DF]/50 py-3' : 'bg-transparent py-6'}`}>
+                        <div className="max-w-[1440px] mx-auto px-6 lg:px-12 flex justify-between items-center">
+                            <button className={`md:hidden transition-colors ${isSolid ? 'text-[#0A0A0A]' : 'text-white'}`} onClick={() => setMobileMenu(true)}>
+                                <Menu className="w-5 h-5 stroke-[1.5]" />
+                            </button>
+
+                            <nav className={`hidden md:flex space-x-8 text-[10px] tracking-[0.2em] uppercase font-medium ${isSolid ? 'text-[#0A0A0A]' : 'text-white'}`}>
+                                <button onClick={() => onNavigate('shop')} className="link-hover hover:text-[#C5A059] transition-colors">Koleksi</button>
+                                <button onClick={() => onNavigate('shop')} className="link-hover hover:text-[#C5A059] transition-colors">Atelier</button>
+                                <button onClick={() => onNavigate('shop')} className="link-hover hover:text-[#C5A059] transition-colors">Jurnal</button>
+                            </nav>
+
+                            <div 
+                                className={`absolute left-1/2 transform -translate-x-1/2 text-center cursor-pointer transition-all duration-700 ${isSolid ? 'text-[#0A0A0A]' : 'text-white'}`}
+                                onClick={() => onNavigate('home')}
+                            >
+                                <h1 className="text-xl lg:text-2xl font-serif tracking-[0.3em] uppercase leading-none font-medium">MEGA LUXURY</h1>
+                                <p className={`text-[7px] uppercase tracking-[0.4em] mt-1 font-light transition-colors ${isSolid ? 'text-[#888]' : 'text-white/70'}`}>Atelier</p>
+                            </div>
+
+                            <div className={`flex items-center space-x-5 ${isSolid ? 'text-[#0A0A0A]' : 'text-white'}`}>
+                                <button onClick={onOpenSearch} className="hover:text-[#C5A059] transition-colors hidden sm:block"><Search className="w-4 h-4" /></button>
+                                <button onClick={() => onNavigate('wishlist')} className="relative hover:text-[#C5A059] transition-colors hidden sm:block">
+                                    <Heart className="w-4 h-4" />
+                                    {wishlistCount > 0 && <span className="absolute -top-1.5 -right-1.5 bg-[#C5A059] text-white text-[7px] font-bold w-3.5 h-3.5 flex items-center justify-center rounded-full">{wishlistCount}</span>}
+                                </button>
+                                <button className="relative hover:text-[#C5A059] transition-colors" onClick={onOpenCart}>
+                                    <ShoppingBag className="w-4 h-4" />
+                                    {cartCount > 0 && <span className="absolute -top-1.5 -right-1.5 bg-[#C5A059] text-white text-[7px] font-bold w-3.5 h-3.5 flex items-center justify-center rounded-full">{cartCount}</span>}
+                                </button>
+                            </div>
+                        </div>
+                    </header>
+
+                    {/* Mobile Menu */}
+                    <div className={`fixed inset-0 z-50 bg-[#FAF9F7] text-[#0A0A0A] flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${mobileMenu ? 'translate-x-0' : '-translate-x-full'}`}>
+                        <div className="p-8 flex justify-between items-center border-b border-[#EAE6DF]">
+                            <span className="font-serif text-xl uppercase tracking-[0.2em]">Menu</span>
+                            <button onClick={() => setMobileMenu(false)}><X className="w-5 h-5" /></button>
+                        </div>
+                        <nav className="flex flex-col p-8 space-y-6">
+                            <button onClick={() => { setMobileMenu(false); onNavigate('home'); }} className="text-2xl font-serif text-left font-light hover:text-[#C5A059] transition-colors">Beranda</button>
+                            <button onClick={() => { setMobileMenu(false); onNavigate('shop'); }} className="text-2xl font-serif text-left font-light hover:text-[#C5A059] transition-colors">Semua Koleksi</button>
+                            <button onClick={() => { setMobileMenu(false); onNavigate('wishlist'); }} className="text-2xl font-serif text-left font-light hover:text-[#C5A059] transition-colors">Wishlist</button>
+                            
+                            <div className="pt-8 mt-8 border-t border-[#EAE6DF] space-y-4">
+                                <p className="text-[9px] uppercase tracking-[0.2em] text-[#888] font-medium">Hubungi Kami</p>
+                                <div className="flex items-center gap-3 text-sm text-[#555]">
+                                    <Phone className="w-4 h-4 text-[#C5A059]" />
+                                    <span>+62 812 8888 0088</span>
+                                </div>
+                                <div className="flex items-center gap-3 text-sm text-[#555]">
+                                    <Mail className="w-4 h-4 text-[#C5A059]" />
+                                    <span>concierge@megaluxury.id</span>
+                                </div>
+                            </div>
                         </nav>
-
-                        <div 
-                            className={`absolute left-1/2 transform -translate-x-1/2 text-center cursor-pointer transition-colors duration-700 ${isSolid ? 'text-[#0A0A0A]' : 'text-white drop-shadow-md'}`}
-                            onClick={() => onNavigate('home')}
-                        >
-                            <h1 className="text-2xl lg:text-3xl font-serif tracking-[0.25em] uppercase leading-none">MEGA LUXURY</h1>
-                        </div>
-
-                        <div className={`flex items-center space-x-6 ${isSolid ? 'text-[#0A0A0A]' : 'text-white drop-shadow-md'}`}>
-                            <button className="hidden sm:block hover:text-[#C5A059] transition-colors"><Search className="w-5 h-5" /></button>
-                            <button className="relative hover:text-[#C5A059] transition-colors hidden sm:block">
-                                <Heart className="w-5 h-5" />
-                                {wishlistCount > 0 && <span className="absolute -top-1 -right-1 bg-[#C5A059] text-white text-[8px] font-medium w-3.5 h-3.5 flex items-center justify-center rounded-full">{wishlistCount}</span>}
-                            </button>
-                            <button className="relative hover:text-[#C5A059] transition-colors" onClick={onOpenCart}>
-                                <ShoppingBag className="w-5 h-5" />
-                                {cartCount > 0 && <span className="absolute -top-1 -right-1 bg-[#C5A059] text-white text-[8px] font-medium w-3.5 h-3.5 flex items-center justify-center rounded-full">{cartCount}</span>}
-                            </button>
-                        </div>
                     </div>
-                </header>
-
-                <div className={`fixed inset-0 z-50 bg-[#F9F8F6] text-[#0A0A0A] flex flex-col p-8 transition-transform duration-700 ${mobileMenu ? 'translate-y-0' : '-translate-y-full'}`}>
-                    <div className="flex justify-between items-center mb-16 pb-6 border-b border-[#EAE6DF]">
-                        <span className="font-serif text-2xl uppercase tracking-[0.2em]">MEGA LUXURY</span>
-                        <button onClick={() => setMobileMenu(false)}><X className="w-6 h-6 stroke-1" /></button>
-                    </div>
-                    <nav className="flex flex-col space-y-8 text-3xl font-serif text-[#0A0A0A]">
-                        <button onClick={() => { setMobileMenu(false); onNavigate('home'); }} className="text-left font-light hover:text-[#C5A059] transition-colors">Beranda</button>
-                        <button onClick={() => { setMobileMenu(false); onNavigate('shop'); }} className="text-left font-light hover:text-[#C5A059] transition-colors">Semua Koleksi</button>
-                        <button onClick={() => { setMobileMenu(false); onNavigate('shop'); }} className="text-left font-light hover:text-[#C5A059] transition-colors">Atelier Service</button>
-                    </nav>
-                </div>
                 </React.Fragment>
             );
         };
 
-        const HeroSection = ({ onNavigate }) => {
-            return (
-                <div className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-[#0A0A0A]">
-                    <div className="absolute inset-0 w-full h-full opacity-70">
-                        <img 
-                            src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format&fit=crop" 
-                            alt="Luxury Fashion Campaign" 
-                            className="w-full h-full object-cover object-top animate-[imageReveal_2s_ease-out_forwards]"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-[#0A0A0A]/30 opacity-90" />
-                    </div>
+        // ============================================================
+        // SEARCH OVERLAY
+        // ============================================================
+        const SearchOverlay = ({ isOpen, onClose, products, onNavigate }) => {
+            const [query, setQuery] = useState('');
+            const inputRef = useRef(null);
 
-                    <div className="relative z-10 text-center px-6 flex flex-col items-center w-full mt-20 animate-fade-up">
-                        <h2 className="text-[#F9F8F6] text-[9px] md:text-[10px] tracking-[0.5em] font-medium uppercase mb-6 opacity-90">
-                            The Elite Selection 2025
-                        </h2>
-                        
-                        <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif text-white mb-10 leading-tight">
-                            Siluet <br/> <span className="italic text-[#C5A059] font-light">Eksklusivitas</span>
-                        </h1>
-                        
-                        <button 
-                            onClick={() => onNavigate('shop')}
-                            className="group flex items-center justify-center text-white pb-2 border-b border-white/50 hover:text-[#C5A059] hover:border-[#C5A059] transition-all duration-500"
-                        >
-                            <span className="text-[10px] tracking-[0.25em] uppercase font-medium">Temukan Mahakarya</span>
-                            <ArrowRight className="w-4 h-4 ml-4 group-hover:translate-x-2 transition-transform" />
-                        </button>
+            useEffect(() => {
+                if (isOpen && inputRef.current) {
+                    setTimeout(() => inputRef.current?.focus(), 300);
+                }
+                if (!isOpen) setQuery('');
+            }, [isOpen]);
+
+            const results = useMemo(() => {
+                if (!query.trim()) return [];
+                return products.filter(p => 
+                    p.name.toLowerCase().includes(query.toLowerCase()) ||
+                    p.category.toLowerCase().includes(query.toLowerCase()) ||
+                    p.color.toLowerCase().includes(query.toLowerCase())
+                );
+            }, [query, products]);
+
+            if (!isOpen) return null;
+
+            return (
+                <div className="fixed inset-0 z-[70] animate-fade-in" onClick={onClose}>
+                    <div className="absolute inset-0 bg-[#0A0A0A]/80 backdrop-blur-md"></div>
+                    <div className="relative max-w-3xl mx-auto pt-32 px-6" onClick={e => e.stopPropagation()}>
+                        <div className="flex items-center gap-4 border-b-2 border-white/20 pb-4 mb-8">
+                            <Search className="w-5 h-5 text-white/60" />
+                            <input 
+                                ref={inputRef}
+                                type="text"
+                                value={query}
+                                onChange={e => setQuery(e.target.value)}
+                                placeholder="Cari koleksi, kategori, atau warna..."
+                                className="bg-transparent text-white text-2xl md:text-3xl font-serif w-full outline-none placeholder-white/30"
+                            />
+                            <button onClick={onClose} className="text-white/60 hover:text-white"><X className="w-6 h-6" /></button>
+                        </div>
+
+                        {query && results.length === 0 && (
+                            <p className="text-white/50 text-center text-sm font-light">Tidak ada hasil untuk "{query}"</p>
+                        )}
+
+                        {results.length > 0 && (
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-[60vh] overflow-y-auto pr-2">
+                                {results.map(product => (
+                                    <div 
+                                        key={product.id} 
+                                        className="flex gap-4 p-4 bg-white/5 hover:bg-white/10 transition-colors cursor-pointer border border-white/10"
+                                        onClick={() => { onClose(); onNavigate('product', product); }}
+                                    >
+                                        <div className="w-16 h-20 flex-shrink-0">
+                                            <img src={product.images[0]} alt={product.name} className="w-full h-full object-cover" />
+                                        </div>
+                                        <div className="flex flex-col justify-center">
+                                            <h4 className="font-serif text-white text-lg">{product.name}</h4>
+                                            <p className="text-[#C5A059] text-xs mt-1">{formatIDR(product.price)}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+
+                        {!query && (
+                            <div className="text-center text-white/40">
+                                <p className="text-xs uppercase tracking-[0.3em] mb-4">Pencarian Populer</p>
+                                <div className="flex flex-wrap justify-center gap-3">
+                                    {['Chanel', 'Bottega Veneta', 'All Black', 'Burgundy', 'Complete Look'].map(tag => (
+                                        <button key={tag} onClick={() => setQuery(tag)} className="px-4 py-2 border border-white/20 text-[10px] uppercase tracking-widest text-white/70 hover:text-white hover:border-white/50 transition-colors">
+                                            {tag}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             );
         };
 
-        const ProductCard = ({ product, onNavigate, onToggleWishlist, isWishlisted }) => {
+        // ============================================================
+        // HERO SECTION
+        // ============================================================
+        const HeroSection = ({ onNavigate }) => (
+            <div className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-[#0A0A0A]">
+                <div className="absolute inset-0 w-full h-full">
+                    <img 
+                        src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format&fit=crop" 
+                        alt="Luxury Fashion Campaign" 
+                        className="w-full h-full object-cover object-top animate-ken-burns opacity-50"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A]/60 via-transparent to-[#0A0A0A]/80" />
+                </div>
+
+                <div className="relative z-10 text-center px-6 flex flex-col items-center w-full animate-fade-up">
+                    <div className="flex items-center gap-3 mb-8">
+                        <div className="w-12 h-[1px] bg-[#C5A059]"></div>
+                        <h2 className="text-[#C5A059] text-[9px] md:text-[10px] tracking-[0.5em] font-medium uppercase">
+                            Collection 2025
+                        </h2>
+                        <div className="w-12 h-[1px] bg-[#C5A059]"></div>
+                    </div>
+                    
+                    <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-serif text-white mb-6 leading-[1.1] font-light">
+                        Siluet<br/> <em className="italic text-[#C5A059] font-light">Eksklusivitas</em>
+                    </h1>
+                    
+                    <p className="text-white/60 text-sm md:text-base font-light max-w-lg mb-12 leading-relaxed">
+                        Koleksi terkurasi yang memadukan busana premium dengan aksesori desainer ikonik. Setiap set adalah pernyataan.
+                    </p>
+                    
+                    <div className="flex flex-col sm:flex-row gap-4">
+                        <button 
+                            onClick={() => onNavigate('shop')}
+                            className="group btn-luxury bg-white text-[#0A0A0A] px-10 py-4 flex items-center justify-center gap-3 hover:bg-[#C5A059] hover:text-white transition-all duration-500"
+                        >
+                            <span className="text-[10px] tracking-[0.25em] uppercase font-semibold">Temukan Koleksi</span>
+                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        </button>
+                        <button 
+                            onClick={() => onNavigate('shop')}
+                            className="group border border-white/40 text-white px-10 py-4 flex items-center justify-center gap-3 hover:bg-white hover:text-[#0A0A0A] transition-all duration-500"
+                        >
+                            <span className="text-[10px] tracking-[0.25em] uppercase font-medium">Lihat Lookbook</span>
+                        </button>
+                    </div>
+                </div>
+
+                {/* Scroll Indicator */}
+                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-float">
+                    <span className="text-white/40 text-[8px] uppercase tracking-[0.3em]">Scroll</span>
+                    <div className="w-[1px] h-8 bg-white/30 relative overflow-hidden">
+                        <div className="absolute top-0 left-0 w-full h-1/2 bg-white animate-[shimmer_2s_infinite]"></div>
+                    </div>
+                </div>
+            </div>
+        );
+
+        // ============================================================
+        // MARQUEE BRANDS
+        // ============================================================
+        const BrandsMarquee = () => (
+            <div className="py-10 border-y border-[#EAE6DF] bg-[#FAF9F7] overflow-hidden">
+                <div className="flex animate-marquee whitespace-nowrap">
+                    {[...Array(2)].map((_, setIdx) => (
+                        <div key={setIdx} className="flex items-center space-x-16 px-8">
+                            {['CHANEL', 'DIOR', 'BOTTEGA VENETA', 'MIU MIU', 'YSL', 'CARTIER', 'HERMÈS', 'PRADA', 'GUCCI', 'CELINE'].map((brand, i) => (
+                                <span key={`${setIdx}-${i}`} className="text-[11px] tracking-[0.4em] text-[#B0ADA8] font-medium uppercase">{brand}</span>
+                            ))}
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
+
+        // ============================================================
+        // PRODUCT CARD
+        // ============================================================
+        const ProductCard = ({ product, onNavigate, onToggleWishlist, isWishlisted, onAddToCart }) => {
+            const [isHovered, setIsHovered] = useState(false);
+
             return (
-                <div className="group cursor-pointer flex flex-col bg-transparent">
-                    <div className="relative aspect-[3/4] mb-5 image-zoom-hover">
+                <div 
+                    className="group cursor-pointer flex flex-col bg-transparent" 
+                    onClick={() => onNavigate('product', product)}
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                >
+                    <div className="relative aspect-[3/4] mb-5 image-zoom-hover overflow-hidden">
                         <LuxuryImage 
                             src={product.images[0]} 
                             alt={product.name} 
                             className="absolute inset-0 w-full h-full"
                         />
+                        {product.images[1] && (
+                            <div className="absolute inset-0 second-image">
+                                <LuxuryImage src={product.images[1]} alt={product.name + " alt"} className="w-full h-full" />
+                            </div>
+                        )}
                         
-                        <div className="absolute top-4 left-4 flex flex-col gap-2 z-10">
-                            {product.isNew && <span className="bg-white/90 backdrop-blur-sm text-[#0A0A0A] text-[8px] font-semibold uppercase tracking-[0.2em] px-3 py-1">Baru</span>}
-                            {product.isBest && <span className="bg-[#C5A059] text-white text-[8px] font-semibold uppercase tracking-[0.2em] px-3 py-1">Ikonik</span>}
-                            {product.isLimited && <span className="bg-[#0A0A0A] text-white text-[8px] font-semibold uppercase tracking-[0.2em] px-3 py-1">Limited</span>}
+                        <div className="absolute top-3 left-3 flex flex-col gap-2 z-10">
+                            {product.isNew && <span className="bg-[#FAF9F7] text-[#0A0A0A] text-[8px] font-semibold uppercase tracking-[0.15em] px-3 py-1.5 shadow-sm">Baru</span>}
+                            {product.isBest && <span className="bg-[#C5A059] text-white text-[8px] font-semibold uppercase tracking-[0.15em] px-3 py-1.5">Bestseller</span>}
+                            {product.isLimited && <span className="bg-[#0A0A0A] text-white text-[8px] font-semibold uppercase tracking-[0.15em] px-3 py-1.5">Limited</span>}
                         </div>
 
-                        <button 
-                            onClick={(e) => { e.stopPropagation(); onToggleWishlist(product); }}
-                            className="absolute bottom-4 right-4 p-3 bg-white/90 hover:bg-white backdrop-blur-md rounded-full text-[#0A0A0A] transition-all duration-500 z-10 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0"
-                        >
-                            <Heart className={`w-4 h-4 ${isWishlisted ? 'fill-[#C5A059] text-[#C5A059]' : ''}`} />
-                        </button>
+                        {/* Quick Actions */}
+                        <div className={`absolute bottom-3 left-3 right-3 flex items-center justify-between z-10 transition-all duration-500 ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                            <button 
+                                onClick={(e) => { e.stopPropagation(); onAddToCart(product); }}
+                                className="bg-[#0A0A0A] text-white px-4 py-2.5 text-[9px] uppercase tracking-[0.15em] font-semibold hover:bg-[#C5A059] transition-colors flex-1 mr-2"
+                            >
+                                + Tas Belanja
+                            </button>
+                            <button 
+                                onClick={(e) => { e.stopPropagation(); onToggleWishlist(product); }}
+                                className="bg-white/95 backdrop-blur-sm p-2.5 hover:bg-white transition-colors"
+                            >
+                                <Heart className={`w-4 h-4 ${isWishlisted ? 'fill-[#C5A059] text-[#C5A059]' : 'text-[#0A0A0A]'}`} />
+                            </button>
+                        </div>
                     </div>
 
-                    <div className="flex flex-col text-center px-2">
-                        <h3 className="font-serif text-xl font-medium text-[#0A0A0A] mb-1 group-hover:text-[#C5A059] transition-colors truncate">{product.name}</h3>
-                        <p className="text-[9px] uppercase tracking-[0.2em] text-[#888888] mb-3">{product.category}</p>
-                        <span className="font-sans text-sm font-medium tracking-wide text-[#0A0A0A]">{formatIDR(product.price)}</span>
+                    <div className="flex flex-col text-center px-1">
+                        <h3 className="font-serif text-lg md:text-xl font-medium text-[#0A0A0A] mb-1 group-hover:text-[#C5A059] transition-colors truncate">{product.name}</h3>
+                        <p className="text-[8px] uppercase tracking-[0.2em] text-[#888] mb-2">{product.category} • {product.color}</p>
+                        <div className="flex items-center justify-center gap-2">
+                            <span className="font-sans text-sm font-medium tracking-wide text-[#0A0A0A]">{formatIDR(product.price)}</span>
+                            {product.originalPrice && (
+                                <span className="text-xs text-[#B0ADA8] line-through">{formatIDR(product.originalPrice)}</span>
+                            )}
+                        </div>
                     </div>
                 </div>
             );
         };
 
-        const HomeView = ({ products, onNavigate, onToggleWishlist, wishlist }) => (
-            <div className="animate-fade-up bg-[#F9F8F6]">
+        // ============================================================
+        // TESTIMONIALS
+        // ============================================================
+        const Testimonials = () => {
+            const testimonials = [
+                { name: "Anindya R.", role: "CEO, Jakarta", text: "Koleksi yang benar-benar eksklusif. Setiap detail menunjukkan kualitas tanpa kompromi. Personal shopper mereka sangat membantu.", rating: 5 },
+                { name: "Sari W.", role: "Fashion Influencer", text: "Akhirnya menemukan atelier yang memahami makna luxury sesungguhnya. Packaging-nya saja sudah membuat saya merasa spesial.", rating: 5 },
+                { name: "Diana K.", role: "Pengusaha, Surabaya", text: "Layanan concierge mereka luar biasa. Dari konsultasi ukuran hingga pengiriman armored, semuanya flawless.", rating: 5 },
+            ];
+
+            return (
+                <section className="py-24 px-6 lg:px-12 bg-[#0A0A0A]">
+                    <div className="max-w-[1440px] mx-auto">
+                        <div className="text-center mb-16">
+                            <span className="text-[9px] text-[#C5A059] uppercase tracking-[0.3em] font-medium mb-4 block">Testimoni</span>
+                            <h2 className="text-3xl md:text-4xl font-serif text-white font-light">Kata Mereka</h2>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            {testimonials.map((t, i) => (
+                                <div key={i} className="bg-white/5 border border-white/10 p-8 hover:border-[#C5A059]/30 transition-all duration-500">
+                                    <div className="flex gap-1 mb-4">
+                                        {[...Array(t.rating)].map((_, j) => (
+                                            <Star key={j} className="w-3 h-3 fill-[#C5A059] text-[#C5A059]" />
+                                        ))}
+                                    </div>
+                                    <p className="text-white/80 text-sm font-light leading-relaxed mb-6 italic">"{t.text}"</p>
+                                    <div>
+                                        <p className="text-white text-sm font-medium">{t.name}</p>
+                                        <p className="text-white/40 text-[10px] uppercase tracking-widest mt-1">{t.role}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // ============================================================
+        // NEWSLETTER
+        // ============================================================
+        const Newsletter = ({ newsletter, setNewsletter }) => {
+            const [email, setEmail] = useState('');
+            const [submitted, setSubmitted] = useState(false);
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                if (email) {
+                    setSubmitted(true);
+                    setNewsletter(true);
+                    setEmail('');
+                    setTimeout(() => setSubmitted(false), 4000);
+                }
+            };
+
+            return (
+                <section className="py-20 px-6 lg:px-12 bg-[#F5F3EF] border-t border-[#EAE6DF]">
+                    <div className="max-w-2xl mx-auto text-center">
+                        <Sparkles className="w-6 h-6 text-[#C5A059] mx-auto mb-4" />
+                        <h2 className="text-2xl md:text-3xl font-serif text-[#0A0A0A] mb-3">Bergabung dengan Inner Circle</h2>
+                        <p className="text-[#6B6B6B] text-sm font-light mb-8 leading-relaxed">
+                            Dapatkan akses pertama ke koleksi baru, undangan fitting privat, dan penawaran eksklusif.
+                        </p>
+                        <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                            <input 
+                                type="email" 
+                                value={email}
+                                onChange={e => setEmail(e.target.value)}
+                                placeholder="Alamat email Anda" 
+                                className="luxury-input flex-1 bg-white"
+                                required
+                            />
+                            <button type="submit" className="btn-luxury bg-[#0A0A0A] text-white px-8 py-4 text-[9px] uppercase tracking-[0.2em] font-semibold hover:bg-[#C5A059] transition-colors whitespace-nowrap">
+                                {submitted ? '✓ Terdaftar' : 'Bergabung'}
+                            </button>
+                        </form>
+                        {submitted && <p className="text-[#C5A059] text-[10px] uppercase tracking-widest mt-4 animate-fade-in">Selamat datang di keluarga MEGA LUXURY</p>}
+                    </div>
+                </section>
+            );
+        };
+
+        // ============================================================
+        // HOME VIEW
+        // ============================================================
+        const HomeView = ({ products, onNavigate, onToggleWishlist, wishlist, newsletter, setNewsletter }) => (
+            <div className="animate-fade-in bg-[#FAF9F7]">
                 <HeroSection onNavigate={onNavigate} />
+                <BrandsMarquee />
                 
-                <section className="py-32 px-6 lg:px-12 max-w-[1440px] mx-auto">
-                    <div className="flex flex-col items-center mb-20 text-center">
-                        <span className="text-[9px] text-[#C5A059] uppercase tracking-[0.3em] font-medium mb-4">Pilihan Terkurasi</span>
-                        <h2 className="text-4xl md:text-5xl font-serif text-[#0A0A0A]">Koleksi Utama</h2>
+                {/* Featured Products */}
+                <section className="py-24 px-6 lg:px-12 max-w-[1440px] mx-auto">
+                    <div className="flex flex-col items-center mb-16 text-center">
+                        <span className="text-[9px] text-[#C5A059] uppercase tracking-[0.3em] font-medium mb-3">Pilihan Terkurasi</span>
+                        <h2 className="text-3xl md:text-5xl font-serif text-[#0A0A0A] font-light">Koleksi Unggulan</h2>
+                        <div className="w-16 h-[1px] bg-[#C5A059] mt-6"></div>
                     </div>
                     
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-16">
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 md:gap-x-6 gap-y-12 md:gap-y-16">
                         {products.slice(0, 4).map(product => (
                             <ProductCard 
                                 key={product.id}
                                 product={product} 
                                 onNavigate={onNavigate}
                                 onToggleWishlist={onToggleWishlist}
+                                onAddToCart={(p) => {}}
                                 isWishlisted={wishlist.some(w => w.id === product.id)}
                             />
                         ))}
                     </div>
                     
-                    <div className="flex justify-center mt-24">
-                        <button onClick={() => onNavigate('shop')} className="px-12 py-5 border border-[#0A0A0A] text-[10px] uppercase tracking-[0.25em] font-semibold text-[#0A0A0A] hover:bg-[#0A0A0A] hover:text-white transition-all duration-500">
+                    <div className="flex justify-center mt-16">
+                        <button onClick={() => onNavigate('shop')} className="btn-luxury px-12 py-5 border border-[#0A0A0A] text-[10px] uppercase tracking-[0.25em] font-semibold text-[#0A0A0A] hover:bg-[#0A0A0A] hover:text-white transition-all duration-500 flex items-center gap-3">
                             Eksplorasi Seluruh Koleksi
+                            <ArrowRight className="w-4 h-4" />
                         </button>
                     </div>
                 </section>
-            </div>
-        );
 
-        const ShopView = ({ products, onNavigate, onToggleWishlist, wishlist }) => {
-            return (
-                <div className="pt-40 pb-32 px-6 lg:px-12 max-w-[1440px] mx-auto animate-fade-up">
-                    <div className="flex flex-col items-center mb-20 text-center border-b border-[#EAE6DF] pb-16">
-                        <h1 className="text-5xl font-serif text-[#0A0A0A] mb-6">Katalog Butik</h1>
-                        <p className="text-[13px] text-[#555555] font-light max-w-xl mx-auto leading-relaxed">Pilihan mahakarya abadi (Satu Set Penampilan Penuh / *Complete Look*) yang dirancang secara eksklusif untuk menyempurnakan portofolio gaya Anda.</p>
-                        
-                        <div className="mt-12 text-[10px] font-medium tracking-[0.2em] uppercase text-[#0A0A0A]">
-                            <span>{products.length} Tampilan Terkurasi</span>
-                        </div>
+                {/* Value Proposition */}
+                <section className="py-20 px-6 lg:px-12 bg-[#F5F3EF] border-y border-[#EAE6DF]">
+                    <div className="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+                        {[
+                            { icon: <Truck className="w-5 h-5" />, title: "Pengiriman Armored", desc: "Kurir keamanan VIP dengan asuransi penuh" },
+                            { icon: <Shield className="w-5 h-5" />, title: "Autentikasi Global", desc: "Sertifikat keaslian untuk setiap tas desainer" },
+                            { icon: <User className="w-5 h-5" />, title: "Personal Shopper", desc: "Konsultasi gaya privat bersama stylist kami" },
+                            { icon: <Gift className="w-5 h-5" />, title: "Premium Packaging", desc: "Kemasan eksklusif dengan sentuhan personal" }
+                        ].map((item, i) => (
+                            <div key={i} className="text-center group">
+                                <div className="w-14 h-14 mx-auto mb-4 border border-[#C5A059] flex items-center justify-center text-[#C5A059] group-hover:bg-[#C5A059] group-hover:text-white transition-all duration-500">
+                                    {item.icon}
+                                </div>
+                                <h3 className="font-serif text-lg text-[#0A0A0A] mb-2">{item.title}</h3>
+                                <p className="text-[11px] text-[#6B6B6B] font-light leading-relaxed">{item.desc}</p>
+                            </div>
+                        ))}
                     </div>
+                </section>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-16">
-                        {products.map(product => (
+                {/* Best Sellers */}
+                <section className="py-24 px-6 lg:px-12 max-w-[1440px] mx-auto">
+                    <div className="flex flex-col items-center mb-16 text-center">
+                        <span className="text-[9px] text-[#C5A059] uppercase tracking-[0.3em] font-medium mb-3">Paling Dicari</span>
+                        <h2 className="text-3xl md:text-5xl font-serif text-[#0A0A0A] font-light">Bestsellers</h2>
+                        <div className="w-16 h-[1px] bg-[#C5A059] mt-6"></div>
+                    </div>
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 md:gap-x-6 gap-y-12 md:gap-y-16">
+                        {products.filter(p => p.isBest || p.rating >= 4.8).slice(0, 4).map(product => (
                             <ProductCard 
                                 key={product.id}
                                 product={product} 
@@ -549,88 +1113,229 @@
                             />
                         ))}
                     </div>
+                </section>
+
+                <Testimonials />
+                <Newsletter newsletter={newsletter} setNewsletter={setNewsletter} />
+            </div>
+        );
+
+        // ============================================================
+        // SHOP VIEW
+        // ============================================================
+        const ShopView = ({ products, onNavigate, onToggleWishlist, wishlist }) => {
+            const [sortBy, setSortBy] = useState('default');
+            const [filterCategory, setFilterCategory] = useState('all');
+
+            const filteredProducts = useMemo(() => {
+                let result = [...products];
+                if (filterCategory !== 'all') {
+                    result = result.filter(p => p.color.includes(filterCategory) || p.name.toLowerCase().includes(filterCategory.toLowerCase()));
+                }
+                switch(sortBy) {
+                    case 'price-low': result.sort((a, b) => a.price - b.price); break;
+                    case 'price-high': result.sort((a, b) => b.price - a.price); break;
+                    case 'rating': result.sort((a, b) => b.rating - a.rating); break;
+                    default: break;
+                }
+                return result;
+            }, [products, sortBy, filterCategory]);
+
+            return (
+                <div className="pt-36 pb-24 px-6 lg:px-12 max-w-[1440px] mx-auto animate-fade-in">
+                    <div className="flex flex-col items-center mb-16 text-center border-b border-[#EAE6DF] pb-12">
+                        <h1 className="text-4xl md:text-5xl font-serif text-[#0A0A0A] mb-4 font-light">Katalog Butik</h1>
+                        <p className="text-[13px] text-[#6B6B6B] font-light max-w-xl mx-auto leading-relaxed">Pilihan mahakarya abadi (Complete Look) yang dirancang secara eksklusif untuk portofolio gaya Anda.</p>
+                    </div>
+
+                    {/* Filters */}
+                    <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-12">
+                        <p className="text-[10px] uppercase tracking-[0.2em] text-[#888] font-medium">{filteredProducts.length} Koleksi Tersedia</p>
+                        <div className="flex items-center gap-4">
+                            <select value={filterCategory} onChange={e => setFilterCategory(e.target.value)} className="luxury-select text-[10px] uppercase tracking-wider py-2">
+                                <option value="all">Semua Warna</option>
+                                <option value="Black">Hitam</option>
+                                <option value="Burgundy">Burgundy</option>
+                                <option value="Pink">Pink</option>
+                                <option value="Blue">Biru</option>
+                            </select>
+                            <select value={sortBy} onChange={e => setSortBy(e.target.value)} className="luxury-select text-[10px] uppercase tracking-wider py-2">
+                                <option value="default">Urutkan: Terbaru</option>
+                                <option value="price-low">Harga: Rendah ke Tinggi</option>
+                                <option value="price-high">Harga: Tinggi ke Rendah</option>
+                                <option value="rating">Rating Tertinggi</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 md:gap-x-6 gap-y-12 md:gap-y-16">
+                        {filteredProducts.map(product => (
+                            <ProductCard 
+                                key={product.id}
+                                product={product} 
+                                onNavigate={onNavigate}
+                                onToggleWishlist={onToggleWishlist}
+                                isWishlisted={wishlist.some(w => w.id === product.id)}
+                            />
+                        ))}
+                    </div>
+
+                    {filteredProducts.length === 0 && (
+                        <div className="text-center py-20">
+                            <p className="text-[#888] text-sm">Tidak ada koleksi yang cocok dengan filter Anda.</p>
+                        </div>
+                    )}
                 </div>
             );
         };
 
-        const ProductDetailView = ({ product, onAddToCart, onNavigate }) => {
+        // ============================================================
+        // WISHLIST VIEW
+        // ============================================================
+        const WishlistView = ({ wishlist, onNavigate, onToggleWishlist, onAddToCart }) => (
+            <div className="pt-36 pb-24 px-6 lg:px-12 max-w-[1440px] mx-auto animate-fade-in">
+                <div className="flex flex-col items-center mb-16 text-center border-b border-[#EAE6DF] pb-12">
+                    <h1 className="text-4xl md:text-5xl font-serif text-[#0A0A0A] mb-4 font-light">Wishlist Anda</h1>
+                    <p className="text-[13px] text-[#6B6B6B] font-light">Koleksi yang telah Anda simpan untuk dipertimbangkan.</p>
+                </div>
+
+                {wishlist.length === 0 ? (
+                    <div className="text-center py-20">
+                        <Heart className="w-12 h-12 text-[#EAE6DF] mx-auto mb-6" />
+                        <p className="text-[#888] text-sm mb-6">Wishlist Anda masih kosong</p>
+                        <button onClick={() => onNavigate('shop')} className="px-10 py-4 bg-[#0A0A0A] text-white text-[10px] uppercase tracking-[0.2em] font-semibold hover:bg-[#C5A059] transition-colors">
+                            Jelajahi Koleksi
+                        </button>
+                    </div>
+                ) : (
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 md:gap-x-6 gap-y-12 md:gap-y-16">
+                        {wishlist.map(product => (
+                            <ProductCard 
+                                key={product.id}
+                                product={product} 
+                                onNavigate={onNavigate}
+                                onToggleWishlist={onToggleWishlist}
+                                onAddToCart={onAddToCart}
+                                isWishlisted={true}
+                            />
+                        ))}
+                    </div>
+                )}
+            </div>
+        );
+
+        // ============================================================
+        // PRODUCT DETAIL VIEW
+        // ============================================================
+        const ProductDetailView = ({ product, products, onAddToCart, onNavigate, onToggleWishlist, wishlist }) => {
             const [activeImage, setActiveImage] = useState(0);
             const [selectedSize, setSelectedSize] = useState('S/M (Standard)');
+            const [qty, setQty] = useState(1);
+            const [showSizeGuide, setShowSizeGuide] = useState(false);
+            const [activeTab, setActiveTab] = useState('description');
             const sizes = ['Petite', 'S/M (Standard)', 'L/XL (Curved)'];
 
             if (!product) return null;
 
+            const isWishlisted = wishlist.some(w => w.id === product.id);
+            const relatedProducts = products.filter(p => p.id !== product.id).slice(0, 4);
+
             return (
-                <div className="pt-32 pb-24 px-6 lg:px-12 max-w-[1440px] mx-auto animate-fade-up bg-[#F9F8F6]">
-                    <div className="flex items-center space-x-3 text-[9px] font-semibold uppercase tracking-[0.25em] mb-12 text-[#888888]">
-                        <button onClick={() => onNavigate('home')} className="hover:text-[#0A0A0A] transition-colors">Beranda</button>
-                        <span>—</span>
-                        <button onClick={() => onNavigate('shop')} className="hover:text-[#0A0A0A] transition-colors">Katalog</button>
-                        <span>—</span>
-                        <span className="text-[#0A0A0A]">{product.name}</span>
+                <div className="pt-32 pb-24 px-6 lg:px-12 max-w-[1440px] mx-auto animate-fade-in bg-[#FAF9F7]">
+                    {/* Breadcrumb */}
+                    <div className="flex items-center space-x-3 text-[9px] font-medium uppercase tracking-[0.2em] mb-10 text-[#888]">
+                        <button onClick={() => onNavigate('home')} className="hover:text-[#C5A059] transition-colors">Beranda</button>
+                        <ChevronRight className="w-3 h-3" />
+                        <button onClick={() => onNavigate('shop')} className="hover:text-[#C5A059] transition-colors">Koleksi</button>
+                        <ChevronRight className="w-3 h-3" />
+                        <span className="text-[#0A0A0A] truncate max-w-[200px]">{product.name}</span>
                     </div>
 
-                    <div className="flex flex-col lg:flex-row gap-16">
+                    <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
+                        {/* Image Gallery */}
                         <div className="w-full lg:w-7/12 flex gap-4">
                             {product.images.length > 1 && (
-                                <div className="hidden md:flex flex-col gap-4 w-24">
+                                <div className="hidden md:flex flex-col gap-3 w-20 flex-shrink-0">
                                     {product.images.map((img, idx) => (
                                         <div 
                                             key={idx}
                                             onClick={() => setActiveImage(idx)}
-                                            className={`w-full aspect-[3/4] cursor-pointer overflow-hidden transition-all duration-300 ${activeImage === idx ? 'opacity-100 ring-1 ring-[#0A0A0A]' : 'opacity-50 hover:opacity-100'}`}
+                                            className={`w-full aspect-[3/4] cursor-pointer overflow-hidden transition-all duration-300 ${activeImage === idx ? 'opacity-100 ring-1 ring-[#0A0A0A] ring-offset-2' : 'opacity-50 hover:opacity-80'}`}
                                         >
-                                            <LuxuryImage src={img} alt="thumb" className="w-full h-full" />
+                                            <img src={img} alt="" className="w-full h-full object-cover" />
                                         </div>
                                     ))}
                                 </div>
                             )}
                             
-                            <div className="flex-1 relative aspect-[3/4] md:h-[85vh]">
-                                <LuxuryImage src={product.images[activeImage]} alt={product.name} className="w-full h-full absolute inset-0" />
+                            <div className="flex-1 relative aspect-[3/4] md:h-[85vh] overflow-hidden group">
+                                <img 
+                                    src={product.images[activeImage]} 
+                                    alt={product.name} 
+                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                />
+                                {/* Mobile thumbnail dots */}
+                                <div className="md:hidden absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                                    {product.images.map((_, idx) => (
+                                        <button 
+                                            key={idx} 
+                                            onClick={() => setActiveImage(idx)}
+                                            className={`w-2 h-2 rounded-full transition-all ${activeImage === idx ? 'bg-white w-6' : 'bg-white/50'}`}
+                                        />
+                                    ))}
+                                </div>
                             </div>
                         </div>
 
-                        <div className="w-full lg:w-5/12 flex flex-col pt-4">
-                            <div className="mb-10">
-                                <p className="text-[10px] text-[#C5A059] uppercase tracking-[0.25em] font-semibold mb-4">{product.category}</p>
-                                <h1 className="text-4xl md:text-5xl font-serif text-[#0A0A0A] mb-4 leading-tight">{product.name}</h1>
-                                <p className="text-xl font-medium tracking-wide text-[#0A0A0A]">{formatIDR(product.price)}</p>
+                        {/* Product Info */}
+                        <div className="w-full lg:w-5/12 flex flex-col">
+                            <div className="mb-8">
+                                <div className="flex items-center gap-3 mb-4">
+                                    <p className="text-[10px] text-[#C5A059] uppercase tracking-[0.2em] font-semibold">{product.category}</p>
+                                    {product.isNew && <span className="bg-[#0A0A0A] text-white text-[8px] uppercase tracking-wider px-2 py-0.5 font-medium">Baru</span>}
+                                    {product.isLimited && <span className="bg-[#C5A059] text-white text-[8px] uppercase tracking-wider px-2 py-0.5 font-medium">Limited</span>}
+                                </div>
+                                <h1 className="text-3xl md:text-4xl font-serif text-[#0A0A0A] mb-3 leading-tight font-light">{product.name}</h1>
+                                
+                                {/* Rating */}
+                                <div className="flex items-center gap-2 mb-4">
+                                    <div className="flex gap-0.5">
+                                        {[...Array(5)].map((_, i) => (
+                                            <Star key={i} className={`w-3 h-3 ${i < Math.floor(product.rating) ? 'fill-[#C5A059] text-[#C5A059]' : 'text-[#EAE6DF]'}`} />
+                                        ))}
+                                    </div>
+                                    <span className="text-[11px] text-[#888]">{product.rating} ({product.reviews} ulasan)</span>
+                                </div>
+
+                                <div className="flex items-baseline gap-3">
+                                    <p className="text-2xl font-medium tracking-wide text-[#0A0A0A]">{formatIDR(product.price)}</p>
+                                    {product.originalPrice && (
+                                        <p className="text-base text-[#B0ADA8] line-through">{formatIDR(product.originalPrice)}</p>
+                                    )}
+                                </div>
                             </div>
 
-                            <p className="text-[#555555] mb-10 font-light leading-relaxed text-[13px] text-justify">{product.desc}</p>
+                            <p className="text-[#555] mb-8 font-light leading-relaxed text-[13px]">{product.desc}</p>
 
-                            {product.items && (
-                                <div className="mb-10 bg-white p-6 border border-[#EAE6DF]">
-                                    <h3 className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#0A0A0A] mb-4 border-b border-[#EAE6DF] pb-3">Rincian Komponen Look (Referensi Retail):</h3>
-                                    <ul className="space-y-3">
-                                        {product.items.map((item, idx) => (
-                                            <li key={idx} className="flex justify-between items-center text-[11.5px]">
-                                                <span className="text-[#555555] font-light max-w-[70%]">{item.name}</span>
-                                                <span className="text-[#0A0A0A] font-medium">{item.priceUSD}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            )}
-
-                            <div className="mb-10">
-                                <span className="text-[9px] uppercase font-semibold tracking-[0.2em] text-[#888888] mb-3 block">
+                            {/* Color */}
+                            <div className="mb-6">
+                                <span className="text-[9px] uppercase font-semibold tracking-[0.2em] text-[#888] block mb-2">
                                     Tema Warna: <span className="text-[#0A0A0A] ml-1">{product.color}</span>
                                 </span>
                             </div>
 
-                            <div className="mb-12">
-                                <div className="flex justify-between items-center mb-4">
-                                    <span className="text-[9px] uppercase font-semibold tracking-[0.2em] text-[#888888]">Pilih Ukuran Fitting Setelan</span>
-                                    <button className="text-[9px] uppercase font-medium tracking-[0.1em] text-[#0A0A0A] link-hover">Atelier Fitting</button>
+                            {/* Size Selection */}
+                            <div className="mb-8">
+                                <div className="flex justify-between items-center mb-3">
+                                    <span className="text-[9px] uppercase font-semibold tracking-[0.2em] text-[#888]">Ukuran</span>
+                                    <button onClick={() => setShowSizeGuide(true)} className="text-[9px] uppercase font-medium tracking-[0.1em] text-[#0A0A0A] link-hover hover:text-[#C5A059]">Panduan Ukuran</button>
                                 </div>
-                                <div className="flex flex-wrap gap-3">
+                                <div className="flex flex-wrap gap-2">
                                     {sizes.map(size => (
                                         <button 
                                             key={size}
                                             onClick={() => setSelectedSize(size)}
-                                            className={`px-6 h-12 flex items-center justify-center text-[11px] font-medium transition-all duration-300 border ${selectedSize === size ? 'bg-[#0A0A0A] text-white border-[#0A0A0A]' : 'bg-transparent text-[#0A0A0A] border-[#EAE6DF] hover:border-[#0A0A0A]'}`}
+                                            className={`px-5 h-11 flex items-center justify-center text-[10px] font-medium transition-all duration-300 border ${selectedSize === size ? 'bg-[#0A0A0A] text-white border-[#0A0A0A]' : 'bg-transparent text-[#0A0A0A] border-[#EAE6DF] hover:border-[#0A0A0A]'}`}
                                         >
                                             {size}
                                         </button>
@@ -638,27 +1343,147 @@
                                 </div>
                             </div>
 
-                            <button 
-                                onClick={() => onAddToCart(product, 1, selectedSize)}
-                                className="w-full bg-[#0A0A0A] text-white py-5 text-[10px] font-semibold tracking-[0.25em] uppercase hover:bg-[#C5A059] transition-colors duration-500 mb-8"
-                            >
-                                Pesan Koleksi Ini (Satu Set)
-                            </button>
-
-                            <div className="space-y-4 pt-8 border-t border-[#EAE6DF]">
-                                <div className="flex items-center text-[11px] text-[#555555] font-light">
-                                    <Truck className="w-4 h-4 mr-4 text-[#C5A059]" /> Kurir Keamanan VIP Khusus (Armor Truck)
+                            {/* Quantity */}
+                            <div className="mb-8">
+                                <span className="text-[9px] uppercase font-semibold tracking-[0.2em] text-[#888] block mb-3">Jumlah</span>
+                                <div className="flex items-center border border-[#EAE6DF] w-fit">
+                                    <button onClick={() => setQty(Math.max(1, qty - 1))} className="px-4 py-3 hover:bg-[#F5F3EF] transition-colors"><Minus className="w-3 h-3" /></button>
+                                    <span className="px-6 py-3 text-sm font-medium border-x border-[#EAE6DF] min-w-[50px] text-center">{qty}</span>
+                                    <button onClick={() => setQty(qty + 1)} className="px-4 py-3 hover:bg-[#F5F3EF] transition-colors"><Plus className="w-3 h-3" /></button>
                                 </div>
-                                <div className="flex items-center text-[11px] text-[#555555] font-light">
-                                    <Shield className="w-4 h-4 mr-4 text-[#C5A059]" /> Sertifikat Autentikasi Global Untuk Tas Luxury
+                            </div>
+
+                            {/* Action Buttons */}
+                            <div className="flex gap-3 mb-8">
+                                <button 
+                                    onClick={() => onAddToCart(product, qty, selectedSize)}
+                                    className="btn-luxury flex-1 bg-[#0A0A0A] text-white py-4 text-[10px] font-semibold tracking-[0.2em] uppercase hover:bg-[#C5A059] transition-colors duration-500 flex items-center justify-center gap-2"
+                                >
+                                    <ShoppingBag className="w-4 h-4" />
+                                    Pesan Sekarang
+                                </button>
+                                <button 
+                                    onClick={() => onToggleWishlist(product)}
+                                    className={`w-14 h-14 border flex items-center justify-center transition-all duration-300 ${isWishlisted ? 'border-[#C5A059] bg-[#C5A059]/10' : 'border-[#EAE6DF] hover:border-[#0A0A0A]'}`}
+                                >
+                                    <Heart className={`w-5 h-5 ${isWishlisted ? 'fill-[#C5A059] text-[#C5A059]' : ''}`} />
+                                </button>
+                            </div>
+
+                            {/* Trust Badges */}
+                            <div className="space-y-3 pt-6 border-t border-[#EAE6DF]">
+                                <div className="flex items-center text-[11px] text-[#555] font-light gap-3">
+                                    <Truck className="w-4 h-4 text-[#C5A059] flex-shrink-0" /> 
+                                    <span>Kurir Keamanan VIP (Armored Truck)</span>
+                                </div>
+                                <div className="flex items-center text-[11px] text-[#555] font-light gap-3">
+                                    <Shield className="w-4 h-4 text-[#C5A059] flex-shrink-0" /> 
+                                    <span>Sertifikat Autentikasi Global</span>
+                                </div>
+                                <div className="flex items-center text-[11px] text-[#555] font-light gap-3">
+                                    <Package className="w-4 h-4 text-[#C5A059] flex-shrink-0" /> 
+                                    <span>Premium Gift Packaging & Personal Note</span>
+                                </div>
+                            </div>
+
+                            {/* Tabs */}
+                            <div className="mt-10 pt-8 border-t border-[#EAE6DF]">
+                                <div className="flex gap-6 mb-6 border-b border-[#EAE6DF]">
+                                    {['description', 'details', 'components'].map(tab => (
+                                        <button 
+                                            key={tab}
+                                            onClick={() => setActiveTab(tab)}
+                                            className={`pb-3 text-[10px] uppercase tracking-[0.15em] font-medium transition-all ${activeTab === tab ? 'text-[#0A0A0A] border-b-2 border-[#C5A059]' : 'text-[#888] hover:text-[#0A0A0A]'}`}
+                                        >
+                                            {tab === 'description' ? 'Deskripsi' : tab === 'details' ? 'Detail' : 'Komponen'}
+                                        </button>
+                                    ))}
+                                </div>
+                                <div className="animate-fade-in">
+                                    {activeTab === 'description' && (
+                                        <p className="text-[#555] text-[12px] font-light leading-relaxed">{product.desc}</p>
+                                    )}
+                                    {activeTab === 'details' && product.details && (
+                                        <ul className="space-y-2">
+                                            {product.details.map((detail, i) => (
+                                                <li key={i} className="text-[#555] text-[11px] font-light flex items-start gap-2">
+                                                    <span className="text-[#C5A059] mt-0.5">•</span> {detail}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    )}
+                                    {activeTab === 'components' && product.items && (
+                                        <div className="bg-white p-5 border border-[#EAE6DF]">
+                                            <p className="text-[9px] uppercase tracking-[0.15em] text-[#888] mb-4 font-medium">Rincian Komponen (Referensi Retail):</p>
+                                            <ul className="space-y-3">
+                                                {product.items.map((item, idx) => (
+                                                    <li key={idx} className="flex justify-between items-center text-[11px]">
+                                                        <span className="text-[#555] font-light">{item.name}</span>
+                                                        <span className="text-[#0A0A0A] font-medium ml-4 whitespace-nowrap">{item.priceUSD}</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    {/* Related Products */}
+                    <section className="mt-24 pt-16 border-t border-[#EAE6DF]">
+                        <div className="text-center mb-12">
+                            <h2 className="text-2xl md:text-3xl font-serif text-[#0A0A0A] font-light">Anda Mungkin Juga Menyukai</h2>
+                        </div>
+                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 md:gap-x-6 gap-y-12">
+                            {relatedProducts.map(p => (
+                                <ProductCard 
+                                    key={p.id} 
+                                    product={p} 
+                                    onNavigate={onNavigate}
+                                    onToggleWishlist={onToggleWishlist}
+                                    isWishlisted={wishlist.some(w => w.id === p.id)}
+                                />
+                            ))}
+                        </div>
+                    </section>
+
+                    {/* Size Guide Modal */}
+                    {showSizeGuide && (
+                        <div className="fixed inset-0 z-[70] flex items-center justify-center p-6" onClick={() => setShowSizeGuide(false)}>
+                            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+                            <div className="relative bg-white max-w-lg w-full p-8 max-h-[80vh] overflow-y-auto animate-slide-up" onClick={e => e.stopPropagation()}>
+                                <div className="flex justify-between items-center mb-6">
+                                    <h3 className="font-serif text-2xl">Panduan Ukuran</h3>
+                                    <button onClick={() => setShowSizeGuide(false)}><X className="w-5 h-5" /></button>
+                                </div>
+                                <p className="text-[#6B6B6B] text-sm font-light mb-6">Setiap setelan kami dibuat dengan standar ukuran internasional. Untuk fitting sempurna, layanan alteration complimentary tersedia.</p>
+                                <table className="w-full text-[11px] border-collapse">
+                                    <thead>
+                                        <tr className="border-b border-[#EAE6DF]">
+                                            <th className="text-left py-3 uppercase tracking-wider text-[#888] font-medium">Ukuran</th>
+                                            <th className="text-left py-3 uppercase tracking-wider text-[#888] font-medium">Lingkar Dada</th>
+                                            <th className="text-left py-3 uppercase tracking-wider text-[#888] font-medium">Lingkar Pinggang</th>
+                                            <th className="text-left py-3 uppercase tracking-wider text-[#888] font-medium">Tinggi Badan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr className="border-b border-[#EAE6DF]"><td className="py-3 font-medium">Petite</td><td className="py-3">78-84 cm</td><td className="py-3">60-66 cm</td><td className="py-3">155-162 cm</td></tr>
+                                        <tr className="border-b border-[#EAE6DF]"><td className="py-3 font-medium">S/M (Standard)</td><td className="py-3">84-92 cm</td><td className="py-3">66-74 cm</td><td className="py-3">162-172 cm</td></tr>
+                                        <tr className="border-b border-[#EAE6DF]"><td className="py-3 font-medium">L/XL (Curved)</td><td className="py-3">92-102 cm</td><td className="py-3">74-84 cm</td><td className="py-3">165-178 cm</td></tr>
+                                    </tbody>
+                                </table>
+                                <p className="text-[10px] text-[#888] mt-6 italic">* Untuk konsultasi ukuran personal, hubungi concierge kami via WhatsApp.</p>
+                            </div>
+                        </div>
+                    )}
                 </div>
             );
         };
 
+        // ============================================================
+        // CART DRAWER
+        // ============================================================
         const CartDrawer = ({ isOpen, onClose, cart, setCart, onCheckout }) => {
             const subtotal = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
             const updateQty = (id, size, delta) => setCart(prev => prev.map(item => item.id === id && item.size === size ? { ...item, qty: Math.max(1, item.qty + delta) } : item));
@@ -666,145 +1491,673 @@
 
             return (
                 <React.Fragment>
-                <div className={`fixed inset-0 bg-[#0A0A0A]/30 backdrop-blur-sm z-50 transition-opacity duration-700 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} onClick={onClose} />
-                
-                <div className={`fixed top-0 right-0 h-full w-full sm:w-[480px] bg-[#F9F8F6] z-50 transform transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-2xl flex flex-col ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-                    <div className="px-10 py-10 flex justify-between items-center border-b border-[#EAE6DF]">
-                        <h2 className="font-serif text-3xl text-[#0A0A0A]">Tas Belanja</h2>
-                        <button onClick={onClose} className="hover:rotate-90 transition-transform duration-500 text-[#0A0A0A]"><X className="w-6 h-6 stroke-1" /></button>
-                    </div>
-
-                    <div className="flex-1 overflow-y-auto px-10 py-8 space-y-8">
-                        {cart.length === 0 ? (
-                            <div className="h-full flex flex-col items-center justify-center text-[#888888] space-y-5">
-                                <p className="uppercase tracking-[0.2em] font-medium text-[10px]">Tas Belanja Kosong</p>
-                                <button onClick={onClose} className="link-hover text-[#0A0A0A] uppercase tracking-widest text-[9px] mt-2">Lanjutkan Eksplorasi</button>
+                    <div className={`fixed inset-0 bg-[#0A0A0A]/50 backdrop-blur-sm z-[55] transition-opacity duration-500 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} onClick={onClose} />
+                    <div className={`fixed top-0 right-0 h-full w-full sm:w-[440px] bg-[#FAF9F7] z-[60] transform transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-2xl flex flex-col ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+                        <div className="px-8 py-6 flex justify-between items-center border-b border-[#EAE6DF]">
+                            <div>
+                                <h2 className="font-serif text-2xl text-[#0A0A0A]">Tas Belanja</h2>
+                                <p className="text-[9px] text-[#888] uppercase tracking-widest mt-1">{cart.length} Item</p>
                             </div>
-                        ) : (
-                            cart.map((item, idx) => (
-                                <div key={idx} className="flex gap-6 relative">
-                                    <div className="w-24 aspect-[3/4]">
-                                        <LuxuryImage src={item.images[0]} alt={item.name} className="w-full h-full" />
-                                    </div>
-                                    <div className="flex-1 flex flex-col justify-center py-2">
-                                        <h3 className="font-serif text-lg font-medium text-[#0A0A0A] pr-6 truncate">{item.name}</h3>
-                                        <p className="text-[9px] text-[#888888] mt-2 font-medium uppercase tracking-widest">Set {item.size}</p>
-                                        <span className="font-medium text-[13px] tracking-wide text-[#0A0A0A] mt-3">{formatIDR(item.price)}</span>
-                                        <div className="flex items-center gap-4 mt-4">
-                                            <button onClick={() => updateQty(item.id, item.size, -1)} className="text-[#888888] hover:text-[#0A0A0A]">-</button>
-                                            <span className="text-[11px] font-medium text-[#0A0A0A]">{item.qty}</span>
-                                            <button onClick={() => updateQty(item.id, item.size, 1)} className="text-[#888888] hover:text-[#0A0A0A]">+</button>
-                                        </div>
-                                    </div>
-                                    <button onClick={() => removeItem(item.id, item.size)} className="absolute top-2 right-0 text-[#888888] hover:text-[#C5A059]"><X className="w-4 h-4" /></button>
+                            <button onClick={onClose} className="hover:rotate-90 transition-transform duration-500 text-[#0A0A0A]"><X className="w-5 h-5" /></button>
+                        </div>
+
+                        <div className="flex-1 overflow-y-auto px-8 py-6 space-y-6">
+                            {cart.length === 0 ? (
+                                <div className="h-full flex flex-col items-center justify-center text-[#888] space-y-4">
+                                    <ShoppingBag className="w-12 h-12 text-[#EAE6DF]" />
+                                    <p className="uppercase tracking-[0.2em] font-medium text-[10px]">Tas Belanja Kosong</p>
+                                    <button onClick={onClose} className="link-hover text-[#0A0A0A] uppercase tracking-widest text-[9px]">Lanjutkan Belanja</button>
                                 </div>
-                            ))
+                            ) : (
+                                cart.map((item, idx) => (
+                                    <div key={`${item.id}-${item.size}-${idx}`} className="flex gap-4 relative pb-6 border-b border-[#F0EDE8] last:border-0">
+                                        <div className="w-20 h-28 flex-shrink-0 cursor-pointer" onClick={() => { onClose(); window.dispatchEvent(new CustomEvent('navigate', {detail: {view: 'product', data: item}})) }}>
+                                            <LuxuryImage src={item.images[0]} alt={item.name} className="w-full h-full" />
+                                        </div>
+                                        <div className="flex-1 flex flex-col justify-between py-1">
+                                            <div>
+                                                <h3 className="font-serif text-base font-medium text-[#0A0A0A] pr-4 leading-tight">{item.name}</h3>
+                                                <p className="text-[8px] text-[#888] mt-1 font-medium uppercase tracking-widest">Set {item.size}</p>
+                                            </div>
+                                            <div className="flex items-center justify-between">
+                                                <div className="flex items-center border border-[#EAE6DF]">
+                                                    <button onClick={() => updateQty(item.id, item.size, -1)} className="px-2 py-1 text-[#888] hover:text-[#0A0A0A] transition-colors"><Minus className="w-3 h-3" /></button>
+                                                    <span className="px-3 py-1 text-[10px] font-medium border-x border-[#EAE6DF]">{item.qty}</span>
+                                                    <button onClick={() => updateQty(item.id, item.size, 1)} className="px-2 py-1 text-[#888] hover:text-[#0A0A0A] transition-colors"><Plus className="w-3 h-3" /></button>
+                                                </div>
+                                                <span className="font-medium text-[12px] text-[#0A0A0A]">{formatIDR(item.price * item.qty)}</span>
+                                            </div>
+                                        </div>
+                                        <button onClick={() => removeItem(item.id, item.size)} className="absolute top-0 right-0 text-[#B0ADA8] hover:text-[#C5A059] transition-colors"><X className="w-3.5 h-3.5" /></button>
+                                    </div>
+                                ))
+                            )}
+                        </div>
+
+                        {cart.length > 0 && (
+                            <div className="p-8 bg-white border-t border-[#EAE6DF]">
+                                <div className="flex justify-between items-center mb-2 text-[#6B6B6B] text-xs">
+                                    <span>Subtotal</span>
+                                    <span>{formatIDR(subtotal)}</span>
+                                </div>
+                                <div className="flex justify-between items-center mb-4 text-[#6B6B6B] text-xs">
+                                    <span>Pengiriman</span>
+                                    <span className="text-[#C5A059]">Complimentary</span>
+                                </div>
+                                <div className="flex justify-between items-center mb-6 text-[#0A0A0A] pt-4 border-t border-[#EAE6DF]">
+                                    <span className="font-serif text-lg">Total</span>
+                                    <span className="font-medium text-lg">{formatIDR(subtotal)}</span>
+                                </div>
+                                <button onClick={onCheckout} className="btn-luxury w-full bg-[#0A0A0A] text-white py-4 font-semibold uppercase tracking-[0.2em] text-[10px] hover:bg-[#C5A059] transition-colors duration-500 flex items-center justify-center gap-2">
+                                    <Lock className="w-3 h-3" />
+                                    Checkout Aman
+                                </button>
+                                <button onClick={onClose} className="w-full text-center mt-3 text-[9px] uppercase tracking-widest text-[#888] hover:text-[#0A0A0A] transition-colors">
+                                    Lanjutkan Belanja
+                                </button>
+                            </div>
                         )}
                     </div>
-
-                    {cart.length > 0 && (
-                        <div className="p-10 bg-white border-t border-[#EAE6DF]">
-                            <div className="flex justify-between items-center mb-8 text-[#0A0A0A]">
-                                <span className="font-serif text-xl">Subtotal</span>
-                                <span className="font-medium tracking-wide">{formatIDR(subtotal)}</span>
-                            </div>
-                            <button onClick={onCheckout} className="w-full bg-[#0A0A0A] text-white py-5 font-semibold uppercase tracking-[0.25em] text-[10px] hover:bg-[#C5A059] transition-colors duration-500">
-                                Lanjut Ke Pembayaran
-                            </button>
-                        </div>
-                    )}
-                </div>
                 </React.Fragment>
             );
         };
 
-        const CheckoutView = ({ cart, setCart, onNavigate }) => {
-            if (cart.length === 0) {
+        // ============================================================
+        // CHECKOUT FLOW (Professional Multi-Step)
+        // ============================================================
+        const CheckoutFlow = ({ cart, setCart, onNavigate, showToast }) => {
+            const [step, setStep] = useState(1);
+            const [isProcessing, setIsProcessing] = useState(false);
+            
+            const [formData, setFormData] = useState({
+                fullName: '', email: '', phone: '', address: '', city: '', province: '', zip: '', notes: ''
+            });
+            const [formErrors, setFormErrors] = useState({});
+            
+            const [paymentMethod, setPaymentMethod] = useState('credit_card');
+            const [cardData, setCardData] = useState({ number: '', expiry: '', cvc: '', name: '' });
+            const [promoCode, setPromoCode] = useState('');
+            const [promoApplied, setPromoApplied] = useState(false);
+            const [agreedTerms, setAgreedTerms] = useState(false);
+            const [orderId, setOrderId] = useState('');
+
+            const subtotal = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+            const discount = promoApplied ? subtotal * 0.05 : 0;
+            const tax = (subtotal - discount) * 0.11;
+            const shipping = 0;
+            const grandTotal = subtotal - discount + tax + shipping;
+
+            const handleInputChange = (e) => {
+                const { name, value } = e.target;
+                setFormData(prev => ({ ...prev, [name]: value }));
+                if (formErrors[name]) setFormErrors(prev => ({ ...prev, [name]: '' }));
+            };
+
+            const handleCardChange = (e) => {
+                const { name, value } = e.target;
+                let formatted = value;
+                if (name === 'number') formatted = value.replace(/\D/g, '').substring(0, 16).replace(/(.{4})/g, '$1 ').trim();
+                else if (name === 'expiry') formatted = value.replace(/\D/g, '').substring(0, 4).replace(/(.{2})/, '$1/').substring(0, 5);
+                else if (name === 'cvc') formatted = value.replace(/\D/g, '').substring(0, 4);
+                else if (name === 'name') formatted = value.toUpperCase();
+                setCardData(prev => ({ ...prev, [name]: formatted }));
+            };
+
+            const validateStep1 = () => {
+                const errors = {};
+                if (!formData.fullName.trim()) errors.fullName = 'Nama lengkap wajib diisi';
+                if (!formData.email.trim() || !/\S+@\S+\.\S+/.test(formData.email)) errors.email = 'Email tidak valid';
+                if (!formData.phone.trim() || formData.phone.length < 10) errors.phone = 'Nomor telepon tidak valid';
+                if (!formData.address.trim()) errors.address = 'Alamat wajib diisi';
+                if (!formData.city.trim()) errors.city = 'Kota wajib diisi';
+                setFormErrors(errors);
+                return Object.keys(errors).length === 0;
+            };
+
+            const validateStep2 = () => {
+                if (paymentMethod === 'credit_card') {
+                    return cardData.number.replace(/\s/g, '').length >= 15 && cardData.expiry.length >= 4 && cardData.cvc.length >= 3 && cardData.name.trim();
+                }
+                return true;
+            };
+
+            const handleNextStep = () => {
+                if (step === 1 && validateStep1()) {
+                    setStep(2);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            };
+
+            const handleApplyPromo = () => {
+                if (promoCode.toUpperCase() === 'MEGA2025' || promoCode.toUpperCase() === 'VIP10') {
+                    setPromoApplied(true);
+                    showToast('Kode promo berhasil diterapkan!');
+                } else {
+                    showToast('Kode promo tidak valid', 'error');
+                }
+            };
+
+            const handlePayment = () => {
+                if (!validateStep2()) {
+                    showToast('Lengkapi data pembayaran', 'error');
+                    return;
+                }
+                if (!agreedTerms) {
+                    showToast('Setujui syarat & ketentuan', 'error');
+                    return;
+                }
+                setIsProcessing(true);
+                setTimeout(() => {
+                    setIsProcessing(false);
+                    setOrderId(`ML-${Date.now().toString().slice(-8)}`);
+                    setStep(3);
+                    setCart([]);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }, 3000);
+            };
+
+            if (cart.length === 0 && step !== 3) {
                 return (
-                    <div className="min-h-screen pt-40 flex flex-col items-center bg-[#F9F8F6]">
-                        <p className="uppercase font-medium tracking-widest text-[#888888] text-sm">Sesi telah berakhir.</p>
-                        <button onClick={() => onNavigate('shop')} className="mt-6 link-hover text-[#0A0A0A] uppercase tracking-widest text-[10px]">Kembali ke Butik</button>
+                    <div className="min-h-screen pt-40 flex flex-col items-center justify-center bg-[#FAF9F7] px-6">
+                        <Package className="w-16 h-16 text-[#EAE6DF] mb-6" />
+                        <p className="uppercase font-medium tracking-widest text-[#888] text-sm mb-2">Tas belanja kosong</p>
+                        <p className="text-[#B0ADA8] text-xs mb-8">Silakan pilih koleksi terlebih dahulu</p>
+                        <button onClick={() => onNavigate('shop')} className="px-10 py-4 bg-[#0A0A0A] text-white text-[10px] uppercase tracking-[0.2em] font-semibold hover:bg-[#C5A059] transition-colors">
+                            Jelajahi Koleksi
+                        </button>
                     </div>
                 );
             }
 
-            const total = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
-
             return (
-                <div className="min-h-screen bg-[#F9F8F6] pt-40 pb-32 animate-fade-up">
-                    <div className="max-w-4xl mx-auto px-6 lg:px-12 text-center">
-                        <h1 className="text-4xl font-serif text-[#0A0A0A] mb-4">Checkout Eksklusif</h1>
-                        <p className="text-[10px] uppercase tracking-[0.2em] font-medium text-[#C5A059] mb-16">Koneksi Terenkripsi Aman 100%</p>
+                <div className="min-h-screen bg-[#FAF9F7] flex flex-col">
+                    {/* Secure Header */}
+                    <div className="bg-white border-b border-[#EAE6DF] py-5 px-6 sticky top-0 z-30">
+                        <div className="max-w-6xl mx-auto flex justify-between items-center">
+                            <button onClick={() => step > 1 && step < 3 ? setStep(step - 1) : onNavigate('home')} className="text-[10px] uppercase tracking-widest hover:text-[#C5A059] transition-colors flex items-center gap-2 text-[#6B6B6B]">
+                                <ChevronLeft className="w-4 h-4" /> 
+                                <span className="hidden sm:inline">{step === 3 ? 'Beranda' : 'Kembali'}</span>
+                            </button>
+                            <h1 className="font-serif text-xl tracking-[0.15em] uppercase">
+                                {step === 3 ? 'Konfirmasi' : 'Checkout Aman'}
+                            </h1>
+                            <div className="flex items-center gap-2 text-[#C5A059]">
+                                <Lock className="w-4 h-4" />
+                                <span className="text-[9px] uppercase tracking-widest hidden sm:inline">SSL 256-bit</span>
+                            </div>
+                        </div>
+                    </div>
 
-                        <div className="bg-white p-10 border border-[#EAE6DF] shadow-sm text-left">
-                            <h2 className="font-serif text-2xl mb-8 border-b border-[#EAE6DF] pb-4">Ringkasan Pesanan (Full Look Set)</h2>
-                            <div className="space-y-6 mb-8">
-                                {cart.map((item, i) => (
-                                    <div key={i} className="flex justify-between items-center">
-                                        <div className="flex items-center gap-4">
-                                            <div className="w-16 h-20">
-                                                <LuxuryImage src={item.images[0]} alt={item.name} className="w-full h-full" />
+                    {/* Progress Steps */}
+                    {step !== 3 && (
+                        <div className="max-w-6xl mx-auto w-full py-8 px-6">
+                            <div className="flex items-center justify-center">
+                                {['Informasi', 'Pembayaran'].map((label, i) => (
+                                    <React.Fragment key={i}>
+                                        <div className="flex items-center gap-2">
+                                            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-bold transition-all duration-500 ${step > i + 1 ? 'bg-[#C5A059] text-white' : step === i + 1 ? 'bg-[#0A0A0A] text-white border-2 border-[#0A0A0A]' : 'bg-transparent text-[#B0ADA8] border border-[#EAE6DF]'}`}>
+                                                {step > i + 1 ? '✓' : i + 1}
                                             </div>
-                                            <div>
-                                                <p className="font-serif text-lg text-[#0A0A0A]">{item.name}</p>
-                                                <p className="text-[9px] font-medium text-[#888888] uppercase tracking-widest mt-1">Set {item.size} / Qty: {item.qty}</p>
-                                            </div>
+                                            <span className={`text-[9px] uppercase tracking-[0.15em] font-medium hidden sm:inline transition-colors ${step >= i + 1 ? 'text-[#0A0A0A]' : 'text-[#B0ADA8]'}`}>{label}</span>
                                         </div>
-                                        <span className="text-[13px] font-medium text-[#0A0A0A]">{formatIDR(item.price * item.qty)}</span>
-                                    </div>
+                                        {i < 1 && <div className={`w-16 md:w-24 h-[1px] mx-4 transition-colors ${step > 1 ? 'bg-[#C5A059]' : 'bg-[#EAE6DF]'}`}></div>}
+                                    </React.Fragment>
                                 ))}
                             </div>
-                            
-                            <div className="border-t border-[#EAE6DF] mt-8 pt-8 flex justify-between items-center">
-                                <span className="font-serif text-2xl text-[#0A0A0A]">Total Pembayaran</span>
-                                <span className="font-semibold text-xl text-[#0A0A0A]">{formatIDR(total)}</span>
-                            </div>
-
-                            <button onClick={() => { setCart([]); alert('Sistem Reservasi & Pembayaran Bank VIP akan terbuka (Simulasi).'); onNavigate('home'); }} className="w-full mt-12 bg-[#0A0A0A] text-white py-5 font-semibold uppercase tracking-[0.25em] text-[10px] hover:bg-[#C5A059] transition-colors duration-500">
-                                Konfirmasi & Amankan Koleksi
-                            </button>
                         </div>
+                    )}
+
+                    <div className="flex-grow max-w-6xl mx-auto w-full px-6 pb-20 grid grid-cols-1 lg:grid-cols-12 gap-10">
+                        
+                        {/* LEFT: Forms */}
+                        <div className="lg:col-span-7">
+                            {step === 1 && (
+                                <div className="animate-fade-up space-y-6">
+                                    <div className="bg-white p-8 border border-[#EAE6DF]">
+                                        <h2 className="font-serif text-xl mb-6 flex items-center gap-3">
+                                            <User className="w-5 h-5 text-[#C5A059]" /> Informasi Kontak
+                                        </h2>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                            <div>
+                                                <label className="text-[9px] uppercase tracking-widest text-[#888] block mb-2 font-medium">Nama Lengkap *</label>
+                                                <input name="fullName" placeholder="Sesuai identitas" className={`luxury-input ${formErrors.fullName ? 'error' : ''}`} value={formData.fullName} onChange={handleInputChange} />
+                                                {formErrors.fullName && <p className="text-[9px] text-[#C0392B] mt-1">{formErrors.fullName}</p>}
+                                            </div>
+                                            <div>
+                                                <label className="text-[9px] uppercase tracking-widest text-[#888] block mb-2 font-medium">Email *</label>
+                                                <input name="email" type="email" placeholder="email@domain.com" className={`luxury-input ${formErrors.email ? 'error' : ''}`} value={formData.email} onChange={handleInputChange} />
+                                                {formErrors.email && <p className="text-[9px] text-[#C0392B] mt-1">{formErrors.email}</p>}
+                                            </div>
+                                            <div>
+                                                <label className="text-[9px] uppercase tracking-widest text-[#888] block mb-2 font-medium">Nomor WhatsApp *</label>
+                                                <input name="phone" placeholder="+62 812 xxxx xxxx" className={`luxury-input ${formErrors.phone ? 'error' : ''}`} value={formData.phone} onChange={handleInputChange} />
+                                                {formErrors.phone && <p className="text-[9px] text-[#C0392B] mt-1">{formErrors.phone}</p>}
+                                            </div>
+                                            <div>
+                                                <label className="text-[9px] uppercase tracking-widest text-[#888] block mb-2 font-medium">Kota *</label>
+                                                <input name="city" placeholder="Kota/Kabupaten" className={`luxury-input ${formErrors.city ? 'error' : ''}`} value={formData.city} onChange={handleInputChange} />
+                                                {formErrors.city && <p className="text-[9px] text-[#C0392B] mt-1">{formErrors.city}</p>}
+                                            </div>
+                                            <div className="md:col-span-2">
+                                                <label className="text-[9px] uppercase tracking-widest text-[#888] block mb-2 font-medium">Provinsi</label>
+                                                <select name="province" className="luxury-select" value={formData.province} onChange={handleInputChange}>
+                                                    <option value="">Pilih Provinsi</option>
+                                                    <option value="DKI Jakarta">DKI Jakarta</option>
+                                                    <option value="Jawa Barat">Jawa Barat</option>
+                                                    <option value="Jawa Tengah">Jawa Tengah</option>
+                                                    <option value="Jawa Timur">Jawa Timur</option>
+                                                    <option value="Banten">Banten</option>
+                                                    <option value="Bali">Bali</option>
+                                                    <option value="Sumatera Utara">Sumatera Utara</option>
+                                                    <option value="Lainnya">Lainnya</option>
+                                                </select>
+                                            </div>
+                                            <div className="md:col-span-2">
+                                                <label className="text-[9px] uppercase tracking-widest text-[#888] block mb-2 font-medium">Alamat Lengkap *</label>
+                                                <textarea name="address" placeholder="Jalan, nomor rumah, RT/RW, kelurahan, kecamatan" className={`luxury-input h-28 resize-none ${formErrors.address ? 'error' : ''}`} value={formData.address} onChange={handleInputChange}></textarea>
+                                                {formErrors.address && <p className="text-[9px] text-[#C0392B] mt-1">{formErrors.address}</p>}
+                                            </div>
+                                            <div className="md:col-span-2">
+                                                <label className="text-[9px] uppercase tracking-widest text-[#888] block mb-2 font-medium">Catatan Pengiriman (Opsional)</label>
+                                                <input name="notes" placeholder="Patokan, jam terima preferensi, dll." className="luxury-input" value={formData.notes} onChange={handleInputChange} />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="bg-[#F5F3EF] p-6 border border-[#EAE6DF] flex items-start gap-4">
+                                        <Truck className="w-5 h-5 text-[#C5A059] flex-shrink-0 mt-0.5" />
+                                        <div>
+                                            <h4 className="text-[11px] font-semibold uppercase tracking-widest mb-1">Pengiriman VIP Armored</h4>
+                                            <p className="text-[11px] text-[#6B6B6B] leading-relaxed">Pengiriman menggunakan armada keamanan tinggi dengan asuransi penuh. Estimasi 1-2 hari kerja untuk area Jawa, 2-4 hari luar Jawa.</p>
+                                        </div>
+                                    </div>
+
+                                    <button 
+                                        onClick={handleNextStep}
+                                        className="btn-luxury w-full py-4 bg-[#0A0A0A] text-white text-[10px] font-bold uppercase tracking-[0.25em] hover:bg-[#C5A059] transition-colors flex items-center justify-center gap-2"
+                                    >
+                                        Lanjut ke Pembayaran
+                                        <ArrowRight className="w-4 h-4" />
+                                    </button>
+                                </div>
+                            )}
+
+                            {step === 2 && (
+                                <div className="animate-fade-up space-y-6">
+                                    <div className="bg-white p-8 border border-[#EAE6DF]">
+                                        <h2 className="font-serif text-xl mb-6 flex items-center gap-3">
+                                            <CreditCard className="w-5 h-5 text-[#C5A059]" /> Metode Pembayaran
+                                        </h2>
+                                        
+                                        <div className="space-y-3 mb-6">
+                                            {[
+                                                { id: 'credit_card', label: 'Kartu Kredit / Debit', sublabel: 'Visa, Mastercard, American Express, JCB', icon: '💳' },
+                                                { id: 'bank_transfer', label: 'Virtual Account Bank', sublabel: 'BCA, Mandiri, BNI, CIMB Niaga', icon: '🏦' },
+                                                { id: 'ewallet', label: 'E-Wallet Premium', sublabel: 'OVO, GoPay, Dana, ShopeePay', icon: '📱' },
+                                                { id: 'qris', label: 'QRIS', sublabel: 'Scan dari aplikasi bank atau e-wallet manapun', icon: '📲' }
+                                            ].map(method => (
+                                                <label key={method.id} className={`flex items-center justify-between p-4 border cursor-pointer transition-all duration-300 ${paymentMethod === method.id ? 'border-[#0A0A0A] bg-[#FAFAFA] shadow-sm' : 'border-[#EAE6DF] hover:border-[#B0ADA8]'}`}>
+                                                    <div className="flex items-center gap-3">
+                                                        <input 
+                                                            type="radio" name="payment" value={method.id} 
+                                                            checked={paymentMethod === method.id} 
+                                                            onChange={() => setPaymentMethod(method.id)}
+                                                            className="accent-[#C5A059] w-4 h-4"
+                                                        />
+                                                        <div>
+                                                            <span className="text-[12px] font-medium block">{method.label}</span>
+                                                            <span className="text-[10px] text-[#888]">{method.sublabel}</span>
+                                                        </div>
+                                                    </div>
+                                                    <span className="text-lg">{method.icon}</span>
+                                                </label>
+                                            ))}
+                                        </div>
+
+                                        {paymentMethod === 'credit_card' && (
+                                            <div className="bg-[#FAF9F7] p-6 border border-[#EAE6DF] animate-fade-in space-y-4">
+                                                {/* Visual Card Preview */}
+                                                <div className="bg-gradient-to-br from-[#0A0A0A] to-[#333] p-6 mb-4 relative overflow-hidden card-3d">
+                                                    <div className="absolute top-3 right-3 text-[#C5A059] text-[8px] uppercase tracking-widest font-bold">VIP</div>
+                                                    <div className="w-10 h-7 bg-[#C5A059]/30 rounded mb-6"></div>
+                                                    <p className="text-white font-mono text-sm tracking-[0.2em] mb-4">{cardData.number || '•••• •••• •••• ••••'}</p>
+                                                    <div className="flex justify-between items-end">
+                                                        <div>
+                                                            <p className="text-white/40 text-[7px] uppercase">Cardholder</p>
+                                                            <p className="text-white text-[10px] tracking-wider">{cardData.name || 'NAMA LENGKAP'}</p>
+                                                        </div>
+                                                        <div className="text-right">
+                                                            <p className="text-white/40 text-[7px] uppercase">Expires</p>
+                                                            <p className="text-white text-[10px] font-mono">{cardData.expiry || 'MM/YY'}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div>
+                                                    <label className="text-[9px] uppercase tracking-widest text-[#888] block mb-2 font-medium">Nomor Kartu</label>
+                                                    <input name="number" placeholder="0000 0000 0000 0000" className="luxury-input font-mono" value={cardData.number} onChange={handleCardChange} />
+                                                </div>
+                                                <div className="grid grid-cols-2 gap-4">
+                                                    <div>
+                                                        <label className="text-[9px] uppercase tracking-widest text-[#888] block mb-2 font-medium">Berlaku Hingga</label>
+                                                        <input name="expiry" placeholder="MM/YY" className="luxury-input font-mono" value={cardData.expiry} onChange={handleCardChange} />
+                                                    </div>
+                                                    <div>
+                                                        <label className="text-[9px] uppercase tracking-widest text-[#888] block mb-2 font-medium">CVC / CVV</label>
+                                                        <input name="cvc" placeholder="•••" type="password" className="luxury-input font-mono" value={cardData.cvc} onChange={handleCardChange} />
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <label className="text-[9px] uppercase tracking-widest text-[#888] block mb-2 font-medium">Nama di Kartu</label>
+                                                    <input name="name" placeholder="SESUAI KARTU" className="luxury-input" value={cardData.name} onChange={handleCardChange} />
+                                                </div>
+                                                <div className="flex items-center gap-2 text-[9px] text-[#888] pt-2">
+                                                    <Lock className="w-3 h-3 text-[#C5A059]" /> Data terenkripsi 256-bit SSL. Kami tidak menyimpan data kartu Anda.
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {paymentMethod === 'bank_transfer' && (
+                                            <div className="bg-[#FAF9F7] p-6 border border-[#EAE6DF] animate-fade-in text-center">
+                                                <p className="text-[12px] text-[#6B6B6B] mb-4">Anda akan menerima nomor Virtual Account setelah konfirmasi pesanan.</p>
+                                                <div className="flex justify-center gap-6 mt-4">
+                                                    {['BCA', 'Mandiri', 'BNI', 'CIMB'].map(bank => (
+                                                        <div key={bank} className="px-4 py-2 bg-white border border-[#EAE6DF] text-[10px] font-bold text-[#555] uppercase">{bank}</div>
+                                                    ))}
+                                                </div>
+                                                <p className="text-[10px] text-[#888] mt-4">Batas waktu pembayaran: 24 jam</p>
+                                            </div>
+                                        )}
+
+                                        {paymentMethod === 'ewallet' && (
+                                            <div className="bg-[#FAF9F7] p-6 border border-[#EAE6DF] animate-fade-in text-center">
+                                                <p className="text-[12px] text-[#6B6B6B] mb-4">Anda akan diarahkan ke halaman pembayaran e-wallet.</p>
+                                                <div className="flex justify-center gap-4 mt-4">
+                                                    {['OVO', 'GoPay', 'Dana', 'ShopeePay'].map(wallet => (
+                                                        <div key={wallet} className="px-4 py-2 bg-white border border-[#EAE6DF] text-[10px] font-bold text-[#555]">{wallet}</div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {paymentMethod === 'qris' && (
+                                            <div className="bg-[#FAF9F7] p-6 border border-[#EAE6DF] animate-fade-in text-center">
+                                                <p className="text-[12px] text-[#6B6B6B] mb-4">QR Code akan ditampilkan setelah konfirmasi pesanan.</p>
+                                                <div className="w-32 h-32 bg-white border-2 border-[#EAE6DF] mx-auto flex items-center justify-center">
+                                                    <div className="grid grid-cols-5 gap-0.5">
+                                                        {[...Array(25)].map((_, i) => (
+                                                            <div key={i} className={`w-3 h-3 ${Math.random() > 0.4 ? 'bg-[#0A0A0A]' : 'bg-white'}`}></div>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                                <p className="text-[10px] text-[#888] mt-4">Scan dengan aplikasi mobile banking atau e-wallet</p>
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {/* Promo Code */}
+                                    <div className="bg-white p-6 border border-[#EAE6DF]">
+                                        <h3 className="text-[10px] uppercase tracking-widest font-semibold mb-4 flex items-center gap-2">
+                                            <Tag className="w-4 h-4 text-[#C5A059]" /> Kode Promo
+                                        </h3>
+                                        <div className="flex gap-2">
+                                            <input 
+                                                type="text" 
+                                                placeholder="Masukkan kode promo" 
+                                                className="luxury-input flex-1" 
+                                                value={promoCode}
+                                                onChange={e => setPromoCode(e.target.value)}
+                                                disabled={promoApplied}
+                                            />
+                                            <button 
+                                                onClick={handleApplyPromo}
+                                                disabled={promoApplied || !promoCode}
+                                                className={`px-6 py-3 text-[9px] uppercase tracking-widest font-semibold transition-colors ${promoApplied ? 'bg-[#27AE60] text-white' : 'bg-[#0A0A0A] text-white hover:bg-[#C5A059]'}`}
+                                            >
+                                                {promoApplied ? '✓ Diterapkan' : 'Terapkan'}
+                                            </button>
+                                        </div>
+                                        {promoApplied && <p className="text-[10px] text-[#27AE60] mt-2">Diskon 5% berhasil diterapkan! (Coba juga: VIP10)</p>}
+                                        {!promoApplied && <p className="text-[9px] text-[#888] mt-2">Coba: MEGA2025</p>}
+                                    </div>
+
+                                    {/* Terms */}
+                                    <div className="flex items-start gap-3 px-2">
+                                        <input 
+                                            type="checkbox" 
+                                            id="terms" 
+                                            checked={agreedTerms}
+                                            onChange={e => setAgreedTerms(e.target.checked)}
+                                            className="accent-[#C5A059] w-4 h-4 mt-0.5 flex-shrink-0" 
+                                        />
+                                        <label htmlFor="terms" className="text-[11px] text-[#6B6B6B] leading-relaxed cursor-pointer">
+                                            Saya menyetujui <span className="text-[#0A0A0A] font-medium link-hover cursor-pointer">Syarat & Ketentuan</span> serta <span className="text-[#0A0A0A] font-medium link-hover cursor-pointer">Kebijakan Privasi</span> MEGA LUXURY. Saya memahami bahwa koleksi ini merupakan set eksklusif yang diproduksi terbatas.
+                                        </label>
+                                    </div>
+
+                                    <button 
+                                        onClick={handlePayment}
+                                        disabled={isProcessing || !agreedTerms}
+                                        className={`btn-luxury w-full py-4 text-[10px] font-bold uppercase tracking-[0.25em] transition-all flex items-center justify-center gap-3 ${isProcessing || !agreedTerms ? 'bg-[#B0ADA8] cursor-not-allowed text-white' : 'bg-[#0A0A0A] text-white hover:bg-[#C5A059]'}`}
+                                    >
+                                        {isProcessing ? (
+                                            <>
+                                                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                                                Memproses Pembayaran Aman...
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Lock className="w-4 h-4" />
+                                                Bayar {formatIDR(grandTotal)}
+                                            </>
+                                        )}
+                                    </button>
+
+                                    <p className="text-center text-[9px] text-[#888] flex items-center justify-center gap-2">
+                                        <Shield className="w-3 h-3 text-[#C5A059]" /> Transaksi dilindungi enkripsi bank-grade
+                                    </p>
+                                </div>
+                            )}
+
+                            {step === 3 && (
+                                <div className="animate-fade-up text-center py-12">
+                                    <div className="relative inline-block mb-8">
+                                        <div className="w-20 h-20 bg-[#C5A059] rounded-full flex items-center justify-center text-white animate-fade-in">
+                                            <CheckCircle className="w-10 h-10" />
+                                        </div>
+                                    </div>
+                                    <h2 className="font-serif text-3xl md:text-4xl mb-3 font-light">Pesanan Berhasil</h2>
+                                    <p className="text-[#6B6B6B] text-sm mb-2">Terima kasih atas kepercayaan Anda.</p>
+                                    <p className="text-[#6B6B6B] text-xs mb-8 max-w-md mx-auto leading-relaxed">
+                                        Invoice resmi telah dikirim ke <span className="font-medium text-[#0A0A0A]">{formData.email}</span>. Tim concierge pribadi akan menghubungi Anda dalam 1x24 jam untuk konfirmasi jadwal pengiriman VIP.
+                                    </p>
+                                    
+                                    <div className="bg-white p-8 border border-[#EAE6DF] inline-block text-left mb-8 w-full max-w-sm">
+                                        <div className="space-y-3 text-sm">
+                                            <div className="flex justify-between pb-3 border-b border-[#EAE6DF]">
+                                                <span className="text-[#888]">Order ID</span>
+                                                <span className="font-mono font-bold text-[#0A0A0A]">#{orderId}</span>
+                                            </div>
+                                            <div className="flex justify-between pb-3 border-b border-[#EAE6DF]">
+                                                <span className="text-[#888]">Tanggal</span>
+                                                <span className="font-medium">{new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+                                            </div>
+                                            <div className="flex justify-between pb-3 border-b border-[#EAE6DF]">
+                                                <span className="text-[#888]">Pembayaran</span>
+                                                <span className="font-medium capitalize">{paymentMethod.replace('_', ' ')}</span>
+                                            </div>
+                                            <div className="flex justify-between pt-1">
+                                                <span className="font-serif text-lg text-[#0A0A0A]">Total</span>
+                                                <span className="font-bold text-lg text-[#C5A059]">{formatIDR(grandTotal)}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                                        <button onClick={() => onNavigate('home')} className="px-8 py-4 bg-[#0A0A0A] text-white text-[10px] uppercase tracking-widest font-semibold hover:bg-[#C5A059] transition-colors">
+                                            Kembali ke Beranda
+                                        </button>
+                                        <button onClick={() => onNavigate('shop')} className="px-8 py-4 border border-[#0A0A0A] text-[10px] uppercase tracking-widest font-semibold hover:bg-[#0A0A0A] hover:text-white transition-colors">
+                                            Lanjut Belanja
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* RIGHT: Order Summary */}
+                        {step !== 3 && (
+                            <div className="lg:col-span-5">
+                                <div className="sticky top-24 bg-white p-8 border border-[#EAE6DF] shadow-sm">
+                                    <h3 className="font-serif text-xl mb-6 pb-4 border-b border-[#EAE6DF] flex items-center gap-2">
+                                        <Package className="w-5 h-5 text-[#C5A059]" /> Ringkasan Pesanan
+                                    </h3>
+                                    <div className="space-y-4 mb-6 max-h-[300px] overflow-y-auto pr-2">
+                                        {cart.map((item, i) => (
+                                            <div key={i} className="flex gap-3">
+                                                <div className="w-14 h-18 flex-shrink-0 relative">
+                                                    <img src={item.images[0]} className="w-full h-full object-cover" alt="" />
+                                                    <span className="absolute -top-1.5 -right-1.5 w-4 h-4 bg-[#0A0A0A] text-white text-[8px] flex items-center justify-center rounded-full font-bold">{item.qty}</span>
+                                                </div>
+                                                <div className="flex-grow">
+                                                    <h4 className="font-serif text-sm leading-tight mb-0.5">{item.name}</h4>
+                                                    <p className="text-[8px] text-[#888] uppercase tracking-wider mb-1">Size: {item.size}</p>
+                                                    <p className="text-[11px] font-medium">{formatIDR(item.price * item.qty)}</p>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    
+                                    <div className="space-y-2 pt-4 border-t border-[#EAE6DF] text-[12px]">
+                                        <div className="flex justify-between text-[#6B6B6B]">
+                                            <span>Subtotal</span>
+                                            <span>{formatIDR(subtotal)}</span>
+                                        </div>
+                                        {promoApplied && (
+                                            <div className="flex justify-between text-[#27AE60]">
+                                                <span>Diskon (5%)</span>
+                                                <span>-{formatIDR(discount)}</span>
+                                            </div>
+                                        )}
+                                        <div className="flex justify-between text-[#6B6B6B]">
+                                            <span>PPN (11%)</span>
+                                            <span>{formatIDR(tax)}</span>
+                                        </div>
+                                        <div className="flex justify-between text-[#6B6B6B]">
+                                            <span>Pengiriman VIP</span>
+                                            <span className="text-[#C5A059]">Gratis</span>
+                                        </div>
+                                        <div className="flex justify-between text-xl font-serif font-medium pt-4 border-t border-[#EAE6DF] mt-4">
+                                            <span>Total</span>
+                                            <span>{formatIDR(grandTotal)}</span>
+                                        </div>
+                                    </div>
+
+                                    {step === 1 && (
+                                        <div className="mt-6 pt-6 border-t border-[#EAE6DF]">
+                                            <div className="flex items-start gap-3">
+                                                <Phone className="w-4 h-4 text-[#C5A059] flex-shrink-0 mt-0.5" />
+                                                <div>
+                                                    <p className="text-[10px] font-medium text-[#0A0A0A]">Butuh Bantuan?</p>
+                                                    <p className="text-[10px] text-[#6B6B6B]">Hubungi concierge kami di +62 812 8888 0088</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             );
         };
 
-        const Footer = () => (
-            <footer className="bg-[#0A0A0A] text-[#F9F8F6] pt-24 pb-12 px-6 lg:px-12 border-t border-[#0A0A0A]">
-                <div className="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
-                    <div className="md:col-span-2">
-                        <h2 className="text-3xl font-serif tracking-[0.2em] mb-3 text-white uppercase">MEGA LUXURY</h2>
-                        <p className="text-[#888888] text-[13px] font-light max-w-sm leading-relaxed mb-8">
-                            Menghadirkan standar kemewahan Eropa ke jantung Indonesia. Setiap potong koleksi dijahit dengan presisi tanpa kompromi demi keanggunan yang abadi.
-                        </p>
+        // ============================================================
+        // FOOTER
+        // ============================================================
+        const Footer = ({ onNavigate }) => (
+            <footer className="bg-[#0A0A0A] text-[#F9F8F6] pt-20 pb-10 px-6 lg:px-12">
+                <div className="max-w-[1440px] mx-auto">
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-10 mb-16">
+                        <div className="md:col-span-4">
+                            <h2 className="text-2xl font-serif tracking-[0.2em] mb-2 text-white uppercase font-light">MEGA LUXURY</h2>
+                            <p className="text-[8px] uppercase tracking-[0.4em] text-[#C5A059] mb-6">Atelier by Mega Apriliani</p>
+                            <p className="text-[#888] text-[12px] font-light max-w-sm leading-relaxed mb-6">
+                                Menghadirkan standar haute couture Eropa ke jantung Indonesia. Setiap koleksi dijahit dengan presisi tanpa kompromi demi keanggunan abadi.
+                            </p>
+                            <div className="flex gap-4">
+                                <a href="#" className="w-9 h-9 border border-white/20 flex items-center justify-center hover:border-[#C5A059] hover:text-[#C5A059] transition-all">
+                                    <Instagram className="w-4 h-4" />
+                                </a>
+                                <a href="#" className="w-9 h-9 border border-white/20 flex items-center justify-center hover:border-[#C5A059] hover:text-[#C5A059] transition-all">
+                                    <Mail className="w-4 h-4" />
+                                </a>
+                                <a href="#" className="w-9 h-9 border border-white/20 flex items-center justify-center hover:border-[#C5A059] hover:text-[#C5A059] transition-all">
+                                    <Phone className="w-4 h-4" />
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div className="md:col-span-2">
+                            <h3 className="text-[9px] uppercase font-semibold tracking-[0.2em] text-white mb-6">Navigasi</h3>
+                            <ul className="space-y-3 text-[11px] font-light text-[#888]">
+                                <li><button onClick={() => onNavigate('home')} className="hover:text-[#C5A059] transition-colors">Beranda</button></li>
+                                <li><button onClick={() => onNavigate('shop')} className="hover:text-[#C5A059] transition-colors">Koleksi</button></li>
+                                <li><button onClick={() => onNavigate('shop')} className="hover:text-[#C5A059] transition-colors">Atelier</button></li>
+                                <li><button onClick={() => onNavigate('wishlist')} className="hover:text-[#C5A059] transition-colors">Wishlist</button></li>
+                            </ul>
+                        </div>
+
+                        <div className="md:col-span-3">
+                            <h3 className="text-[9px] uppercase font-semibold tracking-[0.2em] text-white mb-6">Layanan</h3>
+                            <ul className="space-y-3 text-[11px] font-light text-[#888]">
+                                <li className="hover:text-[#C5A059] cursor-pointer transition-colors">Privat Fitting</li>
+                                <li className="hover:text-[#C5A059] cursor-pointer transition-colors">Personal Shopper</li>
+                                <li className="hover:text-[#C5A059] cursor-pointer transition-colors">Perawatan & Alterasi</li>
+                                <li className="hover:text-[#C5A059] cursor-pointer transition-colors">Panduan Ukuran</li>
+                                <li className="hover:text-[#C5A059] cursor-pointer transition-colors">FAQ</li>
+                            </ul>
+                        </div>
+
+                        <div className="md:col-span-3">
+                            <h3 className="text-[9px] uppercase font-semibold tracking-[0.2em] text-white mb-6">Flagship Atelier</h3>
+                            <address className="not-italic text-[11px] font-light text-[#888] leading-relaxed mb-4">
+                                Jl. Cikarang Baru Raya No. 88<br/>
+                                Kab. Bekasi, Jawa Barat 17530<br/>
+                                Indonesia
+                            </address>
+                            <div className="space-y-2 text-[11px] text-[#888]">
+                                <p className="flex items-center gap-2"><Phone className="w-3 h-3 text-[#C5A059]" /> +62 812 8888 0088</p>
+                                <p className="flex items-center gap-2"><Mail className="w-3 h-3 text-[#C5A059]" /> concierge@megaluxury.id</p>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <h3 className="text-[9px] uppercase font-semibold tracking-[0.2em] text-white mb-6">Layanan Butik</h3>
-                        <ul className="space-y-4 text-[11px] font-light text-[#888888]">
-                            <li className="hover:text-[#C5A059] cursor-pointer transition-colors">Privat Fitting</li>
-                            <li className="hover:text-[#C5A059] cursor-pointer transition-colors">Perawatan Kulit & Sutra</li>
-                            <li className="hover:text-[#C5A059] cursor-pointer transition-colors">Panduan Ukuran</li>
-                        </ul>
+
+                    {/* Payment Methods */}
+                    <div className="border-t border-white/10 pt-8 mb-8">
+                        <p className="text-[8px] uppercase tracking-[0.3em] text-[#888] mb-4 text-center">Metode Pembayaran Yang Diterima</p>
+                        <div className="flex flex-wrap justify-center gap-4 opacity-50">
+                            {['VISA', 'MASTERCARD', 'AMEX', 'BCA', 'MANDIRI', 'OVO', 'GOPAY', 'QRIS'].map(method => (
+                                <span key={method} className="px-3 py-1.5 border border-white/20 text-[8px] font-bold tracking-wider text-white/80">{method}</span>
+                            ))}
+                        </div>
                     </div>
-                    <div>
-                        <h3 className="text-[9px] uppercase font-semibold tracking-[0.2em] text-white mb-6">Flagship Atelier</h3>
-                        <ul className="space-y-4 text-[11px] font-light text-[#888888]">
-                            <li className="leading-relaxed">
-                                Cikarang Baru No. 88<br/>Kab. Bekasi, Jawa Barat<br/>Indonesia
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div className="max-w-[1440px] mx-auto border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-[9px] text-[#888888] font-medium uppercase tracking-[0.2em]">
-                    <p>&copy; {new Date().getFullYear()} MEGA LUXURY BY MEGA APRILIANI.</p>
-                    <div className="flex space-x-6 mt-4 md:mt-0">
-                        <span className="cursor-pointer hover:text-white transition-colors">Privasi</span>
-                        <span className="cursor-pointer hover:text-white transition-colors">Legal</span>
+
+                    <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-[9px] text-[#888] font-medium uppercase tracking-[0.15em] gap-4">
+                        <p>&copy; {new Date().getFullYear()} MEGA LUXURY by Mega Apriliani. All Rights Reserved.</p>
+                        <div className="flex space-x-6">
+                            <span className="cursor-pointer hover:text-white transition-colors">Kebijakan Privasi</span>
+                            <span className="cursor-pointer hover:text-white transition-colors">Syarat & Ketentuan</span>
+                            <span className="cursor-pointer hover:text-white transition-colors">Pengembalian</span>
+                        </div>
                     </div>
                 </div>
             </footer>
         );
 
+        // ============================================================
+        // RENDER APP
+        // ============================================================
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<App />);
     </script>
